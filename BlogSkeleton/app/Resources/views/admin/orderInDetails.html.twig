@@ -1,0 +1,204 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <!-- Page Title -->
+    <section class="page-title text-center">
+        <div class="container">
+            <h1 class=" heading page-title__title">checkout</h1>
+        </div>
+    </section> <!-- end page title -->
+
+
+    <!-- Checkout -->
+    <section class="section-wrap checkout">
+        <div class="container relative">
+            <div class="row">
+
+                <div class="ecommerce col">
+                    <form name="checkout" class="checkout ecommerce-checkout row" method="post"
+                          action="{{ path('seeOrderDetaily',{ 'id':order.id}) }}"
+                    >
+                        <div class="col-lg-7" id="customer_details">
+                            <div>
+                                <h2 class="uppercase mb-30">Данни за поръчката</h2>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p class="form-row form-row-first validate-required ecommerce-invalid ecommerce-invalid-required-field"
+                                           id="billing_first_name_field">
+                                            <label for="billing_first_name">Име
+                                                <abbr class="required" title="required">*</abbr>
+                                            </label>
+                                            <input type="text" class="input-text" placeholder
+                                                   name="firstName" value="{{ order.name }}">
+
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="form-row form-row-last validate-required ecommerce-invalid ecommerce-invalid-required-field"
+                                           id="billing_last_name_field">
+                                            <label for="billing_last_name">Фамилия
+                                                <abbr class="required" title="required">*</abbr>
+                                            </label>
+                                            <input type="text" class="input-text" placeholder
+                                                   value="{{ order.surname }}"
+                                                   name="lastName" disabled>
+                                        </p>
+                                    </div>
+                                </div> <!-- end name / last name -->
+                                <p class="form-row form-row-wide address-field validate-required"
+                                   id="billing_city_field"
+                                   data-o_class="form-row form-row-wide address-field validate-required">
+                                    <label for="billing_city">Град / Село
+                                        <abbr class="required" title="required">*</abbr>
+                                    </label>
+                                    <input type="text" class="input-text"
+                                           value="{{ order.populatedPlace }}"
+                                           name="townAdress" disabled>
+                                </p>
+
+                                <p class="form-row form-row-last address-field validate-required validate-postcode ecommerce-invalid ecommerce-invalid-required-field"
+                                   id="billing_postcode_field"
+                                   data-o_class="form-row form-row-last address-field validate-required validate-postcode">
+                                    <label for="billing_postcode">Пощенски код / ZIP
+                                        <abbr class="required" title="required">*</abbr>
+                                    </label>
+                                    <input type="text" class="input-text" placeholder value="{{ order.postalCode }}"
+                                           name="postCode"
+                                           disabled>
+
+
+                                </p>
+                                <p class="form-row form-row-wide address-field validate-required ecommerce-invalid ecommerce-invalid-required-field"
+                                   id="billing_address_1_field">
+                                    <label for="billing_address_1">Адрес
+                                        <abbr class="required" title="required">*</abbr>
+                                    </label>
+                                </p>
+                                <p class="form-row form-row-wide address-field" id="billing_address_2_field">
+
+                                        <input type="text" class="input-text"
+                                               value="{{ order.adress }}"
+                                               name="adress" disabled>
+
+                                </p>
+
+
+                                <p class="form-row form-row-wide address-field validate-required"
+                                   id="billing_city_field"
+                                   data-o_class="form-row form-row-wide address-field validate-required">
+                                    <label for="billing_city">Офис на ЕКОНТ
+                                        <abbr class="required" title="required">*</abbr>
+                                    </label>
+
+                                        <input type="text" class="input-text" value="{{ order.econtOffice }}"
+                                               name="ekontOffice"
+                                               disabled>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                <p class="form-row form-row-last validate-required validate-phone"
+                                   id="billing_phone_field">
+                                    <label for="billing_phone">Телефон
+                                        <abbr class="required" title="required">*</abbr>
+                                    </label>
+                                    <input type="text" class="input-text" value="{{ order.phone }}"
+                                           name="phone"
+                                           disabled>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="form-row form-row-first validate-required validate-email"
+                                   id="billing_email_field">
+                                    <label for="billing_email">Имейл адрес
+                                        <abbr class="required" title="required">*</abbr>
+                                    </label>
+                                    <input type="text" class="input-text" value="{{ order.email }}"
+                                           name="email"
+                                           disabled>
+                                </p>
+                            </div>
+                        </div>
+
+                </div>
+
+                <div>
+                    <p class="form-row notes ecommerce-validated">
+                        <label for="order_comments">Коментар</label>
+                        <textarea name="comment" class="input-text" id="order_comments"
+                                  rows="2" cols="6" placeholder="{{ order.addedInfo }}" disabled></textarea>
+                    </p>
+                </div>
+
+            </div> <!-- end col -->
+
+            <!-- Your Order -->
+            <div class="col-lg-5">
+                <div class="order-review-wrap ecommerce-checkout-review-order" id="order_review">
+                    <h2 class="uppercase">Вашата поръчка</h2>
+                    <table class="table shop_table ecommerce-checkout-review-order-table">
+                        <tbody>
+                        <tr>
+                            <th>Модел №</th>
+                            <td>
+                                <span class="amount">{{ order.modelNumber }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Номер:</th>
+                            <td>
+                                <span class="amount">{{ order.modelNumberOrdered }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Цена:</th>
+                            <td>
+                                <span class="amount">{{ order.priceOrdered }} лв.</span>
+                            </td>
+                        </tr>
+                        <tr class="shipping">
+                            <th>ModelId</th>
+                            <td>
+                                <span>{{ order.modelId }}</span>
+                            </td>
+                        </tr>
+                        <tr class="order-total">
+                            <th><strong>Общо</strong></th>
+                            <td>
+                                <strong><span class="amount">{{ order.priceOrdered }} лв.</span></strong>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div id="payment" class="ecommerce-checkout-payment">
+                        <h2 class="uppercase">Начин на плащане</h2>
+                        <ul class="payment_methods methods">
+
+                            <li class="payment_method_bacs">
+                                <input id="payment_method_bacs" type="radio" class="input-radio"
+                                       name="payment_method" value="bacs" checked="checked">
+                                <label for="payment_method_bacs">Наложен платеж</label>
+                                <div class="payment_box payment_method_bacs">
+                                    <p>При наложен платеж клиентите на SVIK заплащат поръчката си на
+                                        куриера.</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="form-row place-order">
+                            <input type="submit"
+                                   class="btn btn-lg btn-color btn-button" id="sendddd"
+                                   value="ИЗПЪЛНИ">
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end order review -->
+            </form>
+
+        </div> <!-- end ecommerce -->
+
+        </div> <!-- end row -->
+        </div> <!-- end container -->
+    </section>
+
+{% endblock %}
