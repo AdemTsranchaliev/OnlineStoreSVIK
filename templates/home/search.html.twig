@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+
+{% block main %}
+
+    <!-- slider Area Start-->
+    <div class="slider-area ">
+        <!-- Mobile Menu -->
+        <div class="single-slider slider-height2 d-flex align-items-center" data-background="/assets/img/hero/category.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap text-center">
+                            <h2>{{ category }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- slider Area End-->
+
+    <!-- Latest Products Start -->
+    <section class="latest-product-area latest-padding">
+        <div class="container">
+            <div class="row product-btn d-flex justify-content-between">
+                <div class="properties__button">
+                    <!--Nav Button  -->
+
+                    <!--End Nav Button  -->
+                </div>
+
+            </div>
+            <!-- Nav Card -->
+            <div class="tab-content" id="nav-tabContent">
+                <!-- card one -->
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="row">
+                        {% for product in products %}
+                            <a href="{{ path('singleProduct',{'id':product.id}) }}">
+                                <div class="col-xl-4 col-lg-4 col-md-6">
+                                    <div class="single-product mb-60">
+                                        <div class="product-img">
+                                            <img src="https://obuvkisvik.com/assets/img/small/{{ product.id }}.0.jpg" alt="">
+                                            <div class="new-product">
+                                                <span>Ново</span>
+                                            </div>
+                                        </div>
+                                        <div class="product-caption">
+
+                                            <h4><a href="{{ path('singleProduct',{'id':product.id}) }}">{{ product.title }}</a></h4>
+                                            <div class="price">
+                                                <ul>
+                                                    {%  if product.isInPromotion %}
+                                                        <li>{{ product.price|number_format(2) }} лв</li>
+                                                        <li class="discount">{{ product.discountPrice|number_format(2) }} лв</li>
+                                                    {% else %}
+                                                        <li>{{ product.price|number_format(2) }} лв</li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+            <!-- End Nav Card -->
+        </div>
+    </section>
+{% endblock %}

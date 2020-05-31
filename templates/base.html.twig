@@ -1,0 +1,540 @@
+
+<!doctype html>
+<html class="no-js" lang="bg">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}SVIK SHOES{% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
+
+    <!-- CSS here -->
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{  asset('/assets/css/bootstrap.min.css') }}">
+
+        <link rel="stylesheet" href="{{  asset('/assets/css/owl.carousel.min.css')}}">
+        <link rel="stylesheet" href="{{  asset('/assets/css/flaticon.css')}}">
+        <link rel="stylesheet" href="{{  asset('/assets/css/slicknav.css')}}">
+        <link rel="stylesheet" href="{{  asset('/assets/css/animate.min.css')}}">
+        <link rel="stylesheet" href="{{  asset('/assets/css/magnific-popup.css')}}">
+        <link rel="stylesheet" href="{{  asset('/assets/css/fontawesome-all.min.css')}}">
+        <link rel="stylesheet" href="{{  asset('/assets/css/themify-icons.css')}}">
+        <link rel="stylesheet" href="{{  asset('/assets/css/slick.css')}}">
+        <link rel="stylesheet" href="{{  asset('/assets/css/nice-select.css')}}">
+        <link rel="stylesheet" href="{{  asset('/assets/css/style.css')}}">
+    {% endblock %}
+</head>
+
+<body id="{% block body_id %}{% endblock %}" onload="checkCookieConfirm()">
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/bg_BG/sdk.js#xfbml=1&version=v6.0"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/bg_BG/sdk/xfbml.customerchat.js"></script>
+
+{% block header %}
+    <!-- Preloader Start
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="https://obuvkisvik.com/assets/img/logo/logo_loader.png" alt="" height="27px">
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+    <!-- Preloader Start -->
+    <center>
+        <div id="facebookPageLike" class="modal padding_top">
+            <div class="modal-dialog modal-confirm">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <h4 class="modal-title">Харесайте ни и във Facebook!</h4>
+                    </div>
+
+                    <div style="width: 500px;">
+                        <!-- Page plugin's width will be 190px -->
+                        <div class="fb-page" data-href="https://www.facebook.com/svik.hit/" data-width="700"></div>
+                    </div>
+
+                    <div class="modal-footer" onclick="closeFacebookPageLikeBanner()">
+                        <button class="btn btn-success btn-block" >затвори</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </center>
+
+    <header>
+        <!-- Header Start -->
+        <div class="header-area">
+            <div class="main-header ">
+                <div class="header-bottom  header-sticky">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <!-- Logo -->
+                            <div class="col-xl-1 col-lg-1 col-md-1 col-sm-3">
+                                <div class="logo">
+                                    <a href="{{ path('index') }}"><img src="https://obuvkisvik.com/assets/img/logo/logo.png" alt="" height="45px"></a>
+
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-8 col-md-7 col-sm-5" >
+                                <!-- Main-menu -->
+                                <div class="main-menu f-right d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a href="{{ path('index') }}">НАЧАЛО</a></li>
+                                            <li><a href="#">МЪЖКИ</a>
+                                                <ul class="submenu">
+                                                    <li><a href="{{ path('catalog',{ 'categoryName':'manCasual'}) }}">Ежедневни обувки</a></li>
+                                                    <li><a href="{{ path('catalog',{ 'categoryName':'manOfficial'}) }}">Официални обувки</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#">ДАМСКИ</a>
+                                                <ul class="submenu">
+                                                    <li><a href="{{ path('catalog',{ 'categoryName':'womenCasual'}) }}">Ежедневни обувки</a></li>
+                                                    <li><a href="{{ path('catalog',{ 'categoryName':'womenOfficial'}) }}">Официални обувки</a></li>
+                                                    <li><a href="{{ path('catalog',{ 'categoryName':'womenSport'}) }}">Спортни обувки</a></li>
+                                                    <li><a href="{{ path('catalog',{ 'categoryName':'boots'}) }}">Боти и Ботуши</a></li>
+                                                    <li><a href="{{ path('catalog',{ 'categoryName':'sandals'}) }}">Сандали</a></li>
+                                                </ul>
+                                            </li>
+
+                                            <li><a href="#">ЗА НАС</a>
+                                                <ul class="submenu">
+                                                    <li><a href="{{ path('about') }}">Кои сме ние?</a></li>
+                                                    <li><a href="{{ path('contact') }}">Контакти</a></li>
+
+                                                </ul>
+                                            </li>
+                                            {% if is_granted('ROLE_ADMIN')%}
+                                                <li><a href="#">УПРАВЛЕНИЕ</a>
+                                                    <ul class="submenu">
+                                                        <li><a href="{{ path('addProduct') }}">Добави продукт</a></li>
+                                                        <li><a href="{{ path('seeProducts') }}">Виж продукти</a></li>
+                                                        <li><a href="{{ path('seeOrders',{'func':'new'}) }}">Поръчки</a></li>
+                                                        <li><a href="cart.html">Потребители</a></li>
+
+                                                    </ul>
+                                                </li>
+                                            {% else %}
+                                                {% if app.user %}
+                                                    <li><a href="#">ПРОФИЛ</a>
+                                                        <ul class="submenu">
+                                                            <li><a href="{{ path('myInformation') }}">Моята информация</a></li>
+                                                            <li><a href="{{ path('myOrders') }}">Моите поръчки</a></li>
+                                                            <li><a href="{{ path('seeOrders',{'func':'new'}) }}">Смяна на парола</a></li>
+                                                        </ul>
+                                                    </li>
+                                                {% endif %}
+                                            {% endif %}
+
+                                            {% if app.user %}
+                                                <li>  <a href="{{ path('app_logout') }}" >ИЗХОД</a></li>
+
+                                            {% else %}
+                                                <li>  <a href="{{ path('app_login') }}" >ВХОД</a></li>
+
+                                            {% endif %}
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-xl-5 col-lg-3 col-md-3 col-sm-3 fix-card">
+                                <ul class="header-right f-right d-none d-lg-block d-flex justify-content-between">
+                                    <li class="d-none d-xl-block">
+                                        <div class="form-box f-right ">
+                                            <form action="{{ path('search') }}" method="post" id="searchForm">
+                                                <input type="text" name="forSearch" placeholder="Търсене..." required>
+                                                <div class="search-icon" id="pressSearch">
+                                                    <i  class="fas fa-search special-tag"></i>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="shopping-card">
+                                            <a href="{{ path('seeShoppingCart') }}"><i class="fas fa-shopping-cart"></i></a>
+                                        </div>
+                                    </li>
+                                    {% if app.user %}
+                                        <li class="d-none d-lg-block"> <a href="{{ path('app_logout') }}" class="btn header-btn">ИЗХОД</a></li>
+
+                                    {% else %}
+                                        <li class="d-none d-lg-block"> <a href="{{ path('app_login') }}" class="btn header-btn">ВХОД</a></li>
+
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <!-- Mobile Menu -->
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+    </header>
+
+{% endblock %}
+
+{% block body %}
+
+    {% block main %}{% endblock %}
+
+{% endblock %}
+
+{% block footer %}
+    <div class=" text-center  fixed-bottom  bg-secondary " role="alert" style="display: none" id="coockieBanner">
+        <b>Този сайт използва „бисквитки“, за да работи оптимално и да подобри Вашето преживяване.</b>. <a href="{{ path('coockiesPolicy') }}" target="_blank">Научете повече</a>
+
+        <button type="button" class="btn btn-primary " aria-label="Приемам" onclick="confirmCoockiePolicy()">
+            Приемам
+        </button>
+    </div>
+
+    <footer>
+
+        <!-- Footer Start-->
+        <div class="footer-area footer-padding fixed">
+            <div class="container">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-6">
+                        <div class="single-footer-caption mb-50">
+                            <div class="single-footer-caption mb-30">
+                                <!-- logo -->
+                                <div class="footer-logo">
+                                    <a href="{{ path('index') }}"><img src="/assets/img/logo/logo.png" alt="" height="50px"></a>
+                                </div>
+                                <div class="footer-tittle">
+                                    <div class="footer-pera">
+                                        <p>Едно ново усещане...
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-5">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>За нас</h4>
+                                <ul>
+                                    <li><a href="{{ path('about') }}">Кои сме ние?</a></li>
+                                    <li><a href="{{ path('contact') }}">Контакти</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Информация</h4>
+                                <ul>
+                                    <li><a href="{{ path('commonPolicy') }}">Общи условия</a></li>
+                                    <li><a href="{{ path('privacyPolicy') }}">Политика за поверителност</a></li>
+                                    <li><a href="{{ path('coockiesPolicy') }}">Политика за използване на бисквитки</a></li>
+                                    <li><a href="{{ path('contact') }}">Докладвайте нередност</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-7">
+                        <div class="fb-page" data-href="https://www.facebook.com/svik.hit/" data-tabs="timeline" data-width="300px" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/svik.hit/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/svik.hit/">SVIK Shoes</a></blockquote></div>
+
+                    </div>
+
+                </div>
+                <!-- Footer bottom -->
+                <div class="row">
+                    <div class="col-xl-7 col-lg-7 col-md-7">
+                        <div class="footer-copy-right">
+                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>                   </div>
+                    </div>
+                    <div class="col-xl-5 col-lg-5 col-md-5">
+                        <div class="footer-copy-right f-right">
+                            <!-- social -->
+                            <div class="footer-social">
+                                <a href="https://www.instagram.com/svik_shoes/"><i class="fab fa-instagram"></i></a>
+                                <a href="https://www.facebook.com/svik.hit/?epa=SEARCH_BOX"><i class="fab fa-facebook-f"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End-->
+
+    </footer>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+
+    <!-- All JS Custom Plugins Link Here here -->
+    <script src="{{ asset('/assets/js/vendor/modernizr-3.5.0.min.js')}}"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="{{ asset('/assets/js/vendor/jquery-1.12.4.min.js')}}"></script>
+    <script src="{{ asset('/assets/js/popper.min.js')}}"></script>
+    <script src="{{ asset('/assets/js/bootstrap.min.js')}}"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="{{ asset('/assets/js/jquery.slicknav.min.js')}}"></script>
+    <script>
+        function checkCookieConfirm() {
+
+            checkFacebookPageLikeBanner();
+
+            if (document.cookie.indexOf('coockiePolicy') == -1)
+            {
+                setCookie("coockiePolicy",'no',100);
+
+                var n=  document.getElementById("coockieBanner");
+                n.style.display = "block";
+            }
+            else
+            {
+
+                var n=  document.getElementById("coockieBanner");
+                var coockieValue=getCookie("coockiePolicy");
+                if(coockieValue=="no")
+                {
+                    n.style.display = "block";
+                }
+                else
+                {
+                    n.style.display = "none";
+
+                }
+            }
+        }
+        function checkFacebookPageLikeBanner() {
+
+            if (document.cookie.indexOf('fbLikeBanner') == -1)
+            {
+
+                setCookie("fbLikeBanner",'1',100);
+
+                $('#facebookPageLike').modal('show');
+            }
+        }
+
+        function closeFacebookPageLikeBanner()
+        {
+
+            $('#facebookPageLike').modal('hide');
+        }
+
+        function confirmCoockiePolicy() {
+            var n=  document.getElementById("coockieBanner");
+
+            setCookie("coockiePolicy",'yes',100);
+            n.style.display = "none";
+        }
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (365 * 24*60*60*1000));
+            var expires = "expires="+d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+
+    </script>
+    <script>
+
+        $( "#pressSearch" ).click(function() {
+            $( "#searchForm" ).submit();
+        });
+        $(document).ready(function(){
+            $("#sorting").on("change", function(event){
+                $.ajax({
+                    url:        '/ajaxSort',
+                    type:       'POST',
+                    dataType:   'html',
+                    data: {'command':$("#sorting :selected").val(),'categoryName':$("#categoryName").text()},
+                    async:      true,
+                    success: function(data, status) {
+                        $("#divSort").replaceWith(data);
+                    },
+                    error : function(xhr, textStatus, errorThrown) {
+                        alert('Ajax request failed.');
+                    }
+                });
+            });
+        });
+        $(document).ready(function(){
+            $("#addToCart").on("click", function(event){
+                $("#addToCart").attr("disabled", true);
+                $('#warningSize').hide();
+                if ($("#sizeSelected").find(":selected").text()==='Налични номера')
+                {
+                    $("#addToCart").attr("disabled", false);
+                    $("#warningSize").show();
+                }
+                else
+                {
+                    $("#buttonAddToCartText").text("Добавяне...");
+                    $.ajax({
+                        url:        '/ajaxAddToCart',
+                        type:       'POST',
+                        dataType:   'html',
+                        data: {'id':$("#productId").val(),'sizeSelected':$("#sizeSelected").find(":selected").text()},
+                        async:      true,
+                        success: function(data, status) {
+                            $('#myModal').modal('show');
+                            $("#cartIdnt").replaceWith(data);
+                            $("#buttonAddToCartText").text("Добави към количка");
+                            $("#addToCart").attr("disabled", false);
+                        },
+                        error : function(xhr, textStatus, errorThrown) {
+                            $("#buttonAddToCartText").text("Добави към количка");
+                            $("#addToCart").attr("disabled", false);
+                            alert('Ajax request failed.');
+                        }
+                    });
+                }
+            });
+        });
+        $(document).ready(function(){
+            $("#submit-message").on("click", function(event){
+                $.ajax({
+                    url:        '/sendMail',
+                    type:       'POST',
+                    dataType:   'html',
+                    data: {'name':$("#name").val(),'email':$("#email").val(),'subject':$("#subject").val(),'message':$("#message").val()},
+                    async:      true,
+                    success: function(data, status) {
+                        if(data==="yes")
+                        {
+                            $('#dangerMessageSend').hide();
+                            $("#name").val('');
+                            $("#subject").val('');
+                            $("#email").val('');
+                            $("#message").val('')
+                            $('#successMessageSend').show();
+
+                            var myVar = setInterval(myTimer, 6000);
+                            function myTimer() {
+                                $('#successMessageSend').hide();
+                            }
+                        }
+                        else
+                        {
+                            $('#dangerMessageSend').show();
+                        }
+                        s
+                    },
+                    error : function(xhr, textStatus, errorThrown) {
+                        alert('Ajax request failed.');
+                    }
+                });
+            });
+        });
+
+        function deleteProd(prdId)
+        {
+            $.ajax({
+                url:        '/deleteProd',
+                type:       'POST',
+                dataType:   'html',
+                data: {'id':prdId},
+                async:      true,
+                success: function(data, status) {
+                    $("#toChange").replaceWith(data);
+                },
+                error : function(xhr, textStatus, errorThrown) {
+                    alert('Ajax request failed.');
+                }
+            });
+        }
+    </script>
+
+
+    <script src="{{ asset('/assets/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('/assets/js/slick.min.js') }}"></script>
+    <script src="{{ asset('/assets/js/custom.js') }}"></script>
+    <script src="{{ asset('/assets/js/wow.min.js') }}"></script>
+
+    <script src="{{ asset('/assets/js/animated.headline.js') }}"></script>
+    <script src="{{ asset('/assets/js/jquery.magnific-popup.js') }}"></script>
+
+    <script src="{{ asset('/assets/js/jquery.scrollUp.min.js') }}"></script>
+
+    <script src="{{ asset('/assets/js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ asset('/assets/js/jquery.sticky.js') }}"></script>
+
+
+    <script src="{{ asset('/assets/js/contact.js') }}"></script>
+    <script src="{{ asset('/assets/js/jquery.form.js') }}"></script>
+    <script src="{{ asset('/assets/js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('/assets/js/mail-script.js') }}"></script>
+    <script src="{{ asset('/assets/js/jquery.ajaxchimp.min.js') }}"></script>
+
+    <script src="{{ asset('/assets/js/plugins.js') }}"></script>
+    <script src="{{ asset('/assets/js/main.js') }}"></script>
+
+
+{% endblock %}
+</main>
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            xfbml            : true,
+            version          : 'v6.0'
+        });
+    };
+
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Your customer chat code -->
+<div class="fb-customerchat"
+     attribution=setup_tool
+     page_id="1659984407573874"
+     theme_color="#0084ff"
+     logged_in_greeting="Здравейте, как може да ви помогнем?"
+     logged_out_greeting="Здравейте, как може да ви помогнем?">
+</div>
+</body>
+</html>

@@ -1,0 +1,262 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+
+
+
+    <main>
+
+        <!-- slider Area Start -->
+        <div class="slider-area ">
+            <!-- Mobile Menu -->
+            <div class="slider-active">
+                <div class="single-slider slider-height" data-background="https://www.obuvkisvik.com/assets/img/hero/h1_hero.jpg">
+                    <div class="container">
+                        <div class="row d-flex align-items-center justify-content-between">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 d-none d-md-block">
+
+                            </div>
+                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-8">
+                                <div class="hero__caption">
+                                    <span data-animation="fadeInRight" data-delay=".4s"></span>
+                                    <h1 data-animation="fadeInRight" data-delay=".6s">Лятна <br> Колекция</h1>
+                                    <p data-animation="fadeInRight" data-delay=".8s">Най-доброто от 2020!</p>
+                                    <!-- Hero-btn -->
+                                    <div class="hero__btn" data-animation="fadeInRight" data-delay="1s">
+                                        <a href="{{ path('catalog',{ 'categoryName':'newest'})}}" class="btn hero-btn">Пазарувай</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- slider Area End-->
+        <!-- Category Area Start-->
+        <section class="category-area section-padding30">
+            <div class="container-fluid">
+                <!-- Section Tittle -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-tittle text-center mb-85">
+                            <h2>ВИЖТЕ НАШИТЕ КАТЕГОРИИ</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-6">
+                        <div class="single-category mb-30">
+                            <div class="category-img">
+                                <img src="https://www.obuvkisvik.com/assets/img/categori/cat1.jpg" alt="">
+                                <div class="category-caption">
+                                    <h2>ДАМСКИ</h2>
+                                    <span class="best"><a href="{{ path('catalog',{ 'categoryName':'womenSport'}) }}">НАЙ-ДОБРИТЕ ОФЕРТИ</a></span>
+                                    <span class="collection">Нови продукти</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6">
+                        <a href="{{ path('catalog',{ 'categoryName':'boots'}) }}">
+                            <div class="single-category mb-30">
+                                <div class="category-img text-center">
+                                    <img src="https://www.obuvkisvik.com/assets/img/categori/cat2.jpg" alt="">
+                                    <div class="category-caption">
+                                        <span class="collection">ПРОМОЦИИ!</span>
+                                        <h2>ЗИМНИ ОБУВКИ</h2>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xl-4 col-lg-6">
+                        <div class="single-category mb-30">
+                            <div class="category-img">
+                                <img src="https://www.obuvkisvik.com/assets/img/categori/cat3.jpg" alt="">
+                                <div class="category-caption">
+                                    <h2>МЪЖКИ</h2>
+                                    <span class="best"><a href="{{ path('catalog',{ 'categoryName':'manOfficial'}) }}">НАЙ-ДОБРИТЕ ОФЕРТИ</a></span>
+                                    <span class="collection">Нови продукти</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Category Area End-->
+        <!-- Latest Products Start -->
+        <section class="latest-product-area padding-bottom">
+            <div class="container">
+                <div class="row product-btn d-flex justify-content-end align-items-end">
+                    <!-- Section Tittle -->
+                    <div class="col-xl-4 col-lg-5 col-md-5">
+                        <div class="section-tittle mb-30">
+                            <h2>НАЙ-НОВИ</h2>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-lg-7 col-md-7">
+                        <div class="properties__button f-right">
+                            <!--Nav Button  -->
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+
+                                </div>
+                            </nav>
+                            <!--End Nav Button  -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Nav Card -->
+                <div class="tab-content" id="nav-tabContent">
+                    <!-- card one -->
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="row">
+                            {% for product in bestSellers %}
+                                <div class="col-xl-4 col-lg-4 col-md-6">
+                                    <a href="{{ path('singleProduct',{'id':product.id}) }}">
+                                        <div class="single-product mb-60">
+
+                                            <div class="product-img">
+                                                <img src="/assets/img/small/{{ product.id }}.0.jpg" alt="">
+                                                {% if product.isNew==1 %}
+                                                    <div class="new-product">
+                                                        <span>НОВО</span>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+
+                                            <div class="product-caption">
+
+                                                <h4><a href="{{ path('singleProduct',{'id':product.id}) }}">{{ product.title }}</a></h4>
+                                                <div class="price">
+                                                    <ul>
+                                                        {%  if product.isInPromotion %}
+                                                            <li>{{ product.price|number_format(2) }} лв</li>
+                                                            <li class="discount">{{ product.discountPrice|number_format(2) }} лв</li>
+                                                        {% else %}
+                                                            <li>{{ product.price|number_format(2) }} лв</li>
+                                                        {% endif %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </a>
+                                </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <!-- End Nav Card -->
+            </div>
+        </section>
+        <!-- Latest Products End -->
+        <!-- Best Products Start -->
+        <div class="best-product-area lf-padding" >
+            <div class="product-wrapper bg-height" style="background-image: url('https://obuvkisvik.com/assets/img/categori/card.jpg')">
+                <div class="container position-relative">
+                    <div class="row justify-content-between align-items-end">
+                        <div class="product-man position-absolute  d-none d-lg-block">
+
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-2 d-none d-lg-block">
+                            <div class="vertical-text">
+                                <span>SVIK Shoes</span>
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-8">
+                            <div class="best-product-caption">
+                                <h2 style="color: white">СТИЛ, УДОБСТВО,     КАЧЕСТВО</h2>
+                                <p style="color: white">"Модата избледнява,  стилът е вечен!"</p>
+                                <a href="{{ path('catalog',{ 'categoryName':'newest'})}}" class="black-btn">ПАЗАРУВАЙ</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Shape -->
+            <div class="shape bounce-animate d-none d-md-block">
+
+            </div>
+        </div>
+        <!-- Best Products End-->
+        <!-- Best Collection Start -->
+        <div class="best-collection-area section-padding2">
+            <div class="container">
+                <div class="row d-flex justify-content-between align-items-end">
+                    <!-- Left content -->
+
+                </div>
+            </div>
+        </div>
+        <!-- Best Collection End -->
+
+        <!-- Shop Method Start-->
+        <div class="shop-method-area section-padding30">
+            <div class="container">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-xl-3 col-lg-3 col-md-6">
+                        <div class="single-method mb-40">
+                            <i class="ti-package"></i>
+                            <h6>Бърза доставка </h6>
+                            <p>Доставка до 3 дни от изпращането на поръчка</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6">
+                        <div class="single-method mb-40">
+                            <i class="ti-time"></i>
+                            <h6>Доказани във времето</h6>
+                            <p>Над 20 години опит в обувната сфера и хиляди доволни клиенти</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6">
+                        <div class="single-method mb-40">
+                            <i class="ti-reload"></i>
+                            <h6>Тест и преглед</h6>
+                            <p>Изпробвайте продукта преди да заплатите</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Shop Method End-->
+
+        <!-- Latest Offers Start -->
+        <div class="latest-wrapper lf-padding">
+            <div class="latest-area latest-height d-flex align-items-center" data-background="assets/img/collection/latest-offer.png">
+                <div class="container">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-xl-5 col-lg-5 col-md-6 offset-xl-1 offset-lg-1">
+                            <div class="latest-caption">
+                                <h2>Получавайте<br> най-новите ни оферти, като се абонирате!</h2>
+
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-lg-5 col-md-6 ">
+                            <div class="latest-subscribe">
+                                <form action="#">
+                                    <input type="email" placeholder="Вашият EMAIL">
+                                    <button>ИЗПРАТИ</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- man Shape -->
+
+            </div>
+        </div>
+        <!-- Latest Offers End -->
+
+
+
+
+    </main>
+
+{% endblock %}

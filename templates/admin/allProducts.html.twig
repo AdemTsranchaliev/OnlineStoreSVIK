@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+
+{% block main %}
+    <div class="slider-area ">
+        <!-- Mobile Menu -->
+        <div class="single-slider slider-height2 d-flex align-items-center" data-background="assets/img/hero/category.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap text-center">
+                            <h2>Всички продукти</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--================Cart Area =================-->
+    <section class="cart_area section_padding">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Продукт</th>
+                            <th scope="col">Ед. Цена</th>
+                            <th scope="col">Номер на модел</th>
+                            <th scope="col">Бутон РЕДАКЦИЯ</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for model in models %}
+                            {% if model.isDeleted ==0 %}
+                                <tr>
+                                    <td>
+                                        <div class="media">
+                                            <div class="d-flex">
+                                                <img src="/assets/img/uploads/{{ model.id }}.0.jpg" alt="" />
+                                            </div>
+                                            <div class="media-body">
+                                                <p>{{ model.title }}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h5>{{ model.price }} лв</h5>
+                                    </td>
+                                    <td>
+                                        <h5>{{ model.modelNumber }}</h5>
+                                    </td>
+                                    <td>
+                                        <div class="button-group-area mt-40">
+
+                                            <a href="{{ path('editProduct',{'id': model.id}) }}" class="genric-btn info radius">Редактирай</a>
+
+                                        </div>
+
+                                    </td>
+                                </tr>
+
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Cart Area =================-->
+
+
+{% endblock %}

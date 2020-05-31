@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+
+{% block main %}
+    <center>
+        <div id="myModal" class="modal padding_top">
+            <div class="modal-dialog modal-confirm">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <h4 class="modal-title">Успешно добавяне в кошницата!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">Продъктът е добавен в кошницата.</p>
+                    </div>
+                    <div class="button-group-area mt-40">
+                        <a href="{{ path('seeShoppingCart') }}" class="genric-btn success circle arrow">ВИЖ КОШНИЦА<span class="lnr lnr-arrow-right"></span></a>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </center>
+    <!-- slider Area Start-->
+    <div class="slider-area ">
+        <!-- Mobile Menu -->
+        <div class="single-slider slider-height2 d-flex align-items-center" data-background="https://obuvkisvik.com/assets/img/hero/category.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap text-center">
+                            <h2>Детайли за продукт</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- slider Area End-->
+
+    <!--================Single Product Area =================-->
+    <div class="product_image_area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="product_img_slide owl-carousel">
+                        {% for i in 0..product.photoCount-1 %}
+                            <div class="single_product_img">
+                                <img src="https://obuvkisvik.com/assets/img/uploads/{{ product.id }}.{{ i }}.jpg" alt="#" class="img-fluid">
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <input type="hidden" id="productId" value="{{ product.id }}">
+                <div class="col-lg-8">
+                    <div class="single_product_text text-center">
+                        <h3>{{ product.title }}</h3>
+                        <p>
+                            {{ product.description }}
+                        </p>
+                        <div class="card_area">
+                            <div class="product_count_area">
+                                {%  if not product.isInPromotion %}
+                                    <p><h4>Цена 	&nbsp; 	&nbsp;</h4> <h4> {{ product.price|number_format(2) }} лв</h4><br/>
+                                {% else %}
+                                    <p ><h4>Цена: 	&nbsp; 	&nbsp;</h4> <h4 style="color: red"> {{ product.price|number_format(2) }} лв</h4> 	&nbsp; 	&nbsp;<br/>
+                                    <del>
+                                        <span >{{ (product.discountPrice)|number_format(2) }} лв.</span>
+                                    </del>
+                                {% endif %}
+                            </div>
+                            <div class="product_count_area">
+                                <h4>Цвят:</h4> <h4> {{ product.color }}</h4></p>
+                            </div>
+                            <div class="input-group-icon mt-10">
+                                <div class="form-select" id="default-select">
+                                    <label style="display: none; color: red" id="warningSize">*Изберете номер</label>
+
+                                    <select name="sizeSelected"  id="sizeSelected">
+                                        <option value=" 1">Налични номера</option>
+                                        {% for siz in size %}
+                                            <option value="{{ siz }}">{{ siz }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="add_to_cart">
+                                <button type="button" class="btn btn-lg btn-color product-single__add-to-cart" id="addToCart"  onclick="this.disabled=true;">
+                                    <i class="ui-bag"></i>
+                                    <span id="buttonAddToCartText">Добави към количка</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
