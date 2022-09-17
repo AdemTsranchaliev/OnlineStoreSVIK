@@ -21,13 +21,19 @@ class Product
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $modelNumber;
-
+    private $model;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $name;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $color;
-
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $colorCode;
     /**
      * @ORM\Column(type="float")
      */
@@ -38,10 +44,10 @@ class Product
      */
     private $category;
 
-    /**
-     * @ORM\Column(type="string", length=255)
+     /**
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $boughtCounter;
+    private $statuses;
 
     /**
      * @ORM\Column(type="string", length=500, nullable=true)
@@ -49,24 +55,24 @@ class Product
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $title;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $isDeleted;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $isInPromotion;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $discountPrice;
+    private $discount;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -80,9 +86,9 @@ class Product
     private $categoryR;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $photoCount;
+    private $pictures;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\ShoppingCart", mappedBy="cartProduct")
@@ -95,9 +101,49 @@ class Product
     private $categoryId;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $isNew;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $avgRating;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="product")
+     */
+    public $reviews;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $inside;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $outside;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $soleThickness;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $shoeHigth;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $weight;
+
+    /**
+     * @ORM\Column(type="string",length=50, nullable=true)
+     */
+    private $insole;
 
     public function __construct()
     {
@@ -110,14 +156,26 @@ class Product
         return $this->id;
     }
 
-    public function getModelNumber(): ?string
+    public function getModel(): ?string
     {
-        return $this->modelNumber;
+        return $this->model;
     }
 
-    public function setModelNumber(string $modelNumber): self
+    public function setModel(string $model): self
     {
-        $this->modelNumber = $modelNumber;
+        $this->model = $model;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
@@ -133,7 +191,17 @@ class Product
 
         return $this;
     }
+    public function getColorCode(): ?string
+    {
+        return $this->colorCode;
+    }
 
+    public function setColorCode(string $colorCode): self
+    {
+        $this->colorCode = $colorCode;
+
+        return $this;
+    }
     public function getPrice(): ?float
     {
         return $this->price;
@@ -142,7 +210,17 @@ class Product
     public function setPrice(float $price): self
     {
         $this->price = $price;
+        return $this;
+    }
 
+    public function getPictures(): ?string
+    {
+        return $this->pictures;
+    }
+
+    public function setPictures(string $pictures): self
+    {
+        $this->pictures = $pictures;
         return $this;
     }
 
@@ -154,18 +232,6 @@ class Product
     public function setCategory(string $category): self
     {
         $this->category = $category;
-
-        return $this;
-    }
-
-    public function getBoughtCounter(): ?string
-    {
-        return $this->boughtCounter;
-    }
-
-    public function setBoughtCounter(string $boughtCounter): self
-    {
-        $this->boughtCounter = $boughtCounter;
 
         return $this;
     }
@@ -218,18 +284,6 @@ class Product
         return $this;
     }
 
-    public function getDiscountPrice(): ?float
-    {
-        return $this->discountPrice;
-    }
-
-    public function setDiscountPrice(?float $discountPrice): self
-    {
-        $this->discountPrice = $discountPrice;
-
-        return $this;
-    }
-
     public function getSizes(): ?string
     {
         return $this->sizes;
@@ -250,18 +304,6 @@ class Product
     public function setCategoryR(?Category $categoryR): self
     {
         $this->categoryR = $categoryR;
-
-        return $this;
-    }
-
-    public function getPhotoCount(): ?int
-    {
-        return $this->photoCount;
-    }
-
-    public function setPhotoCount(int $photoCount): self
-    {
-        $this->photoCount = $photoCount;
 
         return $this;
     }
@@ -336,4 +378,117 @@ class Product
 
         return $this;
     }
+    
+     /**
+     * @return Collection|Review[]
+     */
+    public function getReviews(): ? Collection
+    {
+        return $this->reviews;
+    }
+
+    public function getAvgRating(): ?int
+    {
+        return $this->avgRating;
+    }
+
+    public function setAvgRating(int $avgRating)
+    {
+        $this->avgRating = $avgRating;
+
+        return $this;
+    }
+
+     public function getInside(): ?string
+     {
+         return $this->inside;
+     }
+
+     public function setInside(string $inside)
+     {
+         $this->inside = $inside;
+
+         return $this;
+     }
+
+     public function getStatuses(): ?string
+     {
+         return $this->statuses;
+     }
+     public function setStatuses(string $statuses)
+     {
+         $this->statuses = $statuses;
+
+         return $this;
+     }
+
+     public function getOutside(): ?string
+     {
+         return $this->outside;
+     }
+     public function setOutside(string $outside)
+     {
+         $this->outside = $outside;
+
+         return $this;
+     }
+
+     public function getSoleThickness(): ?float
+     {
+         return $this->soleThickness;
+     }
+
+     public function setSoleThickness(?float $soleThickness)
+     {
+         $this->soleThickness = $soleThickness;
+
+         return $this;
+     }
+
+     public function getShoeHigth(): ?float
+     {
+         return $this->shoeHigth;
+     }
+
+     public function setShoeHigth(?float $shoeHigthh)
+     {
+         $this->shoeHigth = $shoeHigthh;
+
+         return $this;
+     }
+
+     public function getWeight(): ?float
+     {
+         return $this->weight;
+     }
+
+     public function setWeight(?float $weight)
+     {
+         $this->weight = $weight;
+
+         return $this;
+     }
+     public function getInsole(): ?string
+     {
+         return $this->insole;
+     }
+
+     public function setInsole(?string $insole)
+     {
+         $this->insole = $insole;
+
+         return $this;
+     }
+
+     public function getDiscount(): ?float
+     {
+         return $this->discount;
+     }
+
+     public function setDiscount(float $discount)
+     {
+         $this->discount = $discount;
+
+         return $this;
+     }
 }

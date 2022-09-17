@@ -5,96 +5,90 @@
 {% block body_id 'register' %}
 
 {% block main %}
-    <!-- slider Area Start-->
-    <div class="slider-area ">
-        <!-- Mobile Menu -->
-        <div class="single-slider slider-height2 d-flex align-items-center" data-background="assets/img/hero/category.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="hero-cap text-center">
-                            <h2>Регистрация</h2>
+        <div class="ps-checkout pt-80 pb-80">
+        <div class="ps-container">
+          <form class="ps-checkout__form" action="{{ path('app_register') }}" method="post" novalidate="novalidate" id="registrationForm">
+            <div class="row">
+                  <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
+                    <div class="ps-checkout__billing">
+                        <h3>Влезте в профила си</h3>
+						
+							<div class="form-group form-group--inline">
+                                <label>Име<span>*</span>
+                                </label>
+								<input type="name" name="registration[name]" id="registerName" class="form-control" placeholder="Име" required autofocus>
+								<p style="display: none; color: red" id="warningRegisterName">*Това поле е задължително</p>
+
+              	</div>
+							<div class="form-group form-group--inline">
+                             <label>Фамилия<span>*</span>
+                             </label>
+							 <input type="text" name="registration[surname]" id="RegisterSurname" class="form-control" placeholder="Фамилия" required autofocus>
+                            <p style="display: none; color: red" id="warningRegisterSurname">*Това поле е задължително</p>
+                            </div>
+                            <div class="form-group form-group--inline">
+                              <label>Имейл<span>*</span>
+                              </label>
+                                
+                      <input type="email"  name="registration[email]" id="registerEmail" class="form-control" placeholder="Имейл" required autofocus>
+                        <p style="display: none; color: red" id="registerEmailWarning">*Това поле е задължително</p>
+                        <p style="display: none; color: red" id="registerEmailWarningInvalid">*Невалиден Email</p>
+                        <p style="display: none; color: red" id="registerPasswordWarningExist">*Имейлът, който сте въвели вече съществува!</p>
+                        
+                            </div>
+                            <div class="form-group form-group--inline">
+                              <label>Парола<span>*</span>
+                              </label>
+                        <input type="password"  name="registration[plainPassword]" id="registerPassword" class="form-control" placeholder="Парола" required autofocus>
+                          <p style="display: none; color: red" id="registerPasswordWarning">*Това поле е задължително</p>
+                          <p style="display: none; color: red" id="registerPasswordWarningValidation">*Паролата трябва да е поне 8 знака, да съдържа поне една цифра, малка и голяма буква</p>
+                        
+                            </div>
+							  <div class="form-group form-group--inline">
+                              <label>Повторете Парола<span>*</span>
+                              </label>
+                        <input type="password"  name="repeatePassword" id="registerRepeatePassword" class="form-control" placeholder="Повторете паролата" required autofocus>
+                          <p style="display: none; color: red" id="registerPasswordRepeatWarning">*Паролите не съвпадат</p>
+                            </div>
+							  <div class="col-md-12 form-group">
+     
+						 <div class="form-group">
+                        <div class="ps-checkbox">
+                          <input class="form-control" type="checkbox" id="cb01"  name="_remember_me">
+                          <label for="cb01">Декларирам, че съм запознат с <a style="color: #0077b5" href="{{ path('privacyPolicy') }}">Политиката за поверителност</a> на магазина и приемам условията. </label>
+                          <p style="display: none; color: red" id="warningPolices">Трябва да се съгласите с общите политики</p>
                         </div>
+                      </div>
+                  
+						
                     </div>
-                </div>
+					
+					<div class="form-group form-group--inline">
+                        <div class="form-group" style="text-align: center">
+						<button class="ps-btn" type="submit" value="submit" id="registerButton">Регисрация<i class="ps-icon-next"></i></button>
+						</div>
+                    </div>
+
+
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+                    <div class="ps-checkout__order">
+                      <header>
+                        <h3>Имате профил?</h3>
+                      </header>
+
+                      <footer>
+  
+                        <div class="form-group paypal">
+                          <a class="ps-btn ps-btn--fullwidth" href="{{ path('app_login') }}">Към ВХОД<i class="ps-icon-next"></i></a>
+                        </div>
+                      </footer>
+                    </div>
+
+                  </div>
             </div>
+          </form>
         </div>
-    </div>
-    <!-- slider Area End-->
-
-    <!--================login_part Area =================-->
-    <section class="login_part section_padding ">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 col-md-6">
-                    <div class="login_part_text text-center">
-                        <div class="login_part_text_iner">
-                            <h2>Вече имате профил?</h2>
-
-                            <a href="{{ path('app_login') }}" class="btn_3">Към ВХОД</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="login_part_form">
-                        <div class="login_part_form_iner">
-                            <h3>Регистрация</h3>
-
-
-
-                            <form class="row contact_form" action="{{ path('app_register') }}" method="post" novalidate="novalidate" id="registrationForm">
-
-                                <div class="col-md-12 form-group p_star">
-                                    <label style="display: none; color: red" id="registerNameWarning">*Това поле е задължително</label>
-                                    <input type="name" name="registration[name]" id="registration_form_name" class="form-control" placeholder="Име" required autofocus>
-                                </div>
-                                <div class="col-md-12 form-group p_star">
-                                    <label style="display: none; color: red" id="registerSurnameWarning">*Това поле е задължително</label>
-                                    <input type="text" name="registration[surname]" id="registration_form_surname" class="form-control" placeholder="Фамилия" required autofocus>
-                                </div>
-                                <div class="col-md-12 form-group p_star">
-
-                                    <label style="display: none; color: red" id="registerEmailWarning">*Това поле е задължително</label>
-                                    <label style="display: none; color: red" id="registerEmailWarningInvalid">*Невалиден Email</label>
-                                    <label style="display: none; color: red" id="registerPasswordWarningExist">*Имейлът, който сте въвели вече съществува!</label>
-                                    <input type="email"  name="registration[email]" id="registration_form_email" class="form-control" placeholder="Имейл" required autofocus>
-                                </div>
-                                <div class="col-md-12 form-group p_star">
-                                    <label style="display: none; color: red" id="registerPasswordWarning">*Това поле е задължително</label>
-
-                                    <label style="display: none; color: red" id="registerPasswordWarningValidation">*Паролата трябва да е поне 8 знака, да съдържа поне една цифра, малка и голяма буква</label>
-                                    <input type="password"  name="registration[plainPassword]" id="registration_form_plainPassword" class="form-control" placeholder="Парола" required autofocus>
-                                </div>
-                                <div class="col-md-12 form-group p_star">
-                                    <label style="display: none; color: red" id="registerPasswordRepeatWarning">*Паролите не съвпадат</label>
-                                    <input type="password"  name="repeatePassword" id="registerPasswordRepeat" class="form-control" placeholder="Повторете паролата" required autofocus>
-                                </div>
-
-                                <input type="hidden" id="emCheck" value="no">
-                                <label style="display: none; color: red" id="registerPasswordWarning">*Това поле е задължително</label>
-                                <label style="display: none; color: red" id="agreeTermsWarning">*Трябва да се съгласите с условията за да продължите</label>
-                                <input type="hidden" id="registration__token" name="registration[_token]"  value="{{ csrf_token('registration') }}">
-
-                                <div class="col-md-12 form-group">
-                                    <div class="creat_account d-flex align-items-center">
-
-                                        <input type="checkbox" id="ship-to-different-address-checkbox"   name="_remember_me">
-
-                                        <label for="f-option">Декларирам, че съм запознат с <a style="color: #0077b5" href="{{ path('privacyPolicy') }}">Политиката за поверителност</a> на магазина и приемам условията. </label>
-
-
-                                    </div>
-                                    <button type="submit" value="submit" class="btn_3">
-                                        Регисрация
-                                    </button>
-                                    <a class="lost_pass" href="#">Забравена парола?</a>
-                                </div>
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+      </div>
 {% endblock %}

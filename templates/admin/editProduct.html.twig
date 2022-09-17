@@ -3,74 +3,182 @@
 
 {% block main %}
 
-    <section class="login_part section_padding ">
-        <div class="container">
 
-            <div class="col-lg-12 col-md-6">
-                <div class="login_part_form">
-                    <div class="login_part_form_iner">
-                        <h3>Редактиране на продукт</h3>
+	<main class="main checkout">
+		<div class="page-content pt-7 pb-10 mb-10">
+			<div class="step-by pr-4 pl-4">
+				<h3 class="title title-simple">
+					<a>Редактиране на продукт</a>
+				</h3>
+
+			</div>
+			<div class="container mt-7">
+
+				<form class="row contact_form" action="{{ path('editProduct' , { 'id':producttoEdit.id}) }}" method="post" novalidate="novalidate" enctype="multipart/form-data">
+					<div class="row">
+						<div class="col-lg-7 mb-6 mb-lg-0 pr-lg-4">
+							<h3 class="title title-simple text-left text-uppercase">Детайли за продукт</h3>
+							<div class="row">
+								<div class="col-xs-6">
+									<label>Модел *
+										<span id="modelEmpty" class="alert-title" style="display: none; color: red;">(Това поле е задължително *)</span>
+									</label>
+									<input type="text" class="form-control" name="edit_product[model]" value="{{producttoEdit.model}}" id="model" required=""/>
+								</div>
+								<div class="col-xs-6">
 
 
+									<label>Име *
+										<span id="nameEmpty" class="alert-title" style="display: none; color: red;">(Това поле е задължително *)</span>
+									</label>
+									<input type="text" class="form-control" name="edit_product[name]" value="{{producttoEdit.name}}" id="name" required=""/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-4">
+									<label>Цена *
+										<span id="priceEmpty" class="alert-title" style="display: none; color: red;">(Това поле е задължително *)</span>
+									</label>
+									<input type="text" class="form-control" name="edit_product[price]" value="{{producttoEdit.price}}" id="price" required=""/>
+								</div>
+								<div class="col-xs-4">
+									<label>Цвят *
+										<span id="colorEmpty" class="alert-title" style="display: none; color: red;">(Това поле е задължително *)</span>
+									</label>
+									<input type="text" class="form-control" name="edit_product[color]" value="{{producttoEdit.color}}" id="color" required=""/>
+								</div>
+								<div class="col-xs-4">
+									<label>Цвят HEX код *
+										<span id="colorHexCodeEmpty" class="alert-title" style="display: none; color: red;">(Това поле е задължително *)</span>
+									</label>
+									<input type="text" class="form-control" name="edit_product[colorCode]" value="{{producttoEdit.colorCode}}" id="colorCode" required=""/>
+								</div>
+							</div>
+							<label>Заглавие *
+								<span id="titleEmpty" class="alert-title" style="display: none; color: red;">(Това поле е задължително *)</span>
+							</label>
+							<input type="text" name="edit_product[title]" value="{{producttoEdit.title}}" class="form-control" id="title" required=""/>
+							<label>Категория *
+								<span id="categoryEmpty" class="alert-title" style="display: none; color: red;">(Това поле е задължително *)</span>
+							</label>
+							<div class="select-box">
+								<select class="form-control" name="edit_product[category]" id="category">
+									{% for category in categories %}
+										{% if category.tag == producttoEdit.category %}
+											<option value="{{ category.tag }}" selected>{{ category.name }}</option>
+										{% else %}
+											<option value="{{ category.tag }}">{{ category.name }}</option>
+										{% endif %}
+									{% endfor %}
+								</select>
+							</div>
+							<div class="row">
+								<label>Номер/Количество *</label>
+								<div class="sample-icon" id="addSizeFrontButton">
+									<i class="d-icon-angle-left"></i>
+									<span class="name">Добави номер</span>
+								</div>
+								<div id="addSizeFront"></div>
+								{% for key,value in sizes %}
+									<div class="col-1" style="border: 1px solid black; padding: 1%; margin: 1%">
+										<input type="text" class="form-control" name="size[]" value="{{key}}" required=""/>
+										<input type="text" class="form-control" name="quantity[]" value="{{value}}" required=""/>
+									</div>
+									{% endfor %}
+									<div id="addSizeBack"></div>
 
-                        <form class="row contact_form" action="{{ path('editProduct' , { 'id':producttoEdit.id}) }}" method="post" novalidate="novalidate" enctype="multipart/form-data" >
+									<div class="sample-icon" id="addSizeBackButton">
+										<i class="d-icon-angle-right"></i>
+										<span class="name">Добави номер</span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-6">
+										<label>Материал вътрешност
+										</label>
+										<input type="text" class="form-control" name="edit_product[inside]" value="{{producttoEdit.inside}}" id="inside" required=""/>
+									</div>
+									<div class="col-xs-6">
+										<label>Материал отвън (сая)
+										</label>
+										<input type="text" class="form-control" name="edit_product[outside]" value="{{producttoEdit.outside}}" id="outside" required=""/>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-3">
+										<label>Височина ходило
+										</label>
+										<input type="text" class="form-control" name="edit_product[soleThickness]" value="{{producttoEdit.soleThickness}}" id="soleThickness" required=""/>
+									</div>
+									<div class="col-xs-3">
+										<label>Височина обувка
+										</label>
+										<input type="text" class="form-control" name="edit_product[shoeHigth]" value="{{producttoEdit.shoeHigth}}" id="shoeHigth" required=""/>
+									</div>
+									<div class="col-xs-3">
+										<label>Тегло
+										</label>
+										<input type="text" class="form-control" name="edit_product[weight]" value="{{producttoEdit.weight}}" id="weight" required=""/>
+									</div>
+									<div class="col-xs-3">
+										<label>Стелка материал
+										</label>
+										<input type="text" class="form-control" name="edit_product[insole]" value="{{producttoEdit.insole}}" id="insole" required=""/>
+									</div>
+								</div>
+								<label>Описание</label>
+								<textarea class="form-control pb-2 pt-2 mb-0" cols="30" rows="5" name="edit_product[description]" id="description">{{producttoEdit.description}}</textarea>
+							</div>
+							<aside class="col-lg-5 sticky-sidebar-wrapper">
+								<div class="sticky-sidebar mt-1" data-sticky-options="{'bottom': 50}">
+									<div class="summary pt-5">
+										<h3 class="title title-simple text-left text-uppercase">Снимки на продукта</h3>
+										<table class="order-table">
+											<thead>
+												<tr>
+													<th>Снимка</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
 
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" value="{{ producttoEdit.title }}" name="products[title]" id="addProductName" class="form-control" placeholder="Заглавие" required autofocus>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" value="{{ producttoEdit.modelNumber }}" name="products[modelNumber]" id="addProductModelNumber" class="form-control" placeholder="Номер на модел" required autofocus>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text"  value="{{ producttoEdit.price }}" name="products[price]" id="addProductPrice" class="form-control" placeholder="Цена" required autofocus>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" value="{{ producttoEdit.sizes }}"  name="products[sizes]" id="size" class="form-control" placeholder="Размери" required autofocus>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" value="{{ producttoEdit.color }}"  name="products[color]" id="size" class="form-control" placeholder="Цвят" required autofocus>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <div class="form-select" id="default-select">
-                                    <select name="products[category]" id="addProductCategory" >
-                                        <option value="{{ producttoEdit.categoryR.tag }}" >{{ producttoEdit.categoryR.name }}</option>
-                                        {% for category in categories %}
-                                            <option value="{{ category.tag }}">{{ category.name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <textarea type="text"  name="products[description]" id="size" class="form-control" placeholder="Описание..." required autofocus>{{ producttoEdit.description }}</textarea>
-                            </div>
+												<tr class="sumnary-shipping shipping-row-last">
+													<td colspan="2">
+														<ul>
+															{% for key,value in pictures %}
+																<li style="margin: 1%">
+																	<input name="file[]" type="file" onchange="readURL(this);"/>
+																	<img id="blah" style='height: 60px' src="/assets/images/small/{{value}}.jpg" alt="Начална снимка"/>
+																	<i class="sample-icon d-icon-close"></i>
+																	Премахни
+																</li>
+															{% endfor %}
+															<li id="addPicture"></li>
+															<div class="col-12">
+																<a class="btn btn-block btn-icon-left btn-slide-down" id="addPictureButton">
+																	<i class="d-icon-arrow-down"></i>
+																	<span>Добави снимка</span>
+																</a>
+															</div>
+														</ul>
+													</td>
+												</tr>
 
-                            <label>Промоция</label>
-                            <div class="checkbox mb-3">
-                                {% if producttoEdit.isInPromotion %}
-                                    <input type="checkbox" id="ship-to-different-address-checkbox"
-                                           class="input-checkbox"  name="products[isInPromotion]"value="1" checked>
-                                {% else %}
-                                    <input type="checkbox" id="ship-to-different-address-checkbox"
-                                           class="input-checkbox"  name="products[isInPromotion]"value="1">
-                                {% endif %}
-                                <label for="ship-to-different-address-checkbox" class="checkbox">В промоция</label>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text"  value="{{ producttoEdit.discountPrice }}"  name="products[discountPrice]"  class="form-control" placeholder="Намалено от" required autofocus>
-                            </div>
+											</tbody>
+										</table>
 
-                            <div class="col-md-12 form-group">
-                                <button type="submit" value="submit" class="btn_3">
-                                    Редактирай
-                                </button>
+										<button type="submit" class="btn btn-dark btn-rounded btn-order">Завърши добавяне на продукт</button>
+									</div>
+								</div>
+							</aside>
+						</div>
+					</form>
+				</div>
+			</div>
+		</main>
+	{% endblock %}
 
-                            </div>
-                        </form>
+	{% block javascripts %}
+		<script src="{{ asset('/assets/js/addProduct.js')}}"></script>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </section>
-{% endblock %}
+	{% endblock %}

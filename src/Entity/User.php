@@ -71,6 +71,12 @@ class User implements UserInterface
      */
     private $address;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="user")
+     */
+    private $reviews;
+
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();

@@ -27,6 +27,10 @@ $builder
 ->add('populatedPlace',TextType::class)
 ->add('office',TextType::class)
 ->add('phone',TextType::class)
+->add('deliver',TextType::class)
+->add('orderJson',TextType::class)
+->add('wayOfDelivery',TextType::class)
+->add('zipCode',TextType::class)
 ->add('additionalInfo',TextType::class);
 }
 

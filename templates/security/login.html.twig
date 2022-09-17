@@ -1,40 +1,154 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Log in!{% endblock %}
 
-{% block main %}
+{% block body %}
 
-    <!-- slider Area Start-->
-    <div class="slider-area ">
-        <!-- Mobile Menu -->
-        <div class="single-slider slider-height2 d-flex align-items-center" data-background="assets/img/hero/category.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="hero-cap text-center">
-                            <h2>ЗА НАС</h2>
+ <!--  <div class="ps-checkout pt-80 pb-80">
+        <div class="ps-container">
+          <form class="ps-checkout__form" action="#" method="post" novalidate="novalidate" id="loginForm">
+            <div class="row">
+                  <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
+                    <div class="ps-checkout__billing">
+                        <h3>
+                                Влезте в профила си</h3>
+                            <div class="form-group form-group--inline">
+                              <label>Имейл<span>*</span>
+                              </label>                              
+                               
+                               <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Имейл" autofocus />
+                            <p style="display: none; color: red" id="warningEmailLogin">Това поле е
+                                    задължително</p>
+                                     <p style="display: none; color: red" id="warningEmailLoginInvalid">Имейлът е невалиден</p>
+                            </div>
+                            <div class="form-group form-group--inline">
+                              <label>Парола<span>*</span>
+                              </label>
+                              
+                                <input class="form-control" type="password" name="password" id="inputPassword" placeholder="Парола" autofocus/>
+                          <p style="display: none; color: red" id="warningPasswordLogin">Това поле е
+                                    задължително</p>
+                            </div>
+							<input type="hidden" name="_csrf_token"
+                                          value="{{ csrf_token('authenticate') }}"
+                                >
+							<div class="form-group form-group--inline">
+                                <div class="form-group" style="text-align: center">
+								<button class="ps-btn" type="submit" value="submit" id="loginButton">Вход<i class="ps-icon-next"></i></button>
+								</div>
+                            </div>
+
+
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+                    <div class="ps-checkout__order">
+                      <header>
+                        <h3>Нямате профил?</h3>
+                      </header>
+
+                      <footer>
+  
+                        <div class="form-group paypal">
+                          <a class="ps-btn ps-btn--fullwidth" href="{{ path('app_register') }}">Регистрирайте се<i class="ps-icon-next"></i></a>
+                        </div>
+                      </footer>
+                    </div>
+
+                  </div>
+            </div>
+          </form>
+        </div>
+      </div> -->
+
+      <main class="main">
+            <nav class="breadcrumb-nav">
+                <div class="container">
+                    <ul class="breadcrumb">
+                        <li><a href="demo1.html"><i class="d-icon-home"></i></a></li>
+                        <li><a href="shop.html">Riode Shop</a></li>
+                        <li>My Account</li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="page-content mt-6 pb-2 mb-10">
+                <div class="container">
+                    <div class="login-popup">
+                        <div class="form-box">
+                            <div class="tab tab-nav-simple tab-nav-boxed form-tab">
+                                <ul class="nav nav-tabs nav-fill align-items-center border-no justify-content-center mb-5" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active border-no lh-1 ls-normal" href="#signin">Вход</a>
+                                    </li>
+                                    <li class="delimiter">или</li>
+                                    <li class="nav-item">
+                                        <a class="nav-link border-no lh-1 ls-normal" href="#register">Регистрация</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="signin">
+                                        <form action="#" method="post" novalidate="novalidate">
+                                            <div class="form-group mb-3">
+                                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Имейл *" required />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" name="password" id="inputPassword" class="form-control"  placeholder="Парола *"
+                                                    required />
+                                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                            </div>
+                                            <div class="form-footer">
+                                                <div class="form-checkbox">
+                                                    <input type="checkbox" class="custom-checkbox" id="signin-remember"
+                                                        name="signin-remember" />
+                                                    <label class="form-control-label" for="signin-remember">Запомни ме</label>
+                                                </div>
+                                                <a href="#" class="lost-link">Забравили сте паролата си?</a>
+                                            </div>
+                                            <button class="btn btn-dark btn-block btn-rounded"  type="submit" value="submit">Вход</button>
+                                        </form>
+                                        <div class="form-choice text-center">
+                                            <label class="ls-m"> или влезте с</label>
+                                            <div class="social-links">
+                                                <a href="#" class="social-link social-google fab fa-google border-no"></a>
+                                                <a href="#" class="social-link social-facebook fab fa-facebook-f border-no"></a>
+                                                <a href="#" class="social-link social-twitter fab fa-twitter border-no"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="register">
+                                        <form action="#">
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" id="register-email" name="register-email" placeholder="Your Email address *"
+                                                    required />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control" id="register-password" name="register-password" placeholder="Password *"
+                                                    required />
+                                            </div>
+                                            <div class="form-footer">
+                                                <div class="form-checkbox">
+                                                    <input type="checkbox" class="custom-checkbox" id="register-agree" name="register-agree"
+                                                        required />
+                                                    <label class="form-control-label" for="register-agree">I agree to the
+                                                        privacy policy</label>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-dark btn-block btn-rounded" type="submit">Register</button>
+                                        </form>
+                                        <div class="form-choice text-center">
+                                            <label class="ls-m">or Register With</label>
+                                            <div class="social-links">
+                                                <a href="#" class="social-link social-google fab fa-google border-no"></a>
+                                                <a href="#" class="social-link social-facebook fab fa-facebook-f border-no"></a>
+                                                <a href="#" class="social-link social-twitter fab fa-twitter border-no"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- slider Area End-->
-
-    <!-- product list part start-->
-    <section class="about_us padding_top">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="about_us_content">
-                        <h5>За нас</h5>
-                        <h3>  СВИК е създаден през 1995г. в гр. Пещера – един от центровете на обувното производство в България.<br>
-                            Фирмата се разраства с бързи темпове и за кратко време достига водещи позиции в производството на луксозни и всекидневни дамски и мъжки обувки. СВИК залага най-вече на усещането за удобство. Работи се с екологично чисти суровини и материали. Фирмата притежава собствен модерен завод, построен по еврипейски стандарти. Инвестициите са насочени предимно към закупуването на нови машини и технологии, към непрекъснато подобряване условията на труд.</h3>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
+        </main>
 {% endblock %}

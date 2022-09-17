@@ -8,55 +8,33 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Product;
 use App\Entity\ShoppingCart;
 use App\Entity\Category;
+use App\Entity\Review;
+use App\Entity\User;
+use Symfony\Component\Validator\Constraints\DateTime;
+use Ekatte\Selishte;
+use App\Services\ProductService;
+
 use Symfony\Component\Routing\Annotation\Route;
 
 
 class HomeController extends AbstractController
 {
+    public function __construct()
+    {
+    }
+
     /**
      * @Route("/", name="index")
      */
     public function index()
     {
+        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+        //$bestSellers = Array();
+        $trending = $this->filterStatusData('isTrending',$products);
+        $bestSellers = $this->filterStatusData('isBestSeller',$products);
 
-        $products = $this->getDoctrine()->getRepository(Product::class)->findBy(array("isDeleted"=>0));
-        $bestSellers = Array();
-        $lastOnes = Array();
-
-        for ($i = 0; $i < count($products); $i++) {
-            for ($j = 0; $j < count($products) - $i - 1; $j++) {
-                if ($products[$j]->getBoughtCounter() < $products[$j + 1]->getBoughtCounter()) {
-                    $temp = $products[$j];
-                    $products[$j] = $products[$j + 1];
-                    $products[$j + 1] = $temp;
-                }
-            }
-        }
-
-        for ($i = 0; $i < 3; $i++) {
-            array_push($lastOnes, $products[$i]);
-        }
-
-        for ($i = 0; $i < count($products); $i++) {
-            for ($j = 0; $j < count($products) - $i - 1; $j++) {
-                if ($products[$j]->getId() < $products[$j + 1]->getId()) {
-                    $temp = $products[$j];
-                    $products[$j] = $products[$j + 1];
-                    $products[$j + 1] = $temp;
-                }
-            }
-        }
-        $cont=array(21,22,23,24,25,26);
-        for ($i = 0; $i < count($products); $i++) {
-            if (in_array($products[$i]->getId(),$cont))
-            {
-                array_push($bestSellers, $products[$i]);
-
-            }
-        }
-
-
-        return $this->render('home/index.html.twig', ['lastOnes' => $lastOnes, 'bestSellers' => $bestSellers, 'productsCart' => null]);
+        return $this->render('home/index.html.twig', ['trending' => $trending, 'bestSellers' => $bestSellers,
+        'featuredProduct'=>$this->getDoctrine()->getRepository(Product::class)->find(11196)]);
 
     }
 
@@ -66,112 +44,73 @@ class HomeController extends AbstractController
      */
     public function singleProduct($id)
     {
-
-        if (!isset($_COOKIE['_SC_KO'])) {
-            setcookie('_SC_KO', bin2hex(random_bytes(10)), time() + (86400 * 30), '/');
-
-        }
         $product = $this->getDoctrine()->getRepository(Product::class)->find($id);
+
+        $differentColors=$this->getDoctrine()->getRepository(Product::class)->findBy(array('model' => $product->getModel()));
+        $colors=array();
+        
+        for($i=0;$i<count($differentColors);$i++)
+        {
+            $decodedJson=json_decode($differentColors[$i]->getPictures());
+            $colors[$differentColors[$i]->getId()]=$decodedJson[0];
+        }
+
+        $relativesTemp=($product->getCategoryR()->getProducts());      
+        $arr=Array();
+
+        for($i=0;$i<count($relativesTemp);$i++)
+        {
+            array_push($arr,$relativesTemp[$i]);
+        }
+
+        $relativesTemp=array_reverse($arr);
+        $relProducts=Array();
+        $counter=0;
+
+        while($counter<count($relativesTemp)&&$counter<=10)
+        {
+            array_push($relProducts,$relativesTemp[$counter]);
+
+            $counter++;
+        }
+
         if ($product === null||$product->getIsDeleted()==1) {
             return $this->redirectToRoute('404');
         }
-        if (isset($_POST['size__select'])||isset($_POST['noSize'])) {
-            $s='';
-            if (isset($_POST['size__select']))
-            {
-                $s = $_POST['size__select'];
-
-            }
-            $user = $this->getUser();
-            if ($user == null) {
-                $user = new User();
-            }
-            if (isset($_COOKIE['_SC_KO'])) {
-                $cookie = $_COOKIE['_SC_KO'];
-
-                $shoppingCart = $this->getDoctrine()->getRepository(ShoppingCart::class)->findBy(array('coocieId' => $cookie));
-
-
-                if ($shoppingCart != null) {
-                    return $this->render('user/buyProduct.html.twig', ['product' => $product, 'size' => $s, 'user' => $user, 'productsCart' => $shoppingCart]);
-                }
-
-            }
-            return $this->render('user/buyProduct.html.twig', ['product' => $product, 'size' => $s, 'user' => $user, 'productsCart' => null]);
-        }
-        $sizeAndNumber = $product->getSizes();
-        $sizeAndNumber = explode(" ", $sizeAndNumber);
-        $sizeAndNumber = array_filter(array_map('trim', $sizeAndNumber));
-        $size = Array();
-
-        foreach ($sizeAndNumber as $item) {
-            $test = explode('-', $item);
-            if ($test[1] != 0) {
-                array_push($size, $test[0]);
-            }
-        }
-
-
-
-
-        if (isset($_COOKIE['_SC_KO'])) {
-            $cookie = $_COOKIE['_SC_KO'];
-
-            $shoppingCart = $this->getDoctrine()->getRepository(ShoppingCart::class)->findBy(array('coocieId' => $cookie));
-
-
-            if ($shoppingCart != null) {
-                return $this->render('home/singleProduct.html.twig', ['product' => $product, 'size' => $size, 'productsCart' => $shoppingCart]);
-            }
-
-        }
-        return $this->render('home/singleProduct.html.twig', ['product' => $product, 'size' => $size, 'productsCart' => null]);
+        return $this->render('home/singleProduct.html.twig', 
+        ['product' => $product, 
+        'productsCart' => null,
+        'diffColors'=>$colors,
+        'relProducts'=>$relProducts,
+        'sizes'=>json_decode($product->getSizes(),true), 
+        'pictures'=>json_decode($product->getPictures(),true)]);
     }
 
     /**
      * @param $categoryName
      *
-     * @Route("/catalog/{categoryName}", name="catalog")
+     * @Route("/catalog/{categoryName}/{page}", defaults={"page"=1}, name="catalog")
      */
-    public function catalog($categoryName)
+    public function catalog($categoryName,$page)
     {
-        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
-        $category = new Category();
-        foreach ($categories as $value) {
-            if (strcmp($categoryName, $value->getTag()) == 0) {
-                $category = $value;
-                break;
-            }
-        }
+        $products=null;
+        $category=new Category();
 
-        $product=Array();
-        $catName="";
-
-        if(strcmp($categoryName,"newest")==0)
+        if($categoryName=='sale')
         {
-            $catName="Най-нови";
-            $allProducts=$this->getDoctrine()->getRepository(Product::class)->findAll();
-            for ($i=0;$i<count($allProducts);$i++)
-            {
-                if ($allProducts[$i]->getIsNew()==1)
-                {
-                    array_push($product,$allProducts[$i]);
-                }
-            }
-        }
-        else {
-            if ($category->getId() == null) {
-                return $this->redirectToRoute('404');
-            }
-            $catName= $category->getName();
-            for ($i = 0; $i < count($category->getProducts()); $i++) {
-                if ($category->getProducts()[$i]->getIsDeleted() == 0) {
-                    array_push($product, $category->getProducts()[$i]);
-                }
-            }
-        }
+            $products = $this->getDoctrine()->getRepository(Product::class)->findBy(array('isInPromotion' => true));
+            $category->setName('НАМАЛЕНИЕ');
+            $category->setTag('sale');
 
-        return $this->render('home/catalog.html.twig', ['products' => $product, 'category' => $catName, 'allCategories' => $categories, 'productsCart' => null]);
+        }
+        else{
+            $category = $this->getDoctrine()->getRepository(Category::class)->findOneBy(array('tag' => $categoryName));
+      
+            $products=$category->getProducts()->toArray();
+        }
+       
+        $products=array_reverse($products);
+        return $this->render('home/catalog.html.twig', ['products' => array_slice($products,($page-1)*12,12),'pages'=>$this->getPageCount($products,12),'currentPage'=>$page,'currentCategory'=>$category,'allProductsCount'=>count($products) ]);
     }
     /**
      * @Route("/search", name="search")
@@ -189,8 +128,7 @@ class HomeController extends AbstractController
             $products = $this->getDoctrine()->getRepository(Product::class)->findBy(array('title'=>$search,"isDeleted"=>0));
         }
 
-
-        return $this->render('home/search.html.twig', ['productsCart' => null, 'products' => $products, 'allCategories' => $categories,'category'=>$category]);
+        return $this->render('home/search.html.twig', ['products' => $products, 'allCategories' => $categories,'category'=>$category]);
     }
 
     /**
@@ -198,7 +136,6 @@ class HomeController extends AbstractController
      */
     public function about()
     {
-
         return $this->render('home/about.html.twig');
     }
 
@@ -207,16 +144,17 @@ class HomeController extends AbstractController
      */
     public function contact()
     {
-
         return $this->render('home/contact.html.twig');
     }
+
     /**
      * @Route("/privacyPolicy", name="privacyPolicy")
      */
     public function privacyPolicy()
-    {
+    {     
         return $this->render('home/privacyPolicy.html.twig');
     }
+
     /**
      * @Route("/coockiesPolicy", name="coockiesPolicy")
      */
@@ -230,6 +168,33 @@ class HomeController extends AbstractController
     public function commonPolicy()
     {
         return $this->render('home/policyCommon.html.twig');
+    }
+
+    private function filterStatusData($filterBy,$products){
+        $trending=array();
+        for ($i = 0; $i < count($products); $i++) {
+            if((json_decode($products[$i]->getStatuses(), true))[$filterBy]){
+                array_push($trending,$products[$i]);
+            }
+        }
+        return $trending;
+    }
+    private function getPageCount($array,$countProductsInPage){
+        $count=count($array);
+
+        if($count<=$countProductsInPage){
+            return 1;
+        }
+        else{
+            $pagesCount=$count/$countProductsInPage;
+
+            if($count%$countProductsInPage!=0){
+                $pagesCount++;
+            }
+
+            return floor($pagesCount);
+        }
+
     }
 
 }

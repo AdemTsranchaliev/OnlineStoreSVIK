@@ -5,7 +5,6 @@
 
     <div class="slider-area ">
         <!-- Mobile Menu -->
-        <div class="single-slider slider-height2 d-flex align-items-center" data-background="assets/img/hero/category.jpg">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
@@ -15,17 +14,15 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 
     <!--================Cart Area =================-->
-    <section class="cart_area section_padding">
-        <div class="container">
-            <div class="cart_inner">
+    <section class="ps-content pt-80 pb-80">
+            <div class="ps-container">
 
 
-                <div class="table-responsive">
-                    <table class="table">
+                <div class="ps-cart-listing">
+                    <table class="table ps-cart__table">
                         <thead>
                         <tr>
                             <th scope="col">Поръчка No</th>
@@ -38,14 +35,10 @@
                         {% for order in orders %}
                             <tr>
                                 <td>
-                                    <div class="media">
-                                        <div class="media-body">
-                                            <p>{{ order.id }}</p>
-                                        </div>
-                                    </div>
+                                    <p>{{ order.id }}</p>
                                 </td>
                                 <td>
-                                    <div class="quantity buttons_added">
+                                    <div >
                                         {% if order.confirmed==0 %}
                                             <span class="amount" style="color: red">НЕПОТВЪРДЕНА</span>
                                         {% endif %}
@@ -62,21 +55,15 @@
                                 </td>
 
                                 <td>
-                                    <div class="button-group-area mt-40">
-
-                                        <a href="{{ path('seeOrder',{'id': order.id}) }}" class="genric-btn info radius">ВИЖ</a>
-
-                                    </div>
-
+                                        <a href="{{ path('seeOrder',{'id': order.id}) }}" class="ps-btn">ВИЖ</a>
                                 </td>
                             </tr>
-
 
                         {% endfor %}
                         </tbody>
                     </table>
                 </div>
-            </div>
+
         </div>
     </section>
 {% endblock %}

@@ -32,6 +32,21 @@ class Order
      */
     private $email;
 
+     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $wayOfDelivery;
+
+     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+     private $deliverNumber;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $deliver;
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -41,6 +56,11 @@ class Order
      * @ORM\Column(type="string", length=255)
      */
     private $populatedPlace;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $zipCode;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -58,14 +78,14 @@ class Order
     private $orderOn;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string")
      */
-    private $newOrArchived;
+    private $orderJson;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string")
      */
-    private $confirmed;
+    private $status;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -76,16 +96,6 @@ class Order
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="orders")
      */
     private $userId;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $coocieId;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $modelSize;
 
     /**
      * @ORM\Column(type="float")
@@ -193,30 +203,6 @@ class Order
         return $this;
     }
 
-    public function getNewOrArchived(): ?bool
-    {
-        return $this->newOrArchived;
-    }
-
-    public function setNewOrArchived(bool $newOrArchived): self
-    {
-        $this->newOrArchived = $newOrArchived;
-
-        return $this;
-    }
-
-    public function getConfirmed(): ?bool
-    {
-        return $this->confirmed;
-    }
-
-    public function setConfirmed(bool $confirmed): self
-    {
-        $this->confirmed = $confirmed;
-
-        return $this;
-    }
-
     public function getAdditionalInfo(): ?string
     {
         return $this->additionalInfo;
@@ -241,30 +227,6 @@ class Order
         return $this;
     }
 
-    public function getCoocieId(): ?string
-    {
-        return $this->coocieId;
-    }
-
-    public function setCoocieId(?string $coocieId): self
-    {
-        $this->coocieId = $coocieId;
-
-        return $this;
-    }
-
-    public function getModelSize(): ?string
-    {
-        return $this->modelSize;
-    }
-
-    public function setModelSize(string $modelSize): self
-    {
-        $this->modelSize = $modelSize;
-
-        return $this;
-    }
-
     public function getPrice(): ?float
     {
         return $this->price;
@@ -273,6 +235,74 @@ class Order
     public function setPrice(float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getWayOfDelivery(): ?string
+    {
+        return $this->wayOfDelivery;
+    }
+
+    public function setWayOfDelivery(string $wayOfDelivery): self
+    {
+        $this->wayOfDelivery = $wayOfDelivery;
+
+        return $this;
+    }
+    public function getDeliver(): ?string
+    {
+        return $this->deliver;
+    }
+
+    public function setDeliver(string $deliver): self
+    {
+        $this->deliver = $deliver;
+
+        return $this;
+    }
+    public function getOrderJson(): ?string
+    {
+        return $this->orderJson;
+    }
+
+    public function setOrderJson(string $orderJson): self
+    {
+        $this->orderJson = $orderJson;
+
+        return $this;
+    }
+    public function getDeliverNumber(): ?string
+    {
+        return $this->deliverNumber;
+    }
+
+    public function setDeliverNumber(string $deliverNumber): self
+    {
+        $this->deliverNumber = $deliverNumber;
+
+        return $this;
+    }
+    public function getZipCode(): ?string
+    {
+        return $this->zipCode;
+    }
+
+    public function setZipCode(string $zipCode): self
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    public function getstatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

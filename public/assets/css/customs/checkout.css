@@ -1,0 +1,8 @@
+.not-valid{
+    border: 1px solid red !important;
+}
+
+.invalid-input{
+    color: red; 
+    display: none;
+}

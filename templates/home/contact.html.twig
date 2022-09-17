@@ -1,92 +1,155 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}SVIK - Контакти
+{% endblock %}
+
+{% block stylesheets %}
+    <!-- Main CSS File -->
+            <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/style.min.css')}}">
+{% endblock %}
 
 {% block main %}
 
-    <!-- slider Area Start-->
-    <div class="slider-area ">
-        <!-- Mobile Menu -->
-        <div class="single-slider slider-height2 d-flex align-items-center" data-background="assets/img/hero/category.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="hero-cap text-center">
-                            <h2>Контакти</h2>
-                        </div>
-                    </div>
+	<!--<div class="ps-contact ps-section pb-80">
+		<div class="ps-container">
+			<div class="row">
+
+				<div class="ps-section__header mb-50">
+					<h2 class="ps-section__title" data-mask="Contact">- Свържете се с нас</h2>
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+						<div class="alert alert-success" role="alert" style="display: none" ; id="successMessageSend" ;>
+							Успешно изпращане!
+						</div>
+						<form class="ps-contact__form" method="post">
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+									<div class="form-group">
+										<label>Вашето име
+											<sub>*</sub>
+										</label>
+										<input class="form-control" type="text" placeholder="" name="name" id="name">
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+									<div class="form-group">
+										<label>Имейл
+											<sub>*</sub>
+										</label>
+										<input class="form-control" type="email" name="email" id="email" placeholder="">
+									</div>
+								</div>
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+									<div class="form-group mb-25">
+										<label>Коментар, препоръка, оплакване или въпрос
+											<sub>*</sub>
+										</label>
+										<textarea class="form-control" rows="5" name="message" id="message"></textarea>
+									</div>
+									<div class="form-group">
+										<a class="ps-btn" href="#" id="submit-message">ИЗПРАТИ<i class="ps-icon-next"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+					<div class="ps-section__content">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-2 col-xs-12 ">
+								<div class="ps-contact__block" data-mh="contact-block">
+									<header>
+										<h3>България
+											<span>
+												4550 гр. Пещера</span>
+										</h3>
+									</header>
+									<footer>
+										<p>
+											<i class="fa fa-map-marker"></i>
+											ул. Михаил Такев 2Д</p>
+										<p>
+											<i class="fa fa-envelope-o"></i>
+											<a href="mailto@obuvkisvik@gmail.com">obuvkisvik@gmail.com</a>
+										</p>
+										<p>
+											<i class="fa fa-phone"></i>
+											( +359 ) 89 260 9802</p>
+									</footer>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>-->
+
+	<main class="main">
+            <nav class="breadcrumb-nav">
+                <div class="container">
+                    <ul class="breadcrumb">
+                        <li><a href="demo1.html"><i class="d-icon-home"></i></a></li>
+                        <li>Свържете се с нас</li>
+                    </ul>
                 </div>
+            </nav>
+            <div class="page-header" style="background-image: url(/assets/images/page-header/contact-us.jpg)">
+                <h1 class="page-title font-weight-bold text-capitalize ls-l">Свържете се с нас</h1>
             </div>
-        </div>
-    </div>
-    <!-- slider Area End-->
+            <div class="page-content mt-10 pt-7">
+                <section class="contact-section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 col-sm-6 ls-m mb-4">
+                                <div class="grey-section d-flex align-items-center h-100">
+                                    <div>
+                                        <h4 class="mb-2 text-capitalize">Централно управление</h4>
+                                        <p>обл. Пазарджик, гр. Пещера 4550<br>ул. Михаил Такев 2Д</p>
 
-    <!-- ================ contact section start ================= -->
-    <section class="contact-section">
-        <div class="container">
+                                        <h4 class="mb-2 text-capitalize">Теленонен номер</h4>
+                                        <p>
+                                            <a href="tel:+359892609802">+359 89 260 9802</a><br>
+                                        </p>
 
+                                        <h4 class="mb-2 text-capitalize">Имейл</h4>
+                                        <p class="mb-4">
+                                            <a href="obuvkisvik@gmail.com">ademcran4aliew@gmail.com</a><br>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-md-8 col-sm-6 d-flex align-items-center mb-4">
+                                <div class="w-100">
+                                    <form class="pl-lg-2" action="#">
+                                        <h4 class="ls-m font-weight-bold">Коментар, препоръка, оплакване или въпрос *</h4>
+                                        <p>
+                                        Вашият имейл адрес няма да бъде публикуван. Задължителните полета са маркирани * *</p>
+                                        <div class="row mb-2">
+                                            <div class="col-12 mb-4">
+                                                <textarea class="form-control" required
+                                                    placeholder="Коментар*"></textarea>
+                                            </div>
+                                            <div class="col-md-6 mb-4">
+                                                <input class="form-control" type="text" placeholder="Име *" required>
+                                            </div>
+                                            <div class="col-md-6 mb-4">
+                                                <input class="form-control" type="email" placeholder="Имейл *" required>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-dark btn-rounded">Изпрати <i
+                                                class="d-icon-arrow-right"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End About Section-->
 
-            <div class=" alert alert-success" style="display: none" role="alert" id="successMessageSend">
-                Съобщението беше изпратено успешно!
             </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="contact-title">Пишете ни</h2>
-                </div>
-
-                <div class="col-lg-8">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Вашето съобщение'" placeholder=" Вашето съобщение"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Вашето име'" placeholder="Вашето име'">
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <input class="form-control valid" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Имейл'" placeholder="Имейл">
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <input class="form-control" name="subject" id="subject" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Предмет на съобщението'" placeholder="Предмет на съобщението">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group mt-3">
-                        <button type="submit" class="button button-contactForm boxed-btn"  id="submit-message">Изпрати</button>
-                    </div>
-
-                </div>
-                <div class="col-lg-3 offset-lg-1">
-                    <div class="media contact-info">
-                        <span class="contact-info__icon"><i class="ti-home"></i></span>
-                        <div class="media-body">
-                            <h3>4550 гр. Пещера</h3>
-                            <p>ул.Михаил Такев № 2Д</p>
-                        </div>
-                    </div>
-                    <div class="media contact-info">
-                        <span class="contact-info__icon"><i class="ti-tablet"></i></span>
-                        <div class="media-body">
-                            <a href="tel:+359 892 609 802"> <h3>+359 892 609 802</h3></a>
-                            <p>Понеделник - Петък : 09:00-17:00</p>
-                        </div>
-                    </div>
-                    <div class="media contact-info">
-                        <span class="contact-info__icon"><i class="ti-email"></i></span>
-                        <div class="media-body">
-                            <a href="mail:obuvkisvik@gmail.com"> <h3>obuvkisvik@gmail.com</h3></a>
-                            <p>Пишете ни по всяко време</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ================ contact section end ================= -->
+        </main>
 {% endblock %}

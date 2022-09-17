@@ -1,262 +1,505 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}Начало - ОБУВКИ SVIK - Онлайн Магазин за Обувки от Естествена Кожа
+{% endblock %}
 {% block main %}
 
 
+	<div class="page-content">
+		<section class="intro-section">
+			<div class="owl-carousel owl-theme row owl-nav-arrow owl-nav-fade  intro-slider mb-2 animation-slider cols-1 gutter-no" data-owl-options="{
+																				                        'nav': false,
+																				                        'dots': false,
+																				                        'loop': false,
+																				                        'items': 1,
+																				                        'autoplay': false,
+																				                        'responsive': {
+																				                            '992': {
+																				                                'nav': true
+																				                            }
+																				                        }
+																				                    }">
+				<div class="banner banner-fixed intro-slide1">
+					<figure>
+						<img src="/assets/images/demos/demo7/slides/1.jpg" alt="intro-banner" width="1903" height="912" style="background-color: #f3f3f3"/>
+					</figure>
+					<div class="container">
+						<div class="banner-content y-50 d-block d-lg-flex align-items-center">
+							<div class="banner-content-left slide-animate" data-animation-options="{
+																																				                                        'name': 'fadeInLeftShorter', 'duration': '1s'
+																																				                                    }">
+								<h4 class="banner-subtitle text-uppercase text-dark">SVIK SHOES</h4>
+								<h3 class="banner-title text-uppercase text-dark">Колекция 2021/2022</h3>
+							</div>
+							<div class="banner-content-right ml-lg-auto slide-animate" data-animation-options="{
+																																				                                        'name': 'fadeInRightShorter', 'duration': '1s'
+																																				                                    }">
+								<h4 class="banner-subtitle text-primary text-uppercase font-weight-bold">НАМАЛЕНИЕ</h4>
+								<h3 class="banner-title text-uppercase text-white font-weight-bold mb-6">до -60%<br> на всички боти и ботуши</h3>
+								<a href="/catalog/boots" class="btn btn-dark btn-rounded">ВИЖ СЕГА<i class="d-icon-arrow-right"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="banner banner-fixed intro-slide1">
+					<figure>
+						<img src="/assets/images/demos/demo7/slides/2.jpg" alt="intro-banner" width="1903" height="912" style="background-color: #f3f3f3"/>
+					</figure>
+					<div class="container">
+						<div class="banner-content y-50 d-block d-lg-flex align-items-center">
+
+							<div class="banner-content-right ml-lg-auto slide-animate" data-animation-options="{'name': 'fadeInRightShorter', 'duration': '1s'}">
+								<h3 class="banner-title text-uppercase text-white font-weight-bold mb-6">НОВИ МОДЕЛИ ТИП КЕЦ</h3>
+								<a href="#" class="btn btn-dark btn-rounded">ВИЖ СЕГА<i class="d-icon-arrow-right"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="category-wrap row cols-lg-4 cols-sm-2 cols-1 gutter-sm">
+				<div class="category category-absolute category-banner appear-animate mb-2" data-animation-options="{
+																								                            'name': 'fadeInLeftShorter',
+																								                            'delay': '.4s'
+																								                        }">
+					<a href="#">
+						<figure class="category-media">
+							<img src="/assets/images/demos/demo7/categories/1.jpg" alt="category" width="468" height="320"/>
+						</figure>
+					</a>
+					<div class="category-content align-items-center x-50 w-100">
+						<h4 class="category-name text-uppercase">СЕЗОН AW21/22</h4>
+						<span class="category-count text-uppercase">
+							
+						</span>
+						<a href="/catalog/boots" class="btn btn-underline btn-link">Преглед</a>
+					</div>
+				</div>
+
+				<div class="banner banner-fixed appear-animate mb-2" data-animation-options="{
+																								                            'name': 'fadeInLeftShorter',
+																								                            'delay': '.2s'
+																								                        }">
+					<a href="#">
+						<figure class="category-media">
+							<img src="/assets/images/demos/demo7/categories/2.jpg" alt="category" width="468" height="320" style="background-color: rgb(43, 43, 35);"/>
+						</figure>
+					</a>
+					<div class="banner-content text-center x-50 y-50 w-100">
+						<h4 class="banner-subtitle text-uppercase text-primary font-weight-bold">Seasonal</h4>
+						<h3 class="banner-title text-white ls-m">БЪДИ В ТРЕНДА</h3>
+						<p class="font-weight-semi-bold">ТОП 5 НОВИ ТРЕНДА ОТ SVIK</p>
+						<a href="/catalog/womenSport" class="btn btn-white btn-link btn-underline">ПАЗАРУВАЙ СЕГА<i class="d-icon-arrow-right"></i>
+						</a>
+					</div>
+				</div>
+
+				<div class="category category-absolute category-banner appear-animate mb-2" data-animation-options="{
+																								                            'name': 'fadeInRightShorter',
+																								                            'delay': '.2s'
+																								                        }">
+					<a href="#">
+						<figure class="category-media">
+							<img src="/assets/images/demos/demo7/categories/3.jpg" alt="category" width="468" height="320"/>
+						</figure>
+					</a>
+					<div class="category-content align-items-center x-50 w-100">
+						<h4 class="category-name text-uppercase">СЕЗОН AW21/22</h4>
+						<span class="category-count text-uppercase">
+							НОВИ МОДЕЛИ
+						</span>
+						<a href="/catalog/boots" class="btn btn-underline btn-link x-50">ВИЖ СЕГА</a>
+					</div>
+				</div>
+
+				<div class="banner banner-fixed appear-animate mb-2" data-animation-options="{
+																								                            'name': 'fadeInRightShorter',
+																								                            'delay': '.4s'
+																								                        }">
+					<a href="#">
+						<figure class="category-media">
+							<img src="/assets/images/demos/demo7/categories/4.jpg" alt="category" width="468" height="320" style="background-color: rgb(196, 140, 92);"/>
+						</figure>
+					</a>
+					<div class="banner-content text-center x-50 y-50 w-100">
+						<h3 class="banner-title text-white ls-m font-weight-bold" >НОВИ МОДЕЛИ</h3>
+							<p class="font-weight-semi-bold text-white">НОВИ МЪЖКИ МОДЕЛИ</p>
+						<a href="/catalog/manCasual" class="btn btn-white btn-link btn-underline">ВИЖ СЕГА<i class="d-icon-arrow-right"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="mt-10 pt-7 appear-animate" data-animation-options="{
+																                    'delay': '.2s'
+																                }">
+			<div class="container">
+				<h2 class="title title-center">Актуални</h2>
+				<div class="row">
+					{% for product in trending %}
+
+						{% set obj = (product.pictures | json_decode) %}
+
+						<div class="col-lg-4 col-6 mb-4">
+							<div class="product text-center">
+								<figure class="product-media">
+									<a href="/singleProduct/{{product.id}}">
+										<img src="/assets/images/uploads/{{obj[0]}}.jpg" alt="product" width="500" height="345">
+									</a>
+									<div class="product-action-vertical">
+										<a href="#" class="btn-product-icon btn-cart" data-toggle="modal" data-target="#addCartModal" title="Add to cart">
+											<i class="d-icon-bag"></i>
+										</a>
+										<a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist">
+											<i class="d-icon-heart"></i>
+										</a>
+									</div>
+									<div class="product-action">
+										<a href="/singleProduct/{{product.id}}" class="btn-product" data-toggle="modal" data-target="#modal" title="Quick View">Бърз прегед</a>
+									</div>
+								</figure>
+								<div class="product-details">
+									<div class="product-cat">
+										<a href="#">Shoes</a>
+									</div>
+									<h3 class="product-name">
+										<a href="/singleProduct/{{product.id}}">{{product.title}}</a>
+									</h3>
+									<div class="product-price">
+										{% if product.isInPromotion %}
+											<ins class="new-price">{{(product.price - product.discount)|number_format(2) }}
+												лв</ins>
+											<del class="old-price">{{product.price|number_format(2) }}
+												лв</del>
 
 
-    <main>
+										{% else %}
+											<ins class="new-price">{{(product.price)|number_format(2) }}
+												лв</ins>
+										{% endif %}
+									</div>
+									<div class="ratings-container">
+										{% if product.getAvgRating()>0%}
+											{% for i in 1..product.getAvgRating() %}
+												<span style="color: orange" class="fa fa-star checked"></span>
+											{% endfor %}
 
-        <!-- slider Area Start -->
-        <div class="slider-area ">
-            <!-- Mobile Menu -->
-            <div class="slider-active">
-                <div class="single-slider slider-height" data-background="https://www.obuvkisvik.com/assets/img/hero/h1_hero.jpg">
-                    <div class="container">
-                        <div class="row d-flex align-items-center justify-content-between">
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 d-none d-md-block">
+											{% if product.getAvgRating()<5%}
+												{% for i in (product.getAvgRating()+1)..5 %}
+													<span class="fa fa-star"></span>
+												{% endfor %}
+											{% endif %}
+											<a href="#product-tab-reviews" class="link-to-tab rating-reviews">(
+												{{product.getReviews()|length}}
+												оценки )</a>
+										{% else %}
 
-                            </div>
-                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-8">
-                                <div class="hero__caption">
-                                    <span data-animation="fadeInRight" data-delay=".4s"></span>
-                                    <h1 data-animation="fadeInRight" data-delay=".6s">Лятна <br> Колекция</h1>
-                                    <p data-animation="fadeInRight" data-delay=".8s">Най-доброто от 2020!</p>
-                                    <!-- Hero-btn -->
-                                    <div class="hero__btn" data-animation="fadeInRight" data-delay="1s">
-                                        <a href="{{ path('catalog',{ 'categoryName':'newest'})}}" class="btn hero-btn">Пазарувай</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+											{% for i in 1..5 %}
+												<span class="fa fa-star"></span>
+											{% endfor %}
+											<a href="#" class="rating-reviews">(0 оценки)</a>
+										{% endif %}
+									</div>
 
-            </div>
-        </div>
-        <!-- slider Area End-->
-        <!-- Category Area Start-->
-        <section class="category-area section-padding30">
-            <div class="container-fluid">
-                <!-- Section Tittle -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-tittle text-center mb-85">
-                            <h2>ВИЖТЕ НАШИТЕ КАТЕГОРИИ</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-4 col-lg-6">
-                        <div class="single-category mb-30">
-                            <div class="category-img">
-                                <img src="https://www.obuvkisvik.com/assets/img/categori/cat1.jpg" alt="">
-                                <div class="category-caption">
-                                    <h2>ДАМСКИ</h2>
-                                    <span class="best"><a href="{{ path('catalog',{ 'categoryName':'womenSport'}) }}">НАЙ-ДОБРИТЕ ОФЕРТИ</a></span>
-                                    <span class="collection">Нови продукти</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6">
-                        <a href="{{ path('catalog',{ 'categoryName':'boots'}) }}">
-                            <div class="single-category mb-30">
-                                <div class="category-img text-center">
-                                    <img src="https://www.obuvkisvik.com/assets/img/categori/cat2.jpg" alt="">
-                                    <div class="category-caption">
-                                        <span class="collection">ПРОМОЦИИ!</span>
-                                        <h2>ЗИМНИ ОБУВКИ</h2>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</section>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-xl-4 col-lg-6">
-                        <div class="single-category mb-30">
-                            <div class="category-img">
-                                <img src="https://www.obuvkisvik.com/assets/img/categori/cat3.jpg" alt="">
-                                <div class="category-caption">
-                                    <h2>МЪЖКИ</h2>
-                                    <span class="best"><a href="{{ path('catalog',{ 'categoryName':'manOfficial'}) }}">НАЙ-ДОБРИТЕ ОФЕРТИ</a></span>
-                                    <span class="collection">Нови продукти</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Category Area End-->
-        <!-- Latest Products Start -->
-        <section class="latest-product-area padding-bottom">
-            <div class="container">
-                <div class="row product-btn d-flex justify-content-end align-items-end">
-                    <!-- Section Tittle -->
-                    <div class="col-xl-4 col-lg-5 col-md-5">
-                        <div class="section-tittle mb-30">
-                            <h2>НАЙ-НОВИ</h2>
-                        </div>
-                    </div>
-                    <div class="col-xl-8 col-lg-7 col-md-7">
-                        <div class="properties__button f-right">
-                            <!--Nav Button  -->
-                            <nav>
-                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+		<section class="banner-group pt-2 mt-10">
+			<div class="row cols-md-2 gutter-sm">
+				<div class="banner banner-fixed overlay-dark appear-animate">
+					<figure>
+						<img src="/assets/images/demos/demo7/banners/1.jpg" width="945" height="390" alt="banner" style="background-color: rgb(37, 38, 39);"/>
+					</figure>
+					<div class="banner-content y-50">
+						<div class="appear-animate" data-animation-options="{
+																																                                    'name': 'fadeInUpShorter',
+																																                                    'delay': '.2s'
+																																                                }">
+							<h4 class="banner-subtitle text-uppercase text-primary font-weight-bold">
+								Equipment</h4>
+							<h3 class="banner-title text-white font-weight-bold mb-3">Мъжки сникърси от естествена кожа</h3>
+							<p class="font-weight-semi-bold mb-6">Цени от 59.00 лв.</p>
+							<a href="/catalog/manCasual" class="btn btn-primary btn-rounded">Виж сега<i class="d-icon-arrow-right"></i>
+							</a>
+						</div>
+					</div>
+				</div>
 
-                                </div>
-                            </nav>
-                            <!--End Nav Button  -->
-                        </div>
-                    </div>
-                </div>
-                <!-- Nav Card -->
-                <div class="tab-content" id="nav-tabContent">
-                    <!-- card one -->
-                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                        <div class="row">
-                            {% for product in bestSellers %}
-                                <div class="col-xl-4 col-lg-4 col-md-6">
-                                    <a href="{{ path('singleProduct',{'id':product.id}) }}">
-                                        <div class="single-product mb-60">
+				<div class="banner banner-fixed overlay-dark appear-animate">
+					<figure>
+						<img src="/assets/images/demos/demo7/banners/2.jpg" width="945" height="390" alt="banner" style="background-color: rgb(236, 237, 239);"/>
+					</figure>
+					<div class="banner-content y-50">
+						<div class="appear-animate" data-animation-options="{
+																																                                    'name': 'fadeInUpShorter',
+																																                                    'delay': '.3s'
+																																                                }">
+							<h4 class="banner-subtitle text-uppercase text-primary font-weight-bold">
+								Bestseller</h4>
+							<h3 class="banner-title font-weight-bold mb-3">Висококачествени дамски сникърси</h3>
+							<p class="font-weight-semi-bold mb-6 text-body">Цени от 59.00 лв</p>
+							<a href="/catalog/womenSport" class="btn btn-dark btn-rounded">Виж сега<i class="d-icon-arrow-right"></i>
+							</a>
+						</div>
+					</div>
+				</div>
 
-                                            <div class="product-img">
-                                                <img src="/assets/img/small/{{ product.id }}.0.jpg" alt="">
-                                                {% if product.isNew==1 %}
-                                                    <div class="new-product">
-                                                        <span>НОВО</span>
-                                                    </div>
-                                                {% endif %}
-                                            </div>
+			</div>
+		</section>
 
-                                            <div class="product-caption">
-
-                                                <h4><a href="{{ path('singleProduct',{'id':product.id}) }}">{{ product.title }}</a></h4>
-                                                <div class="price">
-                                                    <ul>
-                                                        {%  if product.isInPromotion %}
-                                                            <li>{{ product.price|number_format(2) }} лв</li>
-                                                            <li class="discount">{{ product.discountPrice|number_format(2) }} лв</li>
-                                                        {% else %}
-                                                            <li>{{ product.price|number_format(2) }} лв</li>
-                                                        {% endif %}
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </a>
-                                </div>
-
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-                <!-- End Nav Card -->
-            </div>
-        </section>
-        <!-- Latest Products End -->
-        <!-- Best Products Start -->
-        <div class="best-product-area lf-padding" >
-            <div class="product-wrapper bg-height" style="background-image: url('https://obuvkisvik.com/assets/img/categori/card.jpg')">
-                <div class="container position-relative">
-                    <div class="row justify-content-between align-items-end">
-                        <div class="product-man position-absolute  d-none d-lg-block">
-
-                        </div>
-                        <div class="col-xl-2 col-lg-2 col-md-2 d-none d-lg-block">
-                            <div class="vertical-text">
-                                <span>SVIK Shoes</span>
-                            </div>
-                        </div>
-                        <div class="col-xl-8 col-lg-8">
-                            <div class="best-product-caption">
-                                <h2 style="color: white">СТИЛ, УДОБСТВО,     КАЧЕСТВО</h2>
-                                <p style="color: white">"Модата избледнява,  стилът е вечен!"</p>
-                                <a href="{{ path('catalog',{ 'categoryName':'newest'})}}" class="black-btn">ПАЗАРУВАЙ</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Shape -->
-            <div class="shape bounce-animate d-none d-md-block">
-
-            </div>
-        </div>
-        <!-- Best Products End-->
-        <!-- Best Collection Start -->
-        <div class="best-collection-area section-padding2">
-            <div class="container">
-                <div class="row d-flex justify-content-between align-items-end">
-                    <!-- Left content -->
-
-                </div>
-            </div>
-        </div>
-        <!-- Best Collection End -->
-
-        <!-- Shop Method Start-->
-        <div class="shop-method-area section-padding30">
-            <div class="container">
-                <div class="row d-flex justify-content-between">
-                    <div class="col-xl-3 col-lg-3 col-md-6">
-                        <div class="single-method mb-40">
-                            <i class="ti-package"></i>
-                            <h6>Бърза доставка </h6>
-                            <p>Доставка до 3 дни от изпращането на поръчка</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-6">
-                        <div class="single-method mb-40">
-                            <i class="ti-time"></i>
-                            <h6>Доказани във времето</h6>
-                            <p>Над 20 години опит в обувната сфера и хиляди доволни клиенти</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-6">
-                        <div class="single-method mb-40">
-                            <i class="ti-reload"></i>
-                            <h6>Тест и преглед</h6>
-                            <p>Изпробвайте продукта преди да заплатите</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Shop Method End-->
-
-        <!-- Latest Offers Start -->
-        <div class="latest-wrapper lf-padding">
-            <div class="latest-area latest-height d-flex align-items-center" data-background="assets/img/collection/latest-offer.png">
-                <div class="container">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-xl-5 col-lg-5 col-md-6 offset-xl-1 offset-lg-1">
-                            <div class="latest-caption">
-                                <h2>Получавайте<br> най-новите ни оферти, като се абонирате!</h2>
-
-                            </div>
-                        </div>
-                        <div class="col-xl-5 col-lg-5 col-md-6 ">
-                            <div class="latest-subscribe">
-                                <form action="#">
-                                    <input type="email" placeholder="Вашият EMAIL">
-                                    <button>ИЗПРАТИ</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- man Shape -->
-
-            </div>
-        </div>
-        <!-- Latest Offers End -->
+		<section class="mt-10 pt-7 appear-animate" data-animation-options="{
+																                    'delay': '.2s'
+																                }">
+			<div class="container">
+				<h2 class="title title-center mb-6">Представен артикул</h2>
+				<div class="product product-single row">
+					<div class="col-md-6 product-gallery">
+						<div class="rotate-slider owl-carousel product-single-carousel owl-theme owl-nav-arrow row gutter-no cols-1" data-owl-options="{
+																																                                    'nav': true,
+																																                                    'dots': false,
+																																                                    'loop': true
+																																                                }">
+							<figure class="product-image">
+								<img src="/assets/images/uploads/11196.0.jpg" data-zoom-image="/assets/images/uploads/11196.0.jpg" alt="Women's Brown Leather Backpacks" width="800" height="800">
+							</figure>
+							<figure class="product-image">
+								<img src="/assets/images/uploads/11197.0.jpg" data-zoom-image="/assets/images/uploads/11197.0.jpg" alt="Women's Brown Leather Backpacks" width="800" height="800">
+							</figure>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="product-details">
+							<h2 class="product-name">
+								<a href="#">{{featuredProduct.title}}</a>
+							</h2>
+							<div class="product-meta mb-3">
+								Модел:
+								<span class="product-sku">{{featuredProduct.model}}</span>
+								Марка:
+								<span class="product-cat text-capitalize">SVIK Shoes</span>
+							</div>
+							<div class="product-price">
+									{% if featuredProduct.isInPromotion %}
+											<ins class="new-price">{{(featuredProduct.price - featuredProduct.discount)|number_format(2) }}
+												лв</ins>
+											<del class="old-price">{{featuredProduct.price|number_format(2) }}
+												лв</del>
 
 
+										{% else %}
+											<ins class="new-price">{{(featuredProduct.price)|number_format(2) }}
+												лв</ins>
+										{% endif %}
+							</div>
+							<div class="ratings-container">
+								{% if featuredProduct.getAvgRating()>0%}
+											{% for i in 1..featuredProduct.getAvgRating() %}
+												<span style="color: orange" class="fa fa-star checked"></span>
+											{% endfor %}
+
+											{% if featuredProduct.getAvgRating()<5%}
+												{% for i in (featuredProduct.getAvgRating()+1)..5 %}
+													<span class="fa fa-star"></span>
+												{% endfor %}
+											{% endif %}
+											<a href="#product-tab-reviews" class="link-to-tab rating-reviews">(
+												{{featuredProduct.getReviews()|length}}
+												оценки )</a>
+										{% else %}
+
+											{% for i in 1..5 %}
+												<span class="fa fa-star"></span>
+											{% endfor %}
+
+											<a href="#" class="rating-reviews">(0 оценки)</a>
+										{% endif %}
+							</div>
+
+							<p class="product-short-desc font-primary">{{featuredProduct.description}}</p>
+							<hr class="product-divider">
+
+							<div class="product-form product-qty">				
+									<a href='/singleProduct/{{featuredProduct.id}}' class="btn-product text-normal ls-normal font-weight-semi-bold">
+										<i class="d-icon-bag"></i>&#160; Преглед</a>
+								</div>
+							</div>
+
+							<hr class="product-divider mb-3">
+
+						
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="mt-7 appear-animate" data-animation-options="{
+																                    'delay': '.2s'
+																                }">
+			<div class="container">
+				<h2 class="title title-center">БЕСТСЕЛЪРИ</h2>
+				<div class="owl-carousel owl-theme row owl-nav-full owl-shadow-carousel cols-lg-4 cols-md-3 cols-2" data-owl-options="{
+																								                            'items': 4,
+																								                            'nav': false,
+																								                            'dots': true,
+																								                            'loop': false,
+																								                            'margin': 20,
+																								                            'responsive': {
+																								                                '0': {
+																								                                    'items': 2
+																								                                },
+																								                                '768': {
+																								                                    'items': 3
+																								                                },
+																								                                '992': {
+																								                                    'items': 4,
+																								                                    'nav': true,
+																								                                    'dots': false
+																								                                }
+																								                            }
+																								                        }">
+					{% for product in bestSellers %}
+						{% set obj = (product.pictures | json_decode) %}
+
+						<div class="product text-center">
+							<figure class="product-media">
+								<a href="/singleProduct/{{product.id}}">
+									<img src="/assets/images/uploads/{{obj[0]}}.jpg" alt="product" width="500" height="345">
+								</a>
+								<div class="product-action-vertical">
+									<a href="#" class="btn-product-icon btn-cart" data-toggle="modal" data-target="#addCartModal" title="Add to cart">
+										<i class="d-icon-bag"></i>
+									</a>
+									<a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist">
+										<i class="d-icon-heart"></i>
+									</a>
+								</div>
+								<div class="product-action">
+									<a href="/singleProduct/{{product.id}}" class="btn-product" data-toggle="modal" data-target="#modal" title="Quick View">Бърз прегед</a>
+								</div>
+							</figure>
+							<div class="product-details">
+								<div class="product-cat">
+									<a href="#">Shoes</a>
+								</div>
+								<h3 class="product-name">
+									<a href="/singleProduct/{{product.id}}">{{product.title}}</a>
+								</h3>
+								<div class="product-price">
+									{% if product.isInPromotion %}
+										<ins class="new-price">{{(product.price - product.discount)|number_format(2) }}
+											лв</ins>
+										<del class="old-price">{{product.price|number_format(2) }}
+											лв</del>
 
 
-    </main>
+									{% else %}
+										<ins class="new-price">{{(product.price)|number_format(2) }}
+											лв</ins>
+									{% endif %}
+								</div>
+								<div class="ratings-container">
+									{% if product.getAvgRating()>0%}
+										{% for i in 1..product.getAvgRating() %}
+											<span style="color: orange" class="fa fa-star checked"></span>
+										{% endfor %}
+
+										{% if product.getAvgRating()<5%}
+											{% for i in (product.getAvgRating()+1)..5 %}
+												<span class="fa fa-star"></span>
+											{% endfor %}
+										{% endif %}
+										<a href="#product-tab-reviews" class="link-to-tab rating-reviews">(
+											{{product.getReviews()|length}}
+											оценки )</a>
+									{% else %}
+
+										{% for i in 1..5 %}
+											<span class="fa fa-star"></span>
+										{% endfor %}
+
+										<a href="#" class="rating-reviews">(0 оценки)</a>
+									{% endif %}
+								</div>
+
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</section>
+
+
+		<section class="instagram-section mt-10 pt-8 pb-8 mb-10 appear-animate" data-animation-options="{
+																                    'delay': '.2s'
+																                }">
+			<div class="container">
+				<h2 class="title title-center">Instagram</h2>
+				<div class="owl-carousel owl-theme row cols-xl-6 cols-lg-5 cols-md-4 cols-sm-3 cols-2 gutter-no" data-owl-options="{
+																								                            'items': 6,
+																								                            'nav': false,
+																								                            'dots': false,
+																								                            'autoplay': true,
+																								                            'autoplayTimeout': 5000,
+																								                            'responsive': {
+																								                                '0': {
+																								                                    'items': 2
+																								                                },
+																								                                '576': {
+																								                                    'items': 3
+																								                                },
+																								                                '768': {
+																								                                    'items': 4
+																								                                },
+																								                                '992': {
+																								                                    'items': 5
+																								                                },
+																								                                '1200': {
+																								                                    'items': 6
+																								                                }
+																								                            }
+																								                        }">
+					<figure class="instagram">
+						<a href="https://www.instagram.com/svik_shoes/">
+							<img src="/assets/images/small/10f68d0e88c92e33eadcfff49beb85a683a4a596.jpg" alt="Instagram" width="257" style="height: 307px"/>
+						</a>
+					</figure>
+					<figure class="instagram">
+						<a href="https://www.instagram.com/svik_shoes/">
+							<img src="/assets/images/small/01d4f9303ed8e65c5a6a180c4157236c25fd9d39.jpg" alt="Instagram" width="257" style="height: 307px"/>
+						</a>
+					</figure>
+					<figure class="instagram">
+						<a href="https://www.instagram.com/svik_shoes/">
+							<img src="/assets/images/small/42d84d625b937930b25e5b6e3ca29bdf645331eb.jpg" alt="Instagram" width="257" style="height: 307px"/>
+						</a>
+					</figure>
+					<figure class="instagram">
+						<a href="https://www.instagram.com/svik_shoes/">
+							<img src="/assets/images/small/f353ebc76ecc12b284442ee445a312cdf27c8a96.jpg" alt="Instagram" width="257" style="height: 307px"/>
+						</a>
+					</figure>
+					<figure class="instagram">
+						<a href="https://www.instagram.com/svik_shoes/">
+							<img src="/assets/images/small/b1c1c395e69ea73866635611b48c68f615abff96.jpg" alt="Instagram" width="257" style="height: 307px"/>
+						</a>
+					</figure>
+					<figure class="instagram">
+						<a href="https://www.instagram.com/svik_shoes/">
+							<img src="/assets/images/small/8e1ddd5fd0f4e5b27f3e69a03c42675334a4a2cb.jpg" alt="Instagram" width="257" style="height: 307px"/>
+						</a>
+					</figure>
+				</div>
+			</div>
+		</section>
+	</div>
+
 
 {% endblock %}
+

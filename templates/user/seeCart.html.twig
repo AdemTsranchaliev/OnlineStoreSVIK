@@ -1,118 +1,93 @@
 {% extends 'base.html.twig' %}
-
-
+{% block title %}Количка
+{% endblock %}
 {% block main %}
-
-    <div class="slider-area ">
-        <!-- Mobile Menu -->
-        <div class="single-slider slider-height2 d-flex align-items-center" data-background="assets/img/hero/category.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="hero-cap text-center">
-                            <h2>Кошница</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--================Cart Area =================-->
-    <section class="cart_area section_padding">
-        <div class="container">
-            <div class="cart_inner">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Продукт</th>
-                            <th scope="col">Номер</th>
-                            <th scope="col">Ед. цена</th>
-                            <th scope="col">Количество</th>
-                            <th scope="col">Общо</th>
-                        </tr>
-                        </thead>
-                        <tbody id="toChange">
-                        {% set sum=0 %}
-                        {% for product in productsCart %}
-                        {% set sum= sum+product.price%}
-                        <tr>
-                            <td>
-                                <a href="{{ path('singleProduct',{'id':product.productId}) }}">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="/assets/img/uploads/{{ product.productId }}.0.jpg" alt="" height="140" width="140" />
+<main class="main cart">
+			<div class="page-content pt-7 pb-10">
+				<div class="step-by pr-4 pl-4">
+                    <h3 class="title title-simple title-step active"><a href="/shoppingCart">1. Преглед на количка</a></h3>
+                    <h3 class="title title-simple title-step"><a href="/checkout">2. Поръчка</a></h3>
+					<h3 class="title title-simple title-step"><a href="#">3. Завършена поръчка</a></h3>
+				</div>
+				<div class="container mt-7 mb-2">
+					<div class="row">
+						<div class="col-lg-8 col-md-12 pr-lg-4">
+							<table class="shop-table cart-table">
+								<thead>
+									<tr>
+										<th><span>Продукт</span></th>
+										<th></th>
+										<th><span>Ед. цена</span></th>
+										<th><span>Номер/Кол.</span></th>
+										<th>Общо</th>
+									</tr>
+								</thead>
+								<tbody id='content'>
+								</tbody>
+							</table>
+							<div class="cart-actions mb-6 pt-4">
+								<a href="/promotions" class="btn btn-dark btn-md btn-rounded btn-icon-left mr-4 mb-4"><i class="d-icon-arrow-left"></i>Продължи пазаруване</a>
+							</div>
+							<div class="cart-coupon-box mb-8">
+								<h4 class="title coupon-title text-uppercase ls-m">Код за отстъпка</h4>
+								<input type="text" name="coupon_code" class="input-text form-control text-grey ls-m mb-4"
+									id="coupon_code" value="" placeholder="Enter coupon code here...">
+								<button type="submit" class="btn btn-md btn-dark btn-rounded btn-outline">Приложи промокод</button>
+							</div>
+						</div>
+						<aside class="col-lg-4 sticky-sidebar-wrapper">
+							<div class="sticky-sidebar" data-sticky-options="{'bottom': 20}">
+								<div class="summary mb-4">
+									<h3 class="summary-title text-left">Общо за количка</h3>
+									<table class="shipping">
+										<tr class="summary-subtotal">
+											<td>
+												<h4 class="summary-subtitle">Обща сума</h4>
+											</td>
+											<td>
+												<p class="summary-subtotal-price" id='total'></p>
+											</td>												
+										</tr>
+										<tr class="sumnary-shipping shipping-row-last">
+											<td colspan="2">
+												<h4 class="summary-subtitle">Доставка</h4>
+												<ul>                                    
+													<li>
+														<div class="custom-radio">
+                           			<div class="sample-icon" >
+                                        <i class="d-icon-truck"></i>
+                                        <span class="name" id="shipping-price">Безплатна доставка</span>
                                     </div>
-                                    <div class="media-body">
-                                        <p>{{ product.getCartProduct()[0].getTitle() }}</p>
-                                    </div>
-                                </div>
-                                </a>
-                            </td>
-                            <td>
-                                <h5>({{ product.modelSize }})</h5>
-                            </td>
-                            <td>
-                                <h5>{{ product.getCartProduct()[0].getPrice()|number_format(2) }} лв</h5>
-                            </td>
-                            <td>
-                                <h5>{{ product.quantity }}</h5>
-                            </td>
+														</div>
+													</li>					
+									
+												</ul>
+											</td>
+										</tr>
+									</table>
+						
+									<table class="total">
+										<tr class="summary-subtotal">
+											<td>
+												<h4 class="summary-subtitle">Общо</h4>
+											</td>
+											<td>
+												<p class="summary-total-price ls-s" id='totalTwo'></p>
+											</td>												
+										</tr>
+									</table>
+									<a href="/checkout" class="btn btn-dark btn-rounded btn-checkout" id="buttonOrder">Към поръчка</a>
+								</div>
+							</div>
+						</aside>
+					</div>
+				</div>
+			</div>
+		</main>
+{% endblock %}
 
-                            <td>
-                                <h5>{{ product.price|number_format(2) }} лв</h5>
-                            </td>
-                            <td>
-                                <div >
-                                    <a href="#" onclick="deleteProd({{ product.id }})" style="color: #0b0b0b"><span>&#10006;</span></a>
-                                </div>
-                            </td>
+{% block javascripts %}
 
-                        </tr>
-                        {% endfor %}
-                        {% if sum != 0 %}
-                        <tr>
-
-                            <td>
-                                <h5>Общо за кошница</h5>
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <h5>{{ sum|number_format(2) }} лв</h5>
-                            </td>
-                        </tr>
-                        <tr class="bottom_button">
-                            <td>
-                                <a class="btn_1" href="{{ path('index') }}">Начало</a>
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <div class="cupon_text float-right">
-                                    <a class="btn_1" href="{{ path('ordering') }}">КЪМ ПОРЪЧКА</a>
-                                </div>
-                            </td>
-                        </tr>
-                        {% else %}
-                            <tr class="bottom_button">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Във вашата кошница няма продукти</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        {% endif %}
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-    </section>
-    <!--================End Cart Area =================-->
-
+    <script src="{{ asset('/assets/js/shopping-cart.js')}}"></script>
 
 {% endblock %}

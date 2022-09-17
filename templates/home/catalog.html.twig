@@ -1,91 +1,208 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{currentCategory.getName()}}{% endblock %}
 
 {% block main %}
+	<main class="main">
+		<div class="page-header" style="background-image: url('/assets/images/demos/demo7/shop/page-header.jpg'); background-color: #3C63A4;">
+			<h3 class="page-subtitle">Каталог</h3>
+			<h1 class="page-title">{{currentCategory.getName}}</h1>
+			<ul class="breadcrumb">
+				<li>
+					<a href="/">
+						<i class="d-icon-home"></i>
+					</a>
+				</li>
+				<li class="delimiter">/</li>
+				<li>{{currentCategory.getName}}</li>
+			</ul>
+		</div>
+		<!-- End PageHeader -->
+		<div class="page-content mb-10 pb-6" style='margin-top:2%'>
+			<div class="container">
+				<nav class="toolbox toolbox-pagination">
+					<p class="show-info mr-sm-auto">
+						Показване
+						{{products|length}}
+						от
+						{{allProductsCount}}
+						продукта
+						<ul class="pagination">
+							{% if currentPage==1 %}
+								<li class="page-item disabled">
+									<a class="page-link page-link-prev" href="#" aria-label="Previous" aria-disabled="false">
+										<i class="d-icon-arrow-left"></i>Назад
+									</a>
+								</li>
+							{% else %}
+								<li class="page-item">
+									<a class="page-link page-link-prev" href="/catalog/{{currentCategory.getTag}}/{{ currentPage - 1 }}" aria-label="Previous" aria-disabled="false">
+										<i class="d-icon-arrow-left"></i>Назад
+									</a>
+								</li>
+							{% endif %}
 
-    <!-- slider Area Start-->
-    <div class="slider-area ">
-        <!-- Mobile Menu -->
-        <div class="single-slider slider-height2 d-flex align-items-center" data-background="https://obuvkisvik.com/assets/img/hero/category.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="hero-cap text-center">
-                            <h2 id="categoryName">{{ category }}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- slider Area End-->
+							{% for i in 1..pages%}
+								{% if currentPage==i %}
+									<li class="page-item active" aria-current="page">
+										<a class="page-link" href="#">{{i}}</a>
+									</li>
+								{% else %}
+									<li class="page-item" aria-current="page">
+										<a class="page-link" href="/catalog/{{currentCategory.getTag}}/{{i}}">{{i}}</a>
+									</li>
+								{% endif %}
 
-    <!-- Latest Products Start -->
-    <section class="latest-product-area latest-padding">
-        <div class="container">
-            <div class="row product-btn d-flex justify-content-between">
-                <div class="properties__button">
-                    <!--Nav Button  -->
+							{% endfor %}
+							{% if currentPage==pages %}
+								<li class="page-item disabled">
+									<a class="page-link page-link-next" href="/catalog/{{currentCategory.getTag}}/{{ currentPage + 1 }}" tabindex="-1" aria-disabled="true" aria-label="Next">
+										Напред<i class="d-icon-arrow-right"></i>
+									</a>
+								</li>
+							{% else %}
+								<li class="page-item">
+									<a class="page-link page-link-next" href="/catalog/{{currentCategory.getTag}}/{{ currentPage + 1 }}" aria-label="Next">
+										Напред<i class="d-icon-arrow-right"></i>
+									</a>
+								</li>
+							{% endif %}
+						</ul>
+					</p>
+				</nav>
+				<div class="row cols-2 cols-sm-3 cols-md-3 product-wrapper">
+					{% for product in products  %}
 
-                    <!--End Nav Button  -->
-                </div>
-                <div class="select-this d-flex">
-                    <div class="featured">
-                        <span>Сортирай по: </span>
-                    </div>
-                    <form action="#">
-                        <div class="select-itms">
-                            <select name="select" id="sorting">
-                                <option value="default-sorting">Подразбиране</option>
-                                <option value="price-low-to-high">Цена: висока към ниска</option>
-                                <option value="price-high-to-low">Цена: ниска към висока</option>
-                                <option value="by-popularity">Популярност</option>
-                                <option value="date">Най-нови</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- Nav Card -->
-            <div class="tab-content" id="nav-tabContent">
-                <!-- card one -->
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                    <div class="row" id="divSort">
-                        {% for product in products %}
-                            <a href="{{ path('singleProduct',{'id':product.id}) }}">
-                                <div class="col-xl-4 col-lg-4 col-md-6">
-                                    <div class="single-product mb-60">
-                                        <div class="product-img">
-                                            <img src="https://obuvkisvik.com/assets/img/small/{{ product.id }}.0.jpg" alt="">
-                                            {% if product.isNew==1 %}
-                                                <div class="new-product">
-                                                    <span>Ново</span>
-                                                </div>
-                                            {% endif %}
-                                        </div>
-                                        <div class="product-caption">
+						{% set obj = (product.pictures | json_decode) %}
+						<div class="product-wrap">
+							<div class="product">
+								<figure class="product-media">
+									<a href="/singleProduct/{{product.id}}">
+										<img src="/assets/images/small/{{obj[0]}}.jpg" alt="product" width="280" height="315">
+									</a>
+									<div class="product-label-group">
+										{% if (product.getStatuses() | json_decode)['isNew'] %}
 
-                                            <h4><a href="{{ path('singleProduct',{'id':product.id}) }}">{{ product.title }}</a></h4>
-                                            <div class="price">
-                                                <ul>
-                                                    {%  if product.isInPromotion %}
-                                                        <li>{{ product.price|number_format(2) }} лв</li>
-                                                        <li class="discount">{{ product.discountPrice|number_format(2) }} лв</li>
-                                                    {% else %}
-                                                        <li>{{ product.price|number_format(2) }} лв</li>
-                                                    {% endif %}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        {% endfor %}
+										<label class="product-label label-new">НОВО</label>
+										{% endif %}
 
-                    </div>
-                </div>
-            </div>
-            <!-- End Nav Card -->
-        </div>
-    </section>
+										{% if product.isInPromotion %}
+										<label class="product-label label-sale">НАМАЛЕНИЕ</label>
+										{% endif %}
+									</div>
+									<div class="product-action-vertical">
+										
+										<a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist">
+											<i class="d-icon-heart"></i>
+										</a>
+									</div>
+									<div class="product-action">
+										<a href="/singleProduct/{{product.id}}" class="btn-product" data-toggle="modal" data-target="#modal" title="Quick View">Бърз прегед</a>
+									</div>
+								</figure>
+								<div class="product-details">
+									<div class="product-cat">
+										<a href="#">SVIK Shoes</a>
+									</div>
+									<h3 class="product-name">
+										<a href="/singleProduct/{{product.id}}">{{product.title}}</a>
+									</h3>
+									<div class="product-price">
+
+
+										{% if product.isInPromotion %}
+											<ins class="new-price">{{(product.price - product.discount)|number_format(2) }}
+												лв</ins>
+											<del class="old-price">{{product.price|number_format(2) }}
+												лв</del>
+
+
+										{% else %}
+											<ins class="new-price">{{(product.price)|number_format(2) }}
+												лв</ins>
+										{% endif %}
+									</div>
+									<div class="ratings-container">
+										{% if product.getAvgRating()>0%}
+											{% for i in 1..product.getAvgRating() %}
+												<span style="color: orange" class="fa fa-star checked"></span>
+											{% endfor %}
+
+											{% if product.getAvgRating()<5%}
+												{% for i in (product.getAvgRating()+1)..5 %}
+													<span class="fa fa-star"></span>
+												{% endfor %}
+											{% endif %}
+											<a href="#product-tab-reviews" class="link-to-tab rating-reviews">(
+												{{product.getReviews()|length}}
+												оценки )</a>
+										{% else %}
+
+											{% for i in 1..5 %}
+												<span class="fa fa-star"></span>
+											{% endfor %}
+
+											<a href="#" class="rating-reviews">(0 оценки)</a>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+						</div>
+
+					{% endfor %}
+				</div>
+				<nav class="toolbox toolbox-pagination">
+					<p class="show-info mr-sm-auto">
+						Показване
+						{{products|length}}
+						от
+						{{allProductsCount}}
+						продукта
+						<ul class="pagination">
+							{% if currentPage==1 %}
+								<li class="page-item disabled">
+									<a class="page-link page-link-prev" href="#" aria-label="Previous" aria-disabled="false">
+										<i class="d-icon-arrow-left"></i>Назад
+									</a>
+								</li>
+							{% else %}
+								<li class="page-item">
+									<a class="page-link page-link-prev" href="/catalog/{{currentCategory.getTag}}/{{ currentPage - 1 }}" aria-label="Previous" aria-disabled="false">
+										<i class="d-icon-arrow-left"></i>Назад
+									</a>
+								</li>
+							{% endif %}
+
+							{% for i in 1..pages %}
+								{% if currentPage==i %}
+									<li class="page-item active" aria-current="page">
+										<a class="page-link" href="#">{{i}}</a>
+									</li>
+								{% else %}
+									<li class="page-item" aria-current="page">
+										<a class="page-link" href="/catalog/{{currentCategory.getTag}}/{{i}}">{{i}}</a>
+									</li>
+								{% endif %}
+
+							{% endfor %}
+							{% if currentPage==pages %}
+								<li class="page-item disabled">
+									<a class="page-link page-link-next" href="/catalog/{{currentCategory.getTag}}/{{ currentPage + 1 }}" tabindex="-1" aria-disabled="true" aria-label="Next">
+										Напред<i class="d-icon-arrow-right"></i>
+									</a>
+								</li>
+							{% else %}
+								<li class="page-item">
+									<a class="page-link page-link-next" href="/catalog/{{currentCategory.getTag}}/{{ currentPage + 1 }}" aria-label="Next">
+										Напред<i class="d-icon-arrow-right"></i>
+									</a>
+								</li>
+							{% endif %}
+						</ul>
+					</p>
+				</nav>
+			</div>
+		</div>
+	</main>
 {% endblock %}
+

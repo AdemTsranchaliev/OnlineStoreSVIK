@@ -22,15 +22,22 @@ class Products extends AbstractType
     {
         $builder
             ->add('title',TextType::class)
-            ->add('modelNumber',TextType::class)
+            ->add('model',TextType::class)
+            ->add('name',TextType::class)
             ->add('color',TextType::class)
+            ->add('colorCode',TextType::class)
             ->add('price',TextType::class)
             ->add('category',TextType::class)
-            ->add('boughtCounter',TextType::class)
             ->add('description',TextType::class)
             ->add('sizes',TextType::class)
             ->add('isInPromotion',CheckboxType::class)
-            ->add('discountPrice',TextType::class)
+            ->add('isNew',CheckboxType::class)
+            ->add('inside',TextType::class)
+            ->add('soleThickness',TextType::class)
+            ->add('shoeHigth',TextType::class)
+            ->add('outside',TextType::class)
+            ->add('weight',TextType::class)
+            ->add('insole',TextType::class)
             ->add('description',TextareaType::class);
     }
 

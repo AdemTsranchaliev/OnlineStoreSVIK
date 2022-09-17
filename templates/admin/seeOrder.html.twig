@@ -3,99 +3,149 @@
 
 {% block main %}
 
+	<div class="ps-checkout pt-80 pb-80">
+		<div class="ps-container">
+			<form class="ps-checkout__form" id="checkOut" method="post"  action="{{ path('seeOrderAdmin',{ 'id':order.id}) }}">
+				<div class="row">
+					<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
+						<div class="ps-checkout__billing">
+							<h3 padding="100">Детайли за доставка</h3>
+							<div class="form-group form-group--inline">
+								<label>Име<span>*</span>
+								</label>
 
-    <!--================Checkout Area =================-->
-    <section class="checkout_area section_padding">
-        <div class="container">
+								<input type="text" class="form-control" value="{{ order.name }}" disabled id="OrderName" name="orders[name]"/>
+								<p class="error" style="display: none; color: red" id="warningOrderName">Това поле е
+									                                    задължително</p>
+							</div>
+							<div class="form-group form-group--inline">
+								<label>Фамилия<span>*</span>
+								</label>
+								<input type="text" class="form-control" id="OrderSurname" value="{{ order.surname }}" disabled name="orders[surname]"/>
+								<p style="display: none; color: red" id="warningOrderSurname">Това поле е
+									                                    задължително</p>
+							</div>
+							<div class="form-group form-group--inline">
+								<label>Имейл<span>*</span>
+								</label>
 
-            <div class="billing_details">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <h3>Данни за поръчка</h3>
-                        <form class="row contact_form" action="#" method="post" novalidate="novalidate">
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" value="{{ order.name }}" disabled  class="form-control" id="first" name="name" />
-                                <span class="placeholder" data-placeholder="Име"></span>
-                            </div>
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="last" name="name" value="{{ order.surname }}" disabled />
-                                <span class="placeholder" data-placeholder="Фамилия"></span>
-                            </div>
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="number" name="number" disabled value="{{ order.phone }}"/>
-                                <span class="placeholder" data-placeholder="Телефон"></span>
-                            </div>
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="email"  value="{{ order.email }}" disabled name="compemailany" />
-                                <span class="placeholder" data-placeholder="Имейл адрес"></span>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <select class="country_select">
-                                    <option value="1">Град/село</option>
-                                    <option value="2">Country</option>
-                                    <option value="4">Country</option>
-                                </select>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="add1" name="add1" />
-                                <span class="placeholder" data-placeholder="Адрес"></span>
-                            </div>
+								<input class="form-control" type="email" id="Email" name="orders[email]" value="{{ order.email }}" disabled>
+								<p style="display: none; color: red" id="warningEmail">Това поле е
+									                              задължително</p>
+								<p style="display: none; color: red" id="warningEmailInvalid">Невалиден имейл</p>
+							</div>
+							<div class="col-md-6 form-group p_star"></div>
+							<div class="form-group form-group--inline">
+								<label>Телефонен номер<span>*</span>
+								</label>
 
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="city" name="city" />
-                                <span class="placeholder" data-placeholder="Town/City"></span>
-                            </div>
-                            <textarea class="form-control" name="message" id="message" rows="1"
-                                      placeholder="Добави допълнителни изисквания"></textarea>
-                        </form>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="order_box">
-                            <h2>Детайли за поръчка</h2>
-                            <ul class="list">
-                                <li>
-                                    <a href="#">Продукт
-                                        <span>Общо</span>
-                                    </a>
-                                </li>
-                                {% set sum=0 %}
-                                {% for product in shoppingCart %}
-                                {% set sum=sum+product.price %}
-                                <li>
-                                    <a href="{{ path('editProduct',{ 'id':product.getCartProduct()[0].id}) }}">
-                                        {{ product.getCartProduct()[0].modelNumber }}
-                                        <span class="middle">x {{  product.quantity }}</span>
-                                        <span class="last">{{ (product.getCartProduct()[0].price)*product.quantity|number_format(2)  }} лв.</span>
-                                    </a>
-                                </li>
-                                {% endfor %}
+								<input type="text" disabled value="{{ order.phone }}" class="form-control" id="Phone" name="orders[phone]"/>
+								<p style="display: none; color: red" id="warningPhone">Това поле е
+									                                    задължително</p>
+								<p style="display: none; color: red" id="warningPhoneInvalid">Неправилен
+									                                    номер</p>
+							</div>
+							<div class="form-group form-group--inline">
+								<label>Населено място<span>*</span>
+								</label>
 
-                            </ul>
-                            <ul class="list list_2">
-                                <li>
-                                    <a href="#">Общо за поръчка
-                                        <span>{{ sum }}</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">Shipping
-                                        <span>Flat rate: $50.00</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">Total
-                                        <span>$2210.00</span>
-                                    </a>
-                                </li>
-                            </ul>
+								<input type="text" value="{{ order.populatedPlace }}" disabled class="form-control" id="Phone" name="orders[phone]"/>
+
+							</div>
 
 
+							<h3 class="mt-40">Допълнителна информация</h3>
+							<div class="form-group form-group--inline textarea">
+								<label>Коментар</label>
+								<textarea class="form-control" rows="5" disabled id="AdditionalInfo" placeholder="Бележки за вашата поръчка или за доставката.">{{ order.additionalInfo }}</textarea>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+						<div class="ps-checkout__order">
+							<header>
+								<h3>Вашата поръчка</h3>
+							</header>
+							<div class="content">
+								<table class="table ps-checkout__products">
+									<thead>
+										<tr>
+											<th class="text-uppercase">Продукт(номер)</th>
+											<th class="text-uppercase">Ед. цена</th>
+											<th class="text-uppercase">Общо</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% set sum=0 %}
+										{% for product in shoppingCart %}
+											{% set sum=sum+product.price %}
+											<tr>
+												<td>
+                                                    <img src="/assets/img/small/{{ product.id }}.0.jpg" alt="" style="height:60px"/>
+													<a href="http://localhost:8000/singleProduct/{{ product.getProductId() }}">{{ product.getCartProduct()[0].title }}</a>({{ product.modelSize }})</td>
+												<td>{{ product.getCartProduct()[0].price|number_format(2)}}
+													лв x
+													{{  product.quantity }}</td>
+												<td>{{ product.price|number_format(2) }}
+													лв</td>
+											</tr>
+										{% endfor %}
+
+										<tr>
+											<td>Общо за поръчка</td>
+											<td></td>
+											<td>{{ sum|number_format(2) }}
+												лв лв</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+                            
+                            <footer>
+								<h3>Доставка</h3>
+                                <div class="form-group cheque">
+								     {% if order.confirmed ==0%}
+                                <input type="submit"
+                                       class="btn btn-lg btn-color btn-button"
+                                       value="ПОТВЪРДИ">
+                            {% endif %}
+                            {% if  order.confirmed==1 and order.newOrArchived==0%}
+                                <input type="submit"
+                                       class="btn btn-lg btn-color btn-button"
+                                       value="ИЗПЪЛНИ">
+                            {% endif %}
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--================End Checkout Area =================-->
+
+							</footer>
+							<footer>
+								<h3>Доставка</h3>
+								<div class="form-group cheque">
+									{% if sum >= 100 %}
+										<label style="color: #27b574">БЕЗПЛАТНА</label>
+									{% else %}
+										<label>Поема си от клиента</label>
+
+									{% endif %}
+								</div>
+
+							</footer>
+							<footer>
+								<h3>Метод на плащане</h3>
+								<div class="form-group cheque">
+									<div class="ps-radio">
+										<input class="form-control" type="radio" id="rdo01" name="payment" checked>
+										<label for="rdo01">НАЛОЖЕН ПЛАТЕЖ</label>
+									</div>
+								</div>
+
+							</footer>
+						</div>
+
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
 
 {% endblock %}

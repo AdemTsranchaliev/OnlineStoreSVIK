@@ -48,8 +48,8 @@
                         <thead>
                         <tr>
                             <th scope="col">Име и фамилия</th>
-                            <th scope="col">Номер на модел</th>
                             <th scope="col">Общо цена</th>
+                            <th scope="col">Статус</th>
                             <th scope="col">Бутон ВИЖ</th>
                         </tr>
                         </thead>
@@ -82,7 +82,7 @@
                                     <td>
                                         <div class="button-group-area mt-40">
 
-                                            <a href="{{ path('seeOrderAdmin',{'id': order.id}) }}" class="genric-btn info radius">ВИЖ</a>
+                                            <a href="{{ path('seeOrderAdmin',{'id': order.id}) }}" class="btn btn-primary">ВИЖ</a>
 
                                         </div>
 

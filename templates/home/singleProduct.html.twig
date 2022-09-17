@@ -1,102 +1,520 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/customs/validation-components.css')}}">
+{% endblock %}
+
+{% block title %}{{product.categoryR.getName()}}: {{product.title}}{% endblock %}
 
 {% block main %}
-    <center>
-        <div id="myModal" class="modal padding_top">
-            <div class="modal-dialog modal-confirm">
-                <div class="modal-content">
-                    <div class="modal-header">
+	<input type='hidden' value='{{product.id}}' id='productId'>
+	<main class="main mt-6 single-product">
+		<div class="page-content mb-10 pb-6">
+			<div class="container">
+				<div class="product product-single row mb-7">
+					<div class="col-md-6 sticky-sidebar-wrapper">
+						<div class="product-gallery pg-vertical sticky-sidebar" data-sticky-options="{'minWidth': 767}">
+							<div class="product-single-carousel owl-carousel owl-theme owl-nav-inner row cols-1">
+								{% for i in 0..(pictures|length)-1 %}
+									<figure class="product-image">
+										<img src="/assets/images/uploads/{{ pictures[i] }}.jpg" data-zoom-image="/assets/images/uploads/{{ pictures[i] }}.jpg" alt="Women's Brown Leather Backpacks" width="800" height="900">
+									</figure>
+								{% endfor %}
+							</div>
+							<div class="product-thumbs-wrap">
+								<div class="product-thumbs">
+									<div class="product-thumb active">
+										<img src="/assets/images/uploads/{{ pictures[0] }}.jpg" alt="product thumbnail" width="109" height="122">
+									</div>
+									{% if (pictures|length)>1 %}
+										{% for i in 1..(pictures|length)-1 %}
+											<div class="product-thumb ">
+												<img src="/assets/images/uploads/{{ pictures[i] }}.jpg" alt="product thumbnail" width="109" height="122">
+											</div>
+										{% endfor %}
+									{% endif %}
+								</div>
+								<button class="thumb-up disabled">
+									<i class="fas fa-chevron-left"></i>
+								</button>
+								<button class="thumb-down disabled">
+									<i class="fas fa-chevron-right"></i>
+								</button>
+							</div>
+							<div class="product-label-group">
+								<label class="product-label label-new">НОВО</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="product-details">
+							<div class="product-navigation"></div>
 
-                        <h4 class="modal-title">Успешно добавяне в кошницата!</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p class="text-center">Продъктът е добавен в кошницата.</p>
-                    </div>
-                    <div class="button-group-area mt-40">
-                        <a href="{{ path('seeShoppingCart') }}" class="genric-btn success circle arrow">ВИЖ КОШНИЦА<span class="lnr lnr-arrow-right"></span></a>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
-                    </div>
+							<h1 class="product-name">{{ product.title }}</h1>
+							<div class="product-meta">
+								Модел:
+								<span class="product-sku">{{product.model}}</span>
+								Марка:
+								<span class="product-brand">SVIK Shoes</span>
+							</div>
+							<div class="product-price">
+								{% if product.isInPromotion %}
+									<ins class="new-price">{{(product.price - product.discount)|number_format(2) }}
+										лв</ins>
+									<del class="old-price">{{product.price|number_format(2) }}
+										лв</del>
 
-                </div>
-            </div>
-        </div>
-    </center>
-    <!-- slider Area Start-->
-    <div class="slider-area ">
-        <!-- Mobile Menu -->
-        <div class="single-slider slider-height2 d-flex align-items-center" data-background="https://obuvkisvik.com/assets/img/hero/category.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="hero-cap text-center">
-                            <h2>Детайли за продукт</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- slider Area End-->
 
-    <!--================Single Product Area =================-->
-    <div class="product_image_area">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="product_img_slide owl-carousel">
-                        {% for i in 0..product.photoCount-1 %}
-                            <div class="single_product_img">
-                                <img src="https://obuvkisvik.com/assets/img/uploads/{{ product.id }}.{{ i }}.jpg" alt="#" class="img-fluid">
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <input type="hidden" id="productId" value="{{ product.id }}">
-                <div class="col-lg-8">
-                    <div class="single_product_text text-center">
-                        <h3>{{ product.title }}</h3>
-                        <p>
-                            {{ product.description }}
-                        </p>
-                        <div class="card_area">
-                            <div class="product_count_area">
-                                {%  if not product.isInPromotion %}
-                                    <p><h4>Цена 	&nbsp; 	&nbsp;</h4> <h4> {{ product.price|number_format(2) }} лв</h4><br/>
-                                {% else %}
-                                    <p ><h4>Цена: 	&nbsp; 	&nbsp;</h4> <h4 style="color: red"> {{ product.price|number_format(2) }} лв</h4> 	&nbsp; 	&nbsp;<br/>
-                                    <del>
-                                        <span >{{ (product.discountPrice)|number_format(2) }} лв.</span>
-                                    </del>
-                                {% endif %}
-                            </div>
-                            <div class="product_count_area">
-                                <h4>Цвят:</h4> <h4> {{ product.color }}</h4></p>
-                            </div>
-                            <div class="input-group-icon mt-10">
-                                <div class="form-select" id="default-select">
-                                    <label style="display: none; color: red" id="warningSize">*Изберете номер</label>
+								{% else %}
+									<ins class="new-price">{{(product.price)|number_format(2) }}
+										лв</ins>
+								{% endif %}
+							</div>
+							<div class="ratings-container">
+								<div class="ps-product__rating">
+									{% if product.getAvgRating()>0%}
+										{% for i in 1..product.getAvgRating() %}
+											<span style="color: orange" class="fa fa-star checked"></span>
+										{% endfor %}
 
-                                    <select name="sizeSelected"  id="sizeSelected">
-                                        <option value=" 1">Налични номера</option>
-                                        {% for siz in size %}
-                                            <option value="{{ siz }}">{{ siz }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="add_to_cart">
-                                <button type="button" class="btn btn-lg btn-color product-single__add-to-cart" id="addToCart"  onclick="this.disabled=true;">
-                                    <i class="ui-bag"></i>
-                                    <span id="buttonAddToCartText">Добави към количка</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+										{% if product.getAvgRating()<5%}
+											{% for i in (product.getAvgRating()+1)..5 %}
+												<span class="fa fa-star"></span>
+											{% endfor %}
+										{% endif %}
+										<a href="#product-tab-reviews" class="link-to-tab rating-reviews">(
+											{{product.getReviews()|length}}
+											оценки )</a>
+									{% else %}
+
+										{% for i in 1..5 %}
+											<span class="fa fa-star"></span>
+										{% endfor %}
+
+										<a href="#product-tab-reviews" class="link-to-tab rating-reviews">(Няма оценки от клиенти)</a>
+									{% endif %}
+
+								</div>
+
+							</div>
+							<p class="product-short-desc">{{product.description}}</p>
+							<div class="product-form product-color">
+								<label>Цвят:</label>
+								<div class="product-variations">
+									<a href="#" style="width:50px; height:40px" selected>
+										<img style="min-height: 90%; min-width: 90%; padding-top: 5px" src='/assets/images/small/{{ pictures[0] }}.jpg'/></a>
+									{% for key,value in diffColors %}
+										{% if key!=product.id %}
+											<a href="/singleProduct/{{key}}" style="width:50px; height:40px">
+												<img style="min-height: 90%; min-width: 90%; padding-top: 5px" src='/assets/images/small/{{ value }}.jpg'/></a>
+										{% endif %}
+									{% endfor %}
+								</div>
+							</div>
+							<input type='hidden' id="selectedSize">
+							<input type='hidden' id="id" value="{{product.id}}">
+							<input type='hidden' id="imageId" value="{{pictures[0]}}">
+							
+							{%if product.isInPromotion%}
+							    <input type='hidden' id="price" value="{{product.price - product.discount}}">
+							{% else %}
+							    <input type='hidden' id="price" value="{{product.price}}">
+							{% endif %}
+							<input type='hidden' id="title" value="{{product.title}}">
+
+							<div class="product-form product-size">
+								<label>Размер:</label>
+								<div class="product-form-group">
+									<div class="product-variations">
+										{% for i in 0..(sizes|length)-1 %}
+											{% if sizes[i]['quantity']>0 %}
+												<a class="size" href="#" onclick="setSelectedSize({{sizes[i]['size']}})">{{sizes[i]['size']}}</a>
+											{% else %}
+												<a class="size" style='background-color: #EBEBE4;  pointer-events: none; cursor: default;' title="Изчерпан">{{ sizes[i]['size']|abs }}</a>
+											{% endif %}
+										{% endfor %}
+										<span class="row">* Моля изберете размер</span>
+									</div>
+								</div>
+							</div>
+
+							<hr class="product-divider">
+
+							<div class="product-form product-qty">
+								<div class="product-form-group">
+									<div class="input-group mr-2">
+										<button class="quantity-minus d-icon-minus"></button>
+										<input class="quantity form-control" type="number" min="1" max="1000000" id="quantity">
+										<button class="quantity-plus d-icon-plus"></button>
+									</div>
+									<button class="btn-product btn-cart text-normal ls-normal font-weight-semi-bold" id="addToCard">
+										<i class="d-icon-bag"></i>&#160;Добавяне в количка
+									</button>
+								</div>
+							</div>
+
+							<hr class="product-divider mb-3">
+
+							<div class="product-footer">
+								<div class="social-links mr-4">
+									<a href="#" class="social-link social-facebook fab fa-facebook-f"></a>
+									<a href="#" class="social-link social-twitter fab fa-twitter"></a>
+									<a href="#" class="social-link social-pinterest fab fa-pinterest-p"></a>
+								</div>
+								<span class="divider d-lg-show"></span>
+								<a href="#" class="btn-product btn-wishlist mr-6">
+									<i class="d-icon-heart"></i>Добави в любими</a>
+								<a href="#" class="btn-product btn-compare">
+									<i class="d-icon-compare"></i>Добавете за сравнение</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab tab-nav-simple product-tabs">
+					<ul class="nav nav-tabs justify-content-center" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active" href="#product-tab-description">Описание</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#product-tab-size-guide">Таблица с размери</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#product-tab-reviews">Мнения ({{product.getReviews()|length}})</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active in" id="product-tab-description">
+							<div class="row mt-6">
+								<div class="col-md-6">
+									<h5 class="description-title mb-4 font-weight-semi-bold ls-m">Описание</h5>
+									<p class="mb-2">
+										{{product.description}}
+									</p>
+									<ul class="mb-8">
+										<li>{{product.outside}}</li>
+										<li>Произведено в Пещера/България</li>
+										<li>Купувате директно от производител</li>
+									</ul>
+									<h5 class="description-title mb-3 font-weight-semi-bold ls-m">Спецификации
+									</h5>
+									<table class="table">
+										<tbody>
+											<tr>
+												<th class="font-weight-semi-bold text-dark pl-0">Материал</th>
+												<td class="pl-4">{{product.outside}}</td>
+											</tr>
+											<tr>
+												<th class="font-weight-semi-bold text-dark border-no pl-0">
+													Вътрешност</th>
+												<td class="border-no pl-4">{{product.inside}}</td>
+											</tr>
+											<tr>
+												<th class="font-weight-semi-bold text-dark border-no pl-0">
+													Цвят</th>
+												<td class="border-no pl-4">{{product.color}}</td>
+											</tr>
+											<tr>
+												<th class="font-weight-semi-bold text-dark border-no pl-0">
+													Височина на ходило/обувка (см)</th>
+												<td class="border-no pl-4">{{product.soleThickness}}/{{product.shoeHigth}}</td>
+											</tr>
+											<tr>
+												<th class="font-weight-semi-bold text-dark border-no pl-0">
+													Тегло</th>
+												<td class="border-no pl-4">{{product.weight}}</td>
+											</tr>
+											<tr>
+												<th class="font-weight-semi-bold text-dark border-no pl-0">
+													Гаранция</th>
+												<td class="border-no pl-4">30 дни</td>
+											</tr>
+											<tr>
+												<th class="font-weight-semi-bold text-dark pl-0">Избран размер</th>
+												<td class="pl-4" id='selectedSizeShow'>Няма избран размер</td>
+											</tr>
+											<tr>
+												<th class="font-weight-semi-bold text-dark border-no pl-0">
+													Производител</th>
+												<td class="border-no pl-4">СВИК ЕООД</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="col-md-6 pl-md-6 pt-4 pt-md-0">
+									<h5 class="description-title font-weight-semi-bold ls-m mb-5">{{product.name}}
+									</h5>
+									<figure class="p-relative d-inline-block mb-2">
+										{% if (pictures|length)>1 %}
+											<img src="/assets/images/uploads/{{pictures[1]}}.jpg" width="559" height="370" alt="Product"/>
+										{% else %}
+											<img src="/assets/images/uploads/{{pictures[0]}}.jpg" width="559" height="370" alt="Product"/>
+										{% endif %}
+									</figure>
+									<div class="icon-box-wrap d-flex flex-wrap">
+										<div class="icon-box icon-box-side icon-border pt-2 pb-2 mb-4 mr-10">
+											<div class="icon-box-icon">
+												<i class="d-icon-lock"></i>
+											</div>
+											<div class="icon-box-content">
+												<h4 class="icon-box-title lh-1 pt-1 ls-s text-normal">Гарантирано качество</h4>
+												<p>Повече от 30 години опит</p>
+											</div>
+										</div>
+										<div class="divider d-xl-show mr-10"></div>
+										<div class="icon-box icon-box-side icon-border pt-2 pb-2 mb-4">
+											<div class="icon-box-icon">
+												<i class="d-icon-truck"></i>
+											</div>
+											<div class="icon-box-content">
+												<h4 class="icon-box-title lh-1 pt-1 ls-s text-normal">Безплатна доставка
+												</h4>
+												<p>за поръчки над 100лв</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="tab-pane " id="product-tab-size-guide">
+							<figure class="size-image mt-4 mb-4">
+								<img src="/assets/images/product/size_guide.png" alt="Size Guide Image" width="217" height="398">
+							</figure>
+							<figure class="size-table mt-2 mb-2">
+								<table>
+									<thead>
+										<tr>
+											<th>Номерация</th>
+											<th>Дължина на стелката(см)</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										{% for i in 0..(sizes|length)-1 %}
+											<tr>
+												<th>{{sizes[i]['size']}}</th>
+												<th>{{sizes[i]['sizeCm']}}</th>
+											</tr>
+										{% endfor %}
+
+
+									</tbody>
+								</table>
+							</figure>
+						</div>
+						<div class="tab-pane " id="product-tab-reviews">
+							<div class="comments mb-8 pt-2 pb-2 border-no">
+								<ul>
+									{% if (product.getReviews()|length)<=0 %}
+										<li style="text-align: center">
+											<h4>Все още няма мнения за този продукт</h4>
+										</li>
+									{% else %}
+										{% for review in product.getReviews() %}
+											<li>
+												<div class="comment">
+													<figure class="comment-media">
+														<a href="#">
+															<img src="/assets/images/blog/comments/1.jpg" alt="avatar">
+														</a>
+													</figure>
+
+													<div class="comment-body">
+														<div class="comment-rating ratings-container mb-0">
+															<div class="ratings-container">
+																<div class="ps-product__rating">
+																	{% for i in 1..review.rating %}
+																		<span style="color: orange" class="fa fa-star checked"></span>
+																	{% endfor %}
+
+																	{% if review.rating<5%}
+																		{% for i in (review.rating+1)..5 %}
+																			<span class="fa fa-star"></span>
+																		{% endfor %}
+																	{% endif %}
+
+																</div>
+
+															</div>
+														</div>
+														<div class="comment-user">
+															<span class="comment-date text-body">{{review.publishedOn|date("H:i d/M/Y", false)}}
+																pm</span>
+															<h4>
+																<a href="#">{{review.name}}</a>
+															</h4>
+														</div>
+
+														<div class="comment-content">
+															<p>{{review.comment}}</p>
+														</div>
+													</div>
+												</div>
+											</li>
+										{% endfor %}
+
+									{% endif %}
+								</ul>
+							</div>
+							<!-- End Comments -->
+							<div class="reply">
+								<div class="title-wrapper text-left">
+									<h3 class="title title-simple text-left text-normal">Добавете мнение</h3>
+									<p>Вашият имейл няма да бъде публикуван. Полетата със * са задължителни!</p>
+								</div>
+								<span id='reviewerRatingRequired' class='invalid-input'>* Това поле е задължително</span>
+								<div class="rating-form">
+									<label for="rating" class="text-dark">Вашата оценка *
+									</label>
+									<span class="rating-stars selected">
+										<a class="star-1" id='rank1' onclick='giveRating(1)'>1</a>
+										<a class="star-2" id='rank2' onclick='giveRating(2)'>2</a>
+										<a class="star-3" id='rank3' onclick='giveRating(3)'>3</a>
+										<a class="star-4" id='rank4' onclick='giveRating(4)'>4</a>
+										<a class="star-5" id='rank5' onclick='giveRating(5)'>5</a>
+									</span>
+
+									<select name="rating" id="rating" required="" style="display: none;">
+										<option value="">Rate…</option>
+										<option value="5">Perfect</option>
+										<option value="4">Good</option>
+										<option value="3">Average</option>
+										<option value="2">Not that bad</option>
+										<option value="1">Very poor</option>
+									</select>
+								</div>
+
+								<textarea id="reviewerComment" cols="30" rows="6" class="form-control mb-4" placeholder="Коментар *" required></textarea>
+								<div class="row">
+									<div class="col-md-6 mb-5">
+										<span id='reviewerNameRequired' class='invalid-input'>* Това поле е задължително</span>
+										<input type="text" class="form-control" id="reviewerName" name="reply-name" placeholder="Име *" required/>
+									</div>
+									<div class="col-md-6 mb-5">
+										<span id='reviewerEmailRequired' class='invalid-input'>* Това поле е задължително</span>
+										<input type="email" class="form-control" id="reviewerEmail" name="reply-email" placeholder="Имейл *" required/>
+									</div>
+								</div>
+								<div class="form-checkbox mb-4">
+									<input type="checkbox" class="custom-checkbox" id="signin-remember" name="signin-remember"/>
+
+								</div>
+								<button type="submit" class="btn btn-primary btn-rounded" id='reviewSubmitButton'>Изпрати<i class="d-icon-arrow-right"></i>
+								</button>
+
+							</div>
+							<!-- End Reply -->
+						</div>
+					</div>
+				</div>
+
+				<section class="pt-3 mt-10">
+					<h2 class="title justify-content-center">Подобни продукти</h2>
+
+					<div class="owl-carousel owl-theme owl-nav-full row cols-2 cols-md-3 cols-lg-4" data-owl-options="{
+																				'items': 5,
+																				'nav': false,
+																				'loop': false,
+																				'dots': true,
+																				'margin': 20,
+																				'responsive': {
+																					'0': {
+																						'items': 2
+																					},
+																					'768': {
+																						'items': 3
+																					},
+																					'992': {
+																						'items': 4,
+																						'dots': false,
+																						'nav': true
+																					}
+																				}
+																			}">
+						{% for product in relProducts %}
+							{% set obj = (product.pictures | json_decode) %}
+							<div class="product">
+								<figure class="product-media">
+									<a href="/singleProduct/{{product.id}}">
+										<img src="/assets/images/small/{{obj[0]}}.jpg" alt="product" width="280" height="315">
+									</a>
+									<div class="product-label-group">
+											
+										{% if (product.getStatuses() | json_decode)['isNew'] %}
+
+										<label class="product-label label-new">НОВО</label>
+										{% endif %}
+
+										{% if product.isInPromotion %}
+										<label class="product-label label-sale">НАМАЛЕНИЕ</label>
+										{% endif %}
+									</div>
+									
+									<div class="product-action-vertical">
+										
+										<a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist">
+											<i class="d-icon-heart"></i>
+										</a>
+									</div>
+									<div class="product-action">
+										<a href="/singleProduct/{{product.id}}" class="btn-product" data-toggle="modal" data-target="#modal" title="Quick View">Бърз прегед</a>
+									</div>
+								</figure>
+								<div class="product-details">
+									<div class="product-cat">
+										<a href="shop-grid-3col.html">{{product.model}}</a>
+									</div>
+									<h3 class="product-name">
+										<a href="/singleProduct/{{product.id}}">{{product.title}}</a>
+									</h3>
+									<div class="product-price">
+										{%  if not product.isInPromotion %}
+											{{ product.price|number_format(2) }}
+											лв
+										{% else %}
+											{{ product.price|number_format(2) }}
+											лв
+											<del class="old-price">
+												лв</del>
+										{% endif %}
+									</div>
+									<div class="ratings-container">
+										{% if product.getAvgRating()>0%}
+											{% for i in 1..product.getAvgRating() %}
+												<span style="color: orange" class="fa fa-star checked"></span>
+											{% endfor %}
+
+											{% if product.getAvgRating()<5%}
+												{% for i in (product.getAvgRating()+1)..5 %}
+													<span class="fa fa-star"></span>
+												{% endfor %}
+											{% endif %}
+											<a href="#product-tab-reviews" class="link-to-tab rating-reviews">(
+												{{product.getReviews()|length}}
+												оценки )</a>
+										{% else %}
+
+											{% for i in 1..5 %}
+												<span class="fa fa-star"></span>
+											{% endfor %}
+
+											<a href="#">(0 оценки)</a>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</section>
+			</div>
+		</div>
+	</main>
+
 {% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('/assets/js/singleProduct.js')}}"></script>
+
+{% endblock %}
+

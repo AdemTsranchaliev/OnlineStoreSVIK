@@ -25,7 +25,7 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(Registration::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() ) {
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -35,7 +35,7 @@ class RegistrationController extends AbstractController
             );
             $user->setRoles(array('ROLE_USER'));
             $user->setName($form->get('name')->getData());
-            echo var_dump($user);
+
             $user->setSurname($form->get('surname')->getData());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -89,10 +89,7 @@ class RegistrationController extends AbstractController
             $tempUser->setPassword($encoded);
 
             $match = $passwordEncoder->isPasswordValid($user, $tempUser->getPassword());
-            echo var_dump($user);
-            echo var_dump($match);
-            echo var_dump( $_POST['oldPassword']);
-            echo var_dump($encoded);
+           
         }
 
 

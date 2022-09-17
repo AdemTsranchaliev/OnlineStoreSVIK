@@ -1,0 +1,172 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	<style>
+		/* Useful css to scss converter
+* http://sebastianpontow.de/css2compass/
+*/
+		// colors
+		$color_quill_gray_approx: #d4d4d4;
+		$white: #fff;
+		$color_gray_nurse_approx: #e9e9e9;
+
+		.autocomplete {
+			position: relative;
+			display: inline-block;
+		}
+		.autocomplete-items {
+			position: absolute;
+			z-index: 99;
+			top: 78%;
+			left: 0;
+			right: 0;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/customs/checkout.css')}}">
+
+{% endblock %}
+
+{% block title %}Завършване на поръчка
+{% endblock %}
+
+{% block main %}
+
+	<main class="main checkout">
+		<div class="page-content pt-7 pb-10 mb-10">
+			<div class="step-by pr-4 pl-4">
+				<h3 class="title title-simple title-step ">
+					<a href="/shoppingCart">1. Преглед на количка</a>
+				</h3>
+				<h3 class="title title-simple title-step active">
+					<a href="/checkout">2. Поръчка</a>
+				</h3>
+				<h3 class="title title-simple title-step">
+					<a href="#">3. Завършена поръчка</a>
+				</h3>
+			</div>
+			<div class="container mt-7">
+
+				<form method="post" action="{{ path('checkout' )}}" class="form" id='checkout'>
+					<div class="row">
+						<div class="col-lg-7 mb-6 mb-lg-0 pr-lg-4">
+							<h3 class="title title-simple text-left text-uppercase">Детайли за доставка</h3>
+							<div class="row">
+								<div class="col-xs-6">
+									<label>Име * <span class="invalid-input" id="nameRequired">Моля въведете име</span></label>
+									<input type="text" class="form-control" name="orders[name]" id='name' />
+								</div>
+								<div class="col-xs-6">
+									<label>Фамилия * <span class="invalid-input" id="surnameRequired">Моля въведете фамилия</span></label>
+									<input type="text" class="form-control" name="orders[surname]" id='surname' />
+								</div>
+							</div>
+							<label>Имейл * <span class="invalid-input" id="emailRequired">Моля въведете имейл</span></label>
+							<input type="email" class="form-control" name="orders[email]" id='email' />
+							<label>Доставчик * <span class="invalid-input" id="deliverRequired">Моля изберете доставчик</span></label>
+							<div class="select-box">
+								<select name="orders[deliver]" class="form-control" id='deliver'>
+									<option selected hidden value=''></option>
+									<option value="Еконт">Еконт</option>
+									<option value="Лео Експрес">Лео Експрес</option>
+								</select>
+							</div>
+							<input id='wayOfDelivery' type='hidden' name='orders[wayOfDelivery]' id='wayOfDelivery'>
+							<input id='order' type='hidden' name='orders[orderJson]'>
+							<div class="row" style="margin-bottom: 2%">
+								<span class='invalid-input' id="wayOfDeliveryRequired"> Моля изберете начин на доставка</span>
+
+								<div class="col-xs-6">
+									<div class="custom-radio">
+										<input type="radio" id="standard_shipping" name="shipping" value="office" class="custom-control-input">
+										<label class="custom-control-label" for="standard_shipping">Доставка до офис</label>
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div class="custom-radio ">
+										<input type="radio" id="free-shipping" name="shipping" value="address" class="custom-control-input">
+										<label class="custom-control-label" for="free-shipping">Доставка до личен адрес</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-xs-12">
+									<label>Населено място * <span class="invalid-input" id="populatedPlaceRequired">Моля въведете населено място</span></label>
+									<input type="text" class='form-control autocomplete' id='myInput' name='orders[populatedPlace]' placeholder='' type='text'/>
+								</div>
+								
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<label>Пощенски код * <span class="invalid-input" id="zipCodeRequired">Моля въведете пощенски код</span></label>
+									<input type="text" class="form-control" name="orders[zipCode]" id='zipCode' />
+								</div>
+								<div class="col-xs-6">
+									<label>Телефонен номер * <span class="invalid-input" id="phoneRequired">Моля въведете телефонен номер</span></label>
+									<input type="text" class="form-control" name="orders[phone]" id='phone' />
+								</div>
+							</div>
+
+							<div id="addressShipping" style="display: none">
+								<label>Адрес за доставка * <span class="invalid-input" id="addressRequired">Моля въведете адрес</span></label>
+								<input type="text" class="form-control" name="orders[address]" id='address'  placeholder=""/>
+							</div>
+							<div id="officeShipping" style="display: none">
+								<label>Офис * <span class="invalid-input" id="officeRequired">Моля изберете офис</span></label>
+								<div class="select-box">
+			
+									<input type="text" class="form-control" name="orders[office]" id='office'  placeholder=""/>
+
+								</div>
+							</div>
+
+							<h2 class="title title-simple text-uppercase text-left">Допълнителна информация</h2>
+							<textarea class="form-control pb-2 pt-2 mb-0" cols="30" rows="5" placeholder="" name='orders[additionalInfo]'></textarea>
+						</div>
+						<aside class="col-lg-5 sticky-sidebar-wrapper">
+							<div class="sticky-sidebar mt-1" data-sticky-options="{'bottom': 50}">
+								<div class="summary pt-5">
+									<h3 class="title title-simple text-left text-uppercase">Вашата поръчка</h3>
+									<table class="order-table">
+										<thead>
+											<tr>
+												<th>Продукти</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody id="cart-content"></tbody>
+									</table>
+									<div class="payment accordion radio-type">
+										<h4 class="summary-subtitle ls-m pb-3">Метод на плащане</h4>
+										<label>
+											НАЛОЖЕН ПЛАТЕЖ
+										</label>
+									</div>
+									<div class="form-checkbox mt-4 mb-5">
+									<span class="invalid-input" id="terms-conditionRequired">Трабва да се съгласите с условията за да завършите поръчката</span>
+										<input type="checkbox" class="custom-checkbox" id="terms-condition" name="terms-condition"/>
+										<label class="form-control-label" for="terms-condition">
+											Прочетох и съм съгласен с
+											<a href="#">условията и политиките
+											</a>*
+										</label>
+									</div>
+									<button  class="btn btn-dark btn-rounded btn-order" id='checkoutButton'>Завърши поръчка</button>
+								</div>
+							</div>
+						</aside>
+					</div>
+				</form>
+			</div>
+		</div>
+	</main>
+
+{% endblock %}
+
+{% block javascripts %}
+
+	<script src="{{ asset('/assets/js/checkout.js')}}"></script>
+	<script src="{{ asset('/assets/js/autocomplete.js')}}"></script>
+
+{% endblock %}
+

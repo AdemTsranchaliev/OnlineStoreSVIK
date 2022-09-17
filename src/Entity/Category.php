@@ -29,6 +29,12 @@ class Category
     private $tag;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $sex;
+
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="categoryR")
      */
     private $products;
@@ -111,6 +117,18 @@ class Category
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
+
+        return $this;
+    }
+
+    public function getSex(): ?string
+    {
+        return $this->sex;
+    }
+
+    public function setSex(string $sex): self
+    {
+        $this->sex = $sex;
 
         return $this;
     }
