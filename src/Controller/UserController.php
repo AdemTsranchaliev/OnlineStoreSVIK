@@ -4,22 +4,15 @@ namespace App\Controller;
 
 use App\Entity\ShoppingCart;
 use App\Entity\Order;
-use App\Entity\Product;
-use App\Entity\User;
 use App\Form\Changeinfo;
 use App\Form\Orders;
-use Ekatte\Oblast;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Validator\Constraints\DateTime;
-
 class UserController extends AbstractController
 {
-
 
     /**
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
@@ -31,13 +24,14 @@ class UserController extends AbstractController
         $form = $this->createForm(Changeinfo::class, $user);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
         }
 
-        return $this->render("user/myInformation.html.twig", ['user'=>$user,'productsCart'=>null]);
+        return $this->render("user/myInformation.html.twig", ['user' => $user, 'productsCart' => null]);
     }
 
     /**
@@ -48,7 +42,7 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
 
-        return $this->render("user/myOrders.html.twig", ['orders'=>$user->getOrders(),'productsCart'=>null]);
+        return $this->render("user/myOrders.html.twig", ['orders' => $user->getOrders(), 'productsCart' => null]);
     }
 
 
@@ -62,19 +56,19 @@ class UserController extends AbstractController
         $order = $this->getDoctrine()->getRepository(Order::class)->find($id);
 
         $user = $this->getUser();
-        if ($order==null) {
+        if ($order == null) {
             return $this->redirectToRoute('404');
         }
-        if ($order->getUserId()==null) {
+        if ($order->getUserId() == null) {
             return $this->redirectToRoute('404');
         }
-        if ($order->getUserId()->getId()!=$user->getId()) {
+        if ($order->getUserId()->getId() != $user->getId()) {
             return $this->redirect('myOrders');
         }
 
-        $shoppingCart2=$this->getDoctrine()->getRepository(ShoppingCart::class)->findBy(array('coocieId'=>$order->getCoocieId()));
+        $shoppingCart2 = $this->getDoctrine()->getRepository(ShoppingCart::class)->findBy(array('coocieId' => $order->getCoocieId()));
 
-        return $this->render("user/seeOrder.html.twig", ['productsCart'=>null,'order' => $order,'shoppingCart'=>$shoppingCart2]);
+        return $this->render("user/seeOrder.html.twig", ['productsCart' => null, 'order' => $order, 'shoppingCart' => $shoppingCart2]);
     }
 
     /**
@@ -91,16 +85,16 @@ class UserController extends AbstractController
     public function checkout(Request $request)
     {
 
-        $order= new Order();
+        $order = new Order();
         $form = $this->createForm(Orders::class, $order);
 
         $form->handleRequest($request);
-        
+
 
         if ($form->isSubmitted()) {
-            $messageObj=(json_decode($order->getOrderJson(),true));
+            $messageObj = (json_decode($order->getOrderJson(), true));
 
-    
+
 
             $order->setOrderOn(new \DateTime('NOW'));
             $order->setStatus('new');
@@ -110,40 +104,40 @@ class UserController extends AbstractController
             $em->persist($order);
             $em->flush();
 
-            $messageContent='';
-            $sum=0;
-            for($i=0;$i<count($messageObj);$i++){
-                $sum+=$messageObj[$i]['price']*$messageObj[$i]['quantity'];
-                $messageContent.='
+            $messageContent = '';
+            $sum = 0;
+            for ($i = 0; $i < count($messageObj); $i++) {
+                $sum += $messageObj[$i]['price'] * $messageObj[$i]['quantity'];
+                $messageContent .= '
                 <tr style="border-bottom: 1px solid rgba(0,0,0,.05);">
                     <td valign="middle" width="80%" style="text-align:left; padding: 0 2.5em;">
                         <div class="product-entry">
-                            <img src="https://obuvkisvik.com/assets/images/small/'.$messageObj[$i]['imageId'].'.jpg" alt=""
+                            <img src="https://obuvkisvik.com/assets/images/small/' . $messageObj[$i]['imageId'] . '.jpg" alt=""
                                 style="width: 100px; max-width: 600px; height: auto; margin-bottom: 20px; display: block;">
                             <div class="text">
-                                <h3>'. $messageObj[$i]['title'].'</h3>
-                                <span>Размер: '.$messageObj[$i]['size'].'</span>
-                                <p>'.number_format($messageObj[$i]['price'],2).' лв. x '.$messageObj[$i]['quantity'].'</p>
+                                <h3>' . $messageObj[$i]['title'] . '</h3>
+                                <span>Размер: ' . $messageObj[$i]['size'] . '</span>
+                                <p>' . number_format($messageObj[$i]['price'], 2) . ' лв. x ' . $messageObj[$i]['quantity'] . '</p>
                             </div>
                         </div>
                     </td>
                     <td valign="middle" width="20%" style="text-align:left; padding: 0 2.5em;">
-                        <span class="price" style="color: #000; font-size: 15px;">'.number_format($messageObj[$i]['price']*$messageObj[$i]['quantity'],2).' лв.</span>
+                        <span class="price" style="color: #000; font-size: 15px;">' . number_format($messageObj[$i]['price'] * $messageObj[$i]['quantity'], 2) . ' лв.</span>
                     </td>
                 </tr>
                 ';
             }
-            $messageContent.='  
+            $messageContent .= '  
              <tr style="border-bottom: 1px solid rgba(0,0,0,.05);">
             <td valign="middle" width="80%" style="text-align:left; padding: 0 2.5em;">
               Общо:
             </td>
             <td valign="middle" width="20%" style="text-align:left; padding: 0 2.5em;">
-                <span class="price" style="color: #000; font-size: 15px;">'.number_format($sum,2).' лв.</span>
+                <span class="price" style="color: #000; font-size: 15px;">' . number_format($sum, 2) . ' лв.</span>
             </td>
             </tr>';
 
-            $mailMain='<!DOCTYPE html>
+            $mailMain = '<!DOCTYPE html>
             <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
                 xmlns:o="urn:schemas-microsoft-com:office:office">
             
@@ -494,7 +488,7 @@ class UserController extends AbstractController
                                             <td style="padding: 0 2.5em; text-align: left;">
                                                 <div class="text">
                                                     <h2>Успешно направена поръча</h2>
-                                                    <h2>Номер на поръчката: #'.$order->getId().'</h2>
+                                                    <h2>Номер на поръчката: #' . $order->getId() . '</h2>
                                                     <h4 style="font-style: italic;">Очаквайте обаждане от наш служител за
                                                         потвърждение на поръчката</h4>
                                                 </div>
@@ -505,10 +499,10 @@ class UserController extends AbstractController
                                         <td style="padding: 0 2.5em; text-align: left;">
                                             <div class="text">
                                                 <h3>Данни за доставка:</h3>
-                                                <p>Име: #'.$order->getName().' '.$order->getSurname().'</p>
-                                                <p>Телефон за възка: #'.$order->getPhone().'</p>
-                                                <p>Град: #'.$order->getPopulatedPlace().'</p>
-                                                <p>Доставчик: #'.$order->getDeliver().'</p>
+                                                <p>Име: #' . $order->getName() . ' ' . $order->getSurname() . '</p>
+                                                <p>Телефон за възка: #' . $order->getPhone() . '</p>
+                                                <p>Град: #' . $order->getPopulatedPlace() . '</p>
+                                                <p>Доставчик: #' . $order->getDeliver() . '</p>
                                             </div>
                                         </td>
                                     </tr>
@@ -525,10 +519,10 @@ class UserController extends AbstractController
                                             style="text-align:right; padding: 0 2.5em; color: #000; padding-bottom: 20px">Сума</th>
                                     </tr>
                            ';
-   
-                 
-                    $mailMain.=$messageContent;
-                    $mailMain.='
+
+
+            $mailMain .= $messageContent;
+            $mailMain .= '
                                     <tr>
                                         <td valign="middle" style="text-align:left; padding: 1em 2.5em;">
                                             <p><a href="https://obuvkisvik.com" class="btn btn-primary">Продължете пазаруването</a>
@@ -544,16 +538,14 @@ class UserController extends AbstractController
             </body>
             
             </html>';
-   
+
             $headers = 'MIME-Version: 1.0' . "\r\n";
             $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
 
-            mail($order->getEmail(), '=?utf-8?B?'.base64_encode('Успешно направена поръчка').'?=',$mailMain,$headers);
-            mail('obuvkisvik@gmail.com', '=?utf-8?B?'.base64_encode('Успешно направена поръчка').'?=',$mailMain,$headers);
-            return $this->render('user/succsesfullOrder.html.twig',['order'=>$order]);
-
-                }
+            mail($order->getEmail(), '=?utf-8?B?' . base64_encode('Успешно направена поръчка') . '?=', $mailMain, $headers);
+            mail('obuvkisvik@gmail.com', '=?utf-8?B?' . base64_encode('Успешно направена поръчка') . '?=', $mailMain, $headers);
+            return $this->render('user/succsesfullOrder.html.twig', ['order' => $order]);
+        }
         return $this->render('user/checkout.html.twig');
     }
 }
-

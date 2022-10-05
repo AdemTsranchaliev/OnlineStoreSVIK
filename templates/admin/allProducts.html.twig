@@ -1,183 +1,88 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <!-- Main CSS File -->
-            <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/market1.min.css')}}">
+	<!-- Main CSS File -->
+	<link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/market1.min.css')}}">
 {% endblock %}
 
 {% block main %}
-<!--
-	<div
-		class="slider-area ">
-
-		<div class="single-slider slider-height2 d-flex align-items-center" data-background="assets/img/hero/category.jpg">
+	<main class="main">
+		<div class="page-content pb-10 mb-10">
 			<div class="container">
-				<div class="row">
-					<div class="col-xl-12">
-						<div class="hero-cap text-center">
-							<h2>Всички продукти</h2>
+				<nav class="breadcrumb-nav">
+					<ul class="breadcrumb">
+						<li>
+							<a href="market1.html">
+								<i class="d-icon-home"></i>
+							</a>
+						</li>
+						<li>Store List</li>
+					</ul>
+				</nav>
+				<div class="toolbox">
+					<div class="toolbox-left mb-4 mb-md-0">
+						<a href="#" class="toolbox-item btn btn-outline btn-dark
+								                                btn-rounded btn-icon-left form-toggle-btn">
+							<i class="d-icon-filter-2"></i>Filter</a>
+						<p class="store-count">Total store showing: 6</p>
+					</div>
+					<div class="toolbox-right">
+						<div class="toolbox-item toolbox-sort select-box text-dark">
+							<label class="d-block">Sort By:</label>
+							<select name="orderby" class="form-control">
+								<option value="default" selected="selected">Most Recent</option>
+								<option value="popularity">Most Popular</option>
+							</select>
+						</div>
+						<div class="toolbox-item toolbox-layout">
+							<a href="store-listing.html" class="d-icon-mode-grid btn-layout"></a>
+							<a href="store-listing1.html" class="d-icon-mode-list btn-layout active"></a>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<section class="cart_area section_padding">
-		<div class="container">
-			<div class="cart_inner">
-				<div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-					<div class="btn-group mr-2" role="group" aria-label="First group"></div>
-
-
-					<nav aria-label="breadcrumb">
-						<ol class="breadcrumb">
-							{% for model in categories %}
-								<li class="breadcrumb-item active" aria-current="page">
-									<a href="{{ path('seeProducts',{'category':model.tag}) }}">{{model.name}}</a>
-								</li>
-							{% endfor %}
-
-						</ol>
-					</nav>
-
-
+				<div class="form-wrapper">
+					<form action="#" class="input-wrapper-inline">
+						<input type="email" class="form-control" name="vendor" id="vendor" placeholder="Search Vendors" required="">
+						<button class="btn btn-dark btn-rounded" type="submit">Apply</button>
+					</form>
 				</div>
-				<div class="table-responsive">
-					<table class="table">
-						<thead>
-							<tr>
-								<th scope="col">Продукт</th>
-								<th scope="col">Ед. Цена</th>
-								<th scope="col">Номер на модел</th>
-								<th scope="col">ПРОМОЦИЯ</th>
-								<th scope="col">Бутон РЕДАКЦИЯ</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for model in models %}
-								{% if model.isDeleted == 0 %}
-									<tr>
-										<td>
-											<div class="media">
-												<div class="d-flex">
-													<img src="/assets/img/small/{{ model.id }}.0.jpg" alt="" style="height:150px"/>
-												</div>
-												<div class="media-body">
-													<p>{{ model.title }}</p>
-												</div>
-											</div>
-										</td>
-										<td>
-											<h5>{{ model.price }}
-												лв</h5>
-										</td>
-										<td>
-											<h5>{{ model.model }}</h5>
-										</td>
-										<td>
-											{% if model.isInPromotion == 1 %}
-												<h5 style="color:red">В ПРОМОЦИЯ ({{model.price}}лв)</h5>
-											{% else %}
-												<h5>НЕ Е В ПРОМОЦИЯ</h5>
-											{% endif  %}
-
-										</td>
-										<td>
-											<div class="button-group-area mt-40">
-
-												<a href="{{ path('editProduct',{'id': model.id}) }}" class="btn btn-primary">Редактирай</a>
-
-											</div>
-
-										</td>
-									</tr>
-
-								{% endif %}
-							{% endfor %}
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</section>
--->													
-
-		
-
-		  <main class="main">
-            <div class="page-content pb-10 mb-10">
-                <div class="container">
-                    <nav class="breadcrumb-nav">
-                        <ul class="breadcrumb">
-                            <li><a href="market1.html"><i class="d-icon-home"></i></a></li>
-                            <li>Store List</li>
-                        </ul>
-                    </nav>
-                    <div class="toolbox">
-                        <div class="toolbox-left mb-4 mb-md-0">
-                            <a href="#" class="toolbox-item btn btn-outline btn-dark 
-                                btn-rounded btn-icon-left form-toggle-btn"><i class="d-icon-filter-2"></i>Filter</a>
-                            <p class="store-count">Total store showing: 6</p>
-                        </div>
-                        <div class="toolbox-right">
-                            <div class="toolbox-item toolbox-sort select-box text-dark">
-                                <label class="d-block">Sort By:</label>
-                                <select name="orderby" class="form-control">
-                                    <option value="default" selected="selected">Most Recent</option>
-                                    <option value="popularity">Most Popular</option>
-                                </select>
-                            </div>
-                            <div class="toolbox-item toolbox-layout">
-                                <a href="store-listing.html" class="d-icon-mode-grid btn-layout"></a>
-                                <a href="store-listing1.html" class="d-icon-mode-list btn-layout active"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-wrapper">
-                        <form action="#" class="input-wrapper-inline">
-                            <input type="email" class="form-control" name="vendor" id="vendor" placeholder="Search Vendors" required="">
-                            <button class="btn btn-dark btn-rounded" type="submit">Apply</button>
-                        </form>
-                    </div>
-                    <div class="row mt-4 cols-lg-1 cols-sm-2 cols-1">
+				<div class="row mt-4 cols-lg-1 cols-sm-2 cols-1">
 
 					{% for model in models %}
-                        <div class="store-wrap">
-                            <div class="store store-list">
-                                <div class="store-header">
-                                    <figure class="store-banner">
-                                        <img src="/assets/images/uploads/{{model.id}}.0.jpg" alt="Vendor" width="276" height="140"
-                                            style="background-color: #8d9eaa;" />
-                                    </figure>
-                                    <span class="featured-label">Featured</span>
-                                </div>
-                                <div class="store-content">
-                                    <h2 class="store-title">
-                                        <a href="vendor1.html">{{model.title}}</a>
-                                    </h2>
-                                    <div class="ratings-container">
-                                        <span class="ratings-full" title="Rated 4.65 out of 5">
-                                            <span class="ratings" style="width:87%"></span>
-                                        </span>
-                                    </div>
-                                    <p>
-                                        <span style="color:black" class="street">{{model.model}}</span>
-                            
-                                    </p>
-                                </div>
-                                <div class="store-footer">
-                                    <a href="vendor1.html" class="btn btn-dark btn-link btn-underline">Visit Store<i class="d-icon-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                  {% endfor %}
-				  
-                    </div>
-                </div>
-            </div>
-        </main>
-        <!-- End Main -->
+						<div class="store-wrap">
+							<div class="store store-list">
+								<div class="store-header">
+									<figure class="store-banner">
+										<img src="/assets/images/uploads/{{model.id}}.0.jpg" alt="Vendor" class='h-25' style="background-color: #8d9eaa; height: 50px"/>
+									</figure>
+									<span class="featured-label">Featured</span>
+								</div>
+								<div class="store-content">
+									<h2 class="store-title">
+										<a href="vendor1.html">{{model.title}}</a>
+									</h2>
+									<div class="ratings-container">
+										<span class="ratings-full" title="Rated 4.65 out of 5">
+											<span class="ratings" style="width:87%"></span>
+										</span>
+									</div>
+									<p>
+										<span style="color:black" class="street">{{model.model}}</span>
+
+									</p>
+								</div>
+								<div class="store-footer">
+									<a href="vendor1.html" class="btn btn-dark btn-link btn-underline">Visit Store<i class="d-icon-arrow-right"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+
+				</div>
+			</div>
+		</div>
+	</main>
+	<!-- End Main -->
 {% endblock %}
 

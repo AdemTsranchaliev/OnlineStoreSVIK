@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controller;
+
 use App\Entity\ShoppingCart;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,40 +16,34 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-            if (isset($_COOKIE['_SC_KO']))
-            {
-                $cookie=$_COOKIE['_SC_KO'];
+            if (isset($_COOKIE['_SC_KO'])) {
+                $cookie = $_COOKIE['_SC_KO'];
 
-                $shoppingCart=$this->getDoctrine()->getRepository(ShoppingCart::class)->findBy(array('coocieId'=>$cookie));
+                $shoppingCart = $this->getDoctrine()->getRepository(ShoppingCart::class)->findBy(array('coocieId' => $cookie));
 
 
-                if ($shoppingCart!=null)
-                {
-                    return $this->redirectToRoute('index',['productsCart'=>$shoppingCart]);
+                if ($shoppingCart != null) {
+                    return $this->redirectToRoute('index', ['productsCart' => $shoppingCart]);
                 }
-
             }
-            return $this->redirectToRoute('index',['productsCart'=>null]);
+            return $this->redirectToRoute('index', ['productsCart' => null]);
         }
 
 
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-        if (isset($_COOKIE['_SC_KO']))
-        {
-            $cookie=$_COOKIE['_SC_KO'];
+        if (isset($_COOKIE['_SC_KO'])) {
+            $cookie = $_COOKIE['_SC_KO'];
 
-            $shoppingCart=$this->getDoctrine()->getRepository(ShoppingCart::class)->findBy(array('coocieId'=>$cookie));
+            $shoppingCart = $this->getDoctrine()->getRepository(ShoppingCart::class)->findBy(array('coocieId' => $cookie));
 
 
-            if ($shoppingCart!=null)
-            {
-                return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error,'productsCart'=>$shoppingCart]);
+            if ($shoppingCart != null) {
+                return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error, 'productsCart' => $shoppingCart]);
             }
-
         }
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error,'productsCart'=>null]);
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error, 'productsCart' => null]);
     }
 
     /**

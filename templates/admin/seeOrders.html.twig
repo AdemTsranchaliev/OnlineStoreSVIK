@@ -2,102 +2,107 @@
 
 
 {% block main %}
-    <div class="slider-area ">
-        <!-- Mobile Menu -->
-        <div class="single-slider slider-height2 d-flex align-items-center" data-background="assets/img/hero/category.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="hero-cap text-center">
-                            <h2>Всички продукти</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div
+		class="slider-area ">
+		<!-- Mobile Menu -->
+		<div class="single-slider slider-height2 d-flex align-items-center" data-background="assets/img/hero/category.jpg">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-12">
+						<div class="hero-cap text-center">
+							<h2>Всички продукти</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <!--================Cart Area =================-->
-    <section class="cart_area section_padding">
-        <div class="container">
-            <div class="cart_inner">
-                <div class="row product-btn d-flex justify-content-end align-items-end">
-                    <!-- Section Tittle -->
-                    <div class="col-xl-4 col-lg-5 col-md-5">
-                        <div class="section-tittle mb-30">
-                            <h2>{{ title }}</h2>
-                        </div>
-                    </div>
-                <div class="col-xl-8 col-lg-7 col-md-7">
-                    <div class="properties__button f-right">
-                        <!--Nav Button  -->
-                        <nav>
-                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active"   href="{{ path('seeOrders',{'func': 'all'}) }}"  aria-controls="nav-home" aria-selected="true">Всички</a>
-                                <a class="nav-item nav-link active"   href="{{ path('seeOrders',{'func': 'new'}) }}"  aria-controls="nav-profile" aria-selected="true">Нови</a>
-                                <a class="nav-item nav-link active"   href="{{ path('seeOrders',{'func': 'confirmed'}) }}"  aria-controls="nav-contact" aria-selected="true">Потвърдени</a>
-                                <a class="nav-item nav-link active"   href="{{ path('seeOrders',{'func': 'archived'}) }}"  aria-controls="nav-contact" aria-selected="true">Изпълнени</a>
-                            </div>
-                        </nav>
-                        <!--End Nav Button  -->
-                    </div>
-                </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Име и фамилия</th>
-                            <th scope="col">Общо цена</th>
-                            <th scope="col">Статус</th>
-                            <th scope="col">Бутон ВИЖ</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for order in orders %}
-                                <tr>
-                                    <td>
-                                        <div class="media">
-                                            <div class="media-body">
-                                                <p>{{ order.name }} {{ order.surname }}</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <h5>{{ order.price }} лв</h5>
-                                    </td>
-                                    <td>
-                                        <div class="quantity buttons_added">
-                                            {% if order.confirmed==0 %}
-                                                <span class="amount" style="color: red">НЕПОТВЪРДЕНА</span>
-                                            {% endif %}
-                                            {% if order.confirmed==1 and order.newOrArchived==0 %}
-                                                <span class="amount" style="color: yellow">НЕИЗПЪЛНЕНА</span>
-                                            {% endif %}
-                                            {% if order.confirmed==1 and order.newOrArchived==1 %}
-                                                <span class="amount" style="color: green">ИЗПЪЛНЕНА</span>
-                                            {% endif %}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="button-group-area mt-40">
+	<!--================Cart Area =================-->
+	<section class="cart_area section_padding">
+		<div class="container">
+			<div class="cart_inner">
+				<div
+					class="row product-btn d-flex justify-content-end align-items-end">
+					<!-- Section Tittle -->
+					<div class="col-xl-4 col-lg-5 col-md-5">
+						<div class="section-tittle mb-30">
+							<h2>{{ title }}</h2>
+						</div>
+					</div>
+					<div class="col-xl-8 col-lg-7 col-md-7">
+						<div
+							class="properties__button f-right">
+							<!--Nav Button  -->
+							<nav>
+								<div class="nav nav-tabs" id="nav-tab" role="tablist">
+									<a class="nav-item nav-link active" href="{{ path('seeOrders',{'func': 'all'}) }}" aria-controls="nav-home" aria-selected="true">Всички</a>
+									<a class="nav-item nav-link active" href="{{ path('seeOrders',{'func': 'new'}) }}" aria-controls="nav-profile" aria-selected="true">Нови</a>
+									<a class="nav-item nav-link active" href="{{ path('seeOrders',{'func': 'confirmed'}) }}" aria-controls="nav-contact" aria-selected="true">Потвърдени</a>
+									<a class="nav-item nav-link active" href="{{ path('seeOrders',{'func': 'archived'}) }}" aria-controls="nav-contact" aria-selected="true">Изпълнени</a>
+								</div>
+							</nav>
+							<!--End Nav Button  -->
+						</div>
+					</div>
+				</div>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Име и фамилия</th>
+								<th scope="col">Общо цена</th>
+								<th scope="col">Статус</th>
+								<th scope="col">Бутон ВИЖ</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for order in orders %}
+								<tr>
+									<td>
+										<div class="media">
+											<div class="media-body">
+												<p>{{ order.name }}
+													{{ order.surname }}</p>
+											</div>
+										</div>
+									</td>
+									<td>
+										<h5>{{ order.price }}
+											лв</h5>
+									</td>
+									<td>
+										<div class="quantity buttons_added">
+											{% if order.confirmed==0 %}
+												<span class="amount" style="color: red">НЕПОТВЪРДЕНА</span>
+											{% endif %}
+											{% if order.confirmed==1 and order.newOrArchived==0 %}
+												<span class="amount" style="color: yellow">НЕИЗПЪЛНЕНА</span>
+											{% endif %}
+											{% if order.confirmed==1 and order.newOrArchived==1 %}
+												<span class="amount" style="color: green">ИЗПЪЛНЕНА</span>
+											{% endif %}
+										</div>
+									</td>
+									<td>
+										<div class="button-group-area mt-40">
 
-                                            <a href="{{ path('seeOrderAdmin',{'id': order.id}) }}" class="btn btn-primary">ВИЖ</a>
+											<a href="{{ path('seeOrderAdmin',{'id': order.id}) }}" class="btn btn-primary">ВИЖ</a>
 
-                                        </div>
+										</div>
 
-                                    </td>
-                                </tr>
+									</td>
+								</tr>
 
 
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--================End Cart Area =================-->
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Cart Area =================-->
 
 
 {% endblock %}

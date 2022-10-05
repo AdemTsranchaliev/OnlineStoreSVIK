@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Controller;
+
 use App\Entity\ShoppingCart;
 use App\Entity\User;
 use App\Form\Registration;
-use Symfony\Component\Security\Core\User\UserInterface;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +25,7 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(Registration::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() ) {
+        if ($form->isSubmitted()) {
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -50,24 +50,20 @@ class RegistrationController extends AbstractController
                 'main' // firewall name in security.yaml
             );
         }
-        if (isset($_COOKIE['_SC_KO']))
-        {
-            $cookie=$_COOKIE['_SC_KO'];
+        if (isset($_COOKIE['_SC_KO'])) {
+            $cookie = $_COOKIE['_SC_KO'];
 
-            $shoppingCart=$this->getDoctrine()->getRepository(ShoppingCart::class)->findBy(array('coocieId'=>$cookie));
+            $shoppingCart = $this->getDoctrine()->getRepository(ShoppingCart::class)->findBy(array('coocieId' => $cookie));
 
 
-            if ($shoppingCart!=null)
-            {
+            if ($shoppingCart != null) {
                 return $this->render('registration/register.html.twig', [
-                    'registrationForm' => $form->createView(),'productsCart'=>$shoppingCart
+                    'registrationForm' => $form->createView(), 'productsCart' => $shoppingCart
                 ]);
-
             }
-
         }
         return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),'productsCart'=>null
+            'registrationForm' => $form->createView(), 'productsCart' => null
         ]);
     }
 
@@ -80,21 +76,16 @@ class RegistrationController extends AbstractController
         $user = $this->getUser();
 
 
-        if(isset($_POST['oldPassword']))
-        {
-            $tempUser=new User();
+        if (isset($_POST['oldPassword'])) {
+            $tempUser = new User();
 
 
             $encoded = $passwordEncoder->encodePassword($tempUser, $_POST['oldPassword']);
             $tempUser->setPassword($encoded);
 
             $match = $passwordEncoder->isPasswordValid($user, $tempUser->getPassword());
-           
         }
 
-
-
         return $this->render("user/changePassword.html.twig");
-
     }
 }

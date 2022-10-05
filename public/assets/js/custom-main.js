@@ -10,6 +10,8 @@ function renderCart() {
         let text = ` <h5 style="width: 100%">Няма добавени продукти</h5>`;
         $('#cart').html(text);
         $('#cartCount').html(0);
+        $('#cartTotal').html('0.00 ЛВ.');
+
     }
     else {
         let item = JSON.parse(localStorage.getItem('cart'));
@@ -33,9 +35,9 @@ function renderCart() {
                 <a href="/singleProduct/${element.id}" class="product-name">${element.title}</a>
                 <div class="price-box">
                     <span class="product-quantity">${element.size}(${element.quantity})</span>
-                    <span class="product-price">${Math.round(element.price * 100) / 100} лв</span>
+                    <span class="product-price">${Number(element.price).toFixed(2)} лв</span>
                 </div>
-            </div>
+            </div>  
         </div>`;
         });
    
@@ -48,7 +50,7 @@ function renderCart() {
 	    	<!-- End of Products  -->
 	    	<div class="cart-total">
 	    		<label>Общо:</label>
-	    		<span class="price">${Math.round(sum * 100) / 100} лв</span>
+	    		<span class="price">${sum.toFixed(2)} лв</span>
 	    	</div>
 	    	<!-- End of Cart Total -->
 	    	<div class="cart-action">
@@ -62,6 +64,8 @@ function renderCart() {
 
         $('#cart').html(text);
         $('#cartCount').html(item.length);
+        $('#cartTotal').html(sum.toFixed(2)+' ЛВ.');
+
     }
 }
 

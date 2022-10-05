@@ -5,7 +5,7 @@
 
 	<div class="ps-checkout pt-80 pb-80">
 		<div class="ps-container">
-			<form class="ps-checkout__form" id="checkOut" method="post"  action="{{ path('seeOrderAdmin',{ 'id':order.id}) }}">
+			<form class="ps-checkout__form" id="checkOut" method="post" action="{{ path('seeOrderAdmin',{ 'id':order.id}) }}">
 				<div class="row">
 					<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
 						<div class="ps-checkout__billing">
@@ -16,14 +16,14 @@
 
 								<input type="text" class="form-control" value="{{ order.name }}" disabled id="OrderName" name="orders[name]"/>
 								<p class="error" style="display: none; color: red" id="warningOrderName">Това поле е
-									                                    задължително</p>
+																											                                    задължително</p>
 							</div>
 							<div class="form-group form-group--inline">
 								<label>Фамилия<span>*</span>
 								</label>
 								<input type="text" class="form-control" id="OrderSurname" value="{{ order.surname }}" disabled name="orders[surname]"/>
 								<p style="display: none; color: red" id="warningOrderSurname">Това поле е
-									                                    задължително</p>
+																											                                    задължително</p>
 							</div>
 							<div class="form-group form-group--inline">
 								<label>Имейл<span>*</span>
@@ -31,7 +31,7 @@
 
 								<input class="form-control" type="email" id="Email" name="orders[email]" value="{{ order.email }}" disabled>
 								<p style="display: none; color: red" id="warningEmail">Това поле е
-									                              задължително</p>
+																											                              задължително</p>
 								<p style="display: none; color: red" id="warningEmailInvalid">Невалиден имейл</p>
 							</div>
 							<div class="col-md-6 form-group p_star"></div>
@@ -41,9 +41,9 @@
 
 								<input type="text" disabled value="{{ order.phone }}" class="form-control" id="Phone" name="orders[phone]"/>
 								<p style="display: none; color: red" id="warningPhone">Това поле е
-									                                    задължително</p>
+																											                                    задължително</p>
 								<p style="display: none; color: red" id="warningPhoneInvalid">Неправилен
-									                                    номер</p>
+																											                                    номер</p>
 							</div>
 							<div class="form-group form-group--inline">
 								<label>Населено място<span>*</span>
@@ -81,7 +81,7 @@
 											{% set sum=sum+product.price %}
 											<tr>
 												<td>
-                                                    <img src="/assets/img/small/{{ product.id }}.0.jpg" alt="" style="height:60px"/>
+													<img src="/assets/img/small/{{ product.id }}.0.jpg" alt="" style="height:60px"/>
 													<a href="http://localhost:8000/singleProduct/{{ product.getProductId() }}">{{ product.getCartProduct()[0].title }}</a>({{ product.modelSize }})</td>
 												<td>{{ product.getCartProduct()[0].price|number_format(2)}}
 													лв x
@@ -100,21 +100,17 @@
 									</tbody>
 								</table>
 							</div>
-                            
-                            <footer>
+
+							<footer>
 								<h3>Доставка</h3>
-                                <div class="form-group cheque">
-								     {% if order.confirmed ==0%}
-                                <input type="submit"
-                                       class="btn btn-lg btn-color btn-button"
-                                       value="ПОТВЪРДИ">
-                            {% endif %}
-                            {% if  order.confirmed==1 and order.newOrArchived==0%}
-                                <input type="submit"
-                                       class="btn btn-lg btn-color btn-button"
-                                       value="ИЗПЪЛНИ">
-                            {% endif %}
-                        </div>
+								<div class="form-group cheque">
+									{% if order.confirmed ==0%}
+										<input type="submit" class="btn btn-lg btn-color btn-button" value="ПОТВЪРДИ">
+									{% endif %}
+									{% if  order.confirmed==1 and order.newOrArchived==0%}
+										<input type="submit" class="btn btn-lg btn-color btn-button" value="ИЗПЪЛНИ">
+									{% endif %}
+								</div>
 
 							</footer>
 							<footer>
@@ -149,3 +145,4 @@
 
 
 {% endblock %}
+

@@ -43,9 +43,9 @@ s.parentNode.insertBefore(wf, s);
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
-		
+
 		<link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/style.min.css')}}"> {% block stylesheets %}{% endblock %}
-		<link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/demo7.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/demo1.min.css')}}">
 
 
 	</head>
@@ -53,16 +53,180 @@ s.parentNode.insertBefore(wf, s);
 	<body class="home">
 
 		<div class="page-wrapper">
-
 			<header class="header">
-				<div class="header-middle sticky-header fix-top sticky-content has-center">
+				<div class="header-top">
+					<div class="container">
+						<div class="header-left">
+							<p class="welcome-msg">Добре дошли в нашия онлайн магазин.</p>
+						</div>
+						<div class="header-right">
+							<div class="">
+								<a href="#currency">BGN</a>
+							</div>
+							<!-- End DropDown Menu -->
+							<div class=" ml-5">
+								<a href="#language">БГ</a>
+							</div>
+							<!-- End DropDown Menu -->
+							<span class="divider"></span>
+							<a href="/contact" class="contact d-lg-show">
+								<i class="d-icon-map"></i>Контакти</a>
+							<a href="#" class="help d-lg-show">
+								<i class="d-icon-info"></i>
+								Помощ</a>
+
+							<div class="dropdown login-dropdown off-canvas">
+								<div class="canvas-overlay"></div>
+								<!-- End Login Toggle -->
+								<div class="dropdown-box scrollable">
+									<div class="login-popup">
+										<div class="form-box">
+											<div class="tab tab-nav-simple tab-nav-boxed form-tab">
+												<ul class="nav nav-tabs nav-fill align-items-center border-no justify-content-center mb-5" role="tablist">
+													<li class="nav-item">
+														<a class="nav-link active border-no lh-1 ls-normal" href="#signin">Login</a>
+													</li>
+													<li class="delimiter">or</li>
+													<li class="nav-item">
+														<a class="nav-link border-no lh-1 ls-normal" href="#register">Register</a>
+													</li>
+												</ul>
+												<div class="tab-content">
+													<div class="tab-pane active" id="signin">
+														<form action="#">
+															<div class="form-group mb-3">
+																<input type="text" class="form-control" id="singin-email" name="singin-email" placeholder="Username or Email Address *" required="">
+															</div>
+															<div class="form-group">
+																<input type="password" class="form-control" id="singin-password" name="singin-password" placeholder="Password *" required="">
+															</div>
+															<div class="form-footer">
+																<div class="form-checkbox">
+																	<input type="checkbox" class="custom-checkbox" id="signin-remember" name="signin-remember">
+																	<label class="form-control-label" for="signin-remember">Remember
+																																																																																																																												me</label>
+																</div>
+																<a href="#" class="lost-link">Lost your password?</a>
+															</div>
+															<button class="btn btn-dark btn-block btn-rounded" type="submit">Login</button>
+														</form>
+														<div class="form-choice text-center">
+															<label class="ls-m">or Login With</label>
+															<div class="social-links">
+																<a href="#" title="social-link" class="social-link social-google fab fa-google border-no"></a>
+																<a href="#" title="social-link" class="social-link social-facebook fab fa-facebook-f border-no"></a>
+																<a href="#" title="social-link" class="social-link social-twitter fab fa-twitter border-no"></a>
+															</div>
+														</div>
+													</div>
+													<div class="tab-pane" id="register">
+														<form action="#">
+															<div class="form-group mb-3">
+																<input type="email" class="form-control" id="register-email" name="register-email" placeholder="Your Email Address *" required="">
+															</div>
+															<div class="form-group">
+																<input type="password" class="form-control" id="register-password" name="register-password" placeholder="Password *" required="">
+															</div>
+															<div class="form-footer">
+																<div class="form-checkbox">
+																	<input type="checkbox" class="custom-checkbox" id="register-agree" name="register-agree" required="">
+																	<label class="form-control-label" for="register-agree">I
+																																																																																																																												agree to the
+																																																																																																																												privacy policy</label>
+																</div>
+															</div>
+															<button class="btn btn-dark btn-block btn-rounded" type="submit">Register</button>
+														</form>
+														<div class="form-choice text-center">
+															<label class="ls-m">or Register With</label>
+															<div class="social-links">
+																<a href="#" title="social-link" class="social-link social-google fab fa-google border-no"></a>
+																<a href="#" title="social-link" class="social-link social-facebook fab fa-facebook-f border-no"></a>
+																<a href="#" title="social-link" class="social-link social-twitter fab fa-twitter border-no"></a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<button title="Close (Esc)" type="button" class="mfp-close">
+											<span>×</span>
+										</button>
+									</div>
+								</div>
+								<!-- End Dropdown Box -->
+							</div>
+							<!-- End of Login -->
+						</div>
+					</div>
+				</div>
+				<!-- End HeaderTop -->
+				<div class="header-middle sticky-header fix-top sticky-content">
 					<div class="container">
 						<div class="header-left">
 							<a href="#" class="mobile-menu-toggle">
 								<i class="d-icon-bars2"></i>
 							</a>
+							<a href="/" class="logo">
+								<img src="/assets/images/logo.png" alt="logo" width="153" height="44"/>
+							</a>
+							<!-- End Logo -->
+
+							<div class="header-search hs-simple">
+								<form action="#" class="input-wrapper">
+									<input type="text" class="form-control" name="search" autocomplete="off" placeholder="Търсене..." required/>
+									<button class="btn btn-search" type="submit" title="submit-button">
+										<i class="d-icon-search"></i>
+									</button>
+								</form>
+							</div>
+							<!-- End Header Search -->
+						</div>
+						<div class="header-right">
+							<a href="tel:+359892609802" class="icon-box icon-box-side">
+								<div class="icon-box-icon mr-0 mr-lg-2">
+									<i class="d-icon-phone"></i>
+								</div>
+								<div class="icon-box-content d-lg-show">
+									<h4 class="icon-box-title">Телефон:</h4>
+									<p>+359 892 6098 02</p>
+								</div>
+							</a>
+							<span class="divider"></span>
+							<div class=" wishlist off-canvas">
+								<a href="wishlist.html" class="wishlist-toggle">
+									<i class="d-icon-heart"></i>
+								</a>
+							</div>
+							<span class="divider"></span>
+							<div class="dropdown cart-dropdown type2 off-canvas mr-0 mr-lg-2" id='card'>
+								<a href="#" class="cart-toggle label-block link">
+
+									<div class="cart-label d-lg-show">
+										<span class="cart-name">Количка:</span>
+										<span class="cart-price" id='cartTotal'>0.00 лв.</span>
+									</div>
+									<i class="d-icon-bag">
+										<span class="cart-count" id='cartCount'>2</span>
+									</i>
+								</a>
+								<div class="canvas-overlay"></div>
+								<!-- End Cart Toggle -->
+								<div class="dropdown-box" id='cart'></div>
+								<!-- End Dropdown Box -->
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="header-bottom d-lg-show">
+					<div class="container">
+						<div class="header-left">
 							<nav class="main-nav">
-								<ul class="menu menu-active-underline">
+								<ul class="menu">
+									<li class="active">
+										<a href="/">Начало</a>
+									</li>
 									<li class="active">
 										<a href="/">Начало</a>
 									</li>
@@ -95,64 +259,23 @@ s.parentNode.insertBefore(wf, s);
 
 										</ul>
 									</li>
-								
+
 									<li>
 										<a href="/catalog/sale" style="color: red">НАМАЛЕНИЕ</a>
-										
+
 									</li>
 								</ul>
 							</nav>
 						</div>
-						<div class="header-center">
-							<a href="/" class="logo">
-								<img src="/assets/images/logo.png" alt="logo" width="153" height="44"/>
-							</a>
-							<!-- End of Logo -->
-
-						</div>
 						<div class="header-right">
-							<div class="header-search hs-toggle">
-								<a href="#" class="search-toggle">
-									<i class="d-icon-search"></i>
-								</a>
-								<form action="#" class="input-wrapper">
-									<input type="text" class="form-control" name="search" autocomplete="off" placeholder="Search your keyword..." required/>
-									<button class="btn btn-search" type="submit">
-										<i class="d-icon-search"></i>
-									</button>
-								</form>
-							</div>
-							<!-- 
-
-							{% if app.user %}
-
-								<a class="wishlist mr-4 d-lg-show" href="/myInformation">
-									<i class="d-icon-user"></i>
-								</a>
-							{% else %}
-									<a class="wishlist mr-4 d-lg-show" href="/login">
-									<i class="d-icon-user"></i>
-								</a>
-							{% endif %}
-							 -->
-							<a href="#" class="wishlist mr-4 d-lg-show">
-								<i class="d-icon-heart"></i>
-							</a>
-
-							<div class="dropdown cart-dropdown type2 mr-0 mr-lg-2">
-								<a href="/shoppingCart" class="cart-toggle link">
-									<i class="d-icon-bag">
-										<span class="cart-count" id='cartCount'>0</span>
-									</i>
-								</a>
-								<!-- End Cart Toggle -->
-								<div class="dropdown-box" id='cart'></div>
-								<!-- End Dropdown Box -->
-							</div>
+							<a href="#">
+								<i class="d-icon-card"></i>Special Offers</a>
+							<a href="https://d-themes.com/buynow/riodehtml" class="ml-6">Buy Riode!</a>
 						</div>
 					</div>
 				</div>
 			</header>
+
 
 			<!-- End of Header -->
 			{% block body %}
@@ -191,7 +314,7 @@ s.parentNode.insertBefore(wf, s);
 										<li>
 											<a href="/contact">Контакти</a>
 										</li>
-										
+
 									</ul>
 								</div>
 								<!-- End of Widget -->
@@ -245,7 +368,7 @@ s.parentNode.insertBefore(wf, s);
 				</div>
 				<!-- End of FooterMiddle -->
 				<div class="footer-bottom d-block text-center">
-					<p class="copyright">SVIK Shoes &copy; 2021. Всички права запазени.</p>
+					<p class="copyright">SVIK Shoes &copy; 2022. Всички права запазени.</p>
 				</div>
 				<!-- End of FooterBottom -->
 			</footer>
@@ -313,62 +436,40 @@ s.parentNode.insertBefore(wf, s);
 						<a href="#">Дамски</a>
 						<ul>
 							<li><a href="/catalog/womenSport">Сникърси</a></li>
-											<li><a href="/catalog/womenCasual">Ежедневни</a></li>
-											<li><a href="/catalog/womenOfficial">Официални</a></li>
-											<li><a href="/catalog/boots">Боти</a></li>
-											<li><a href="/catalog/sandals">Сандали</a></li>
-						
+							<li><a href="/catalog/womenCasual">Ежедневни</a></li>
+							<li><a href="/catalog/womenOfficial">Официални</a></li>
+							<li><a href="/catalog/boots">Боти</a></li>
+							<li><a href="/catalog/sandals">Сандали</a></li>
+
 						</ul>
 					</li>
-						<li>
+					<li>
 						<a href="#">Мъжки</a>
 						<ul>
-								<li><a href="/catalog/manCasual">Ежедневни</a></li>
-											<li><a href="/catalog/manOfficial">Официални</a></li>
-											<li><a href="/catalog/manBoots">Боти</a></li>
-						
+							<li><a href="/catalog/manCasual">Ежедневни</a></li>
+							<li><a href="/catalog/manOfficial">Официални</a></li>
+							<li><a href="/catalog/manBoots">Боти</a></li>
+
 						</ul>
 					</li>
-						<li>
+					<li>
 						<a href="#">Детски</a>
 						<ul>
 							<li><a href="/catalog/childrenBoots">Боти и ботуши</a></li>
-						
+
 						</ul>
 					</li>
-						<li>
+					<li>
 						<a href="/catalog/sale" style="color: red">НАМАЛЕНИЕ</a>
-					
+
 					</li>
-		
-						
-					
-				
+
+
 				</ul>
 				<!-- End of MobileMenu -->
 			</div>
 		</div>
 
-		<!--<div class="newsletter-popup mfp-hide" id="newsletter-popup" style="background-image: url(/assets/images/newsletter-popup.jpg)">
-								        <div class="newsletter-content">
-								            <h4 class="text-uppercase text-dark">Up to <span class="text-primary">20% Off</span></h4>
-								            <h2 class="font-weight-semi-bold">Sign up to <span>RIODE</span></h2>
-								            <p class="text-grey">Subscribe to the Riode eCommerce newsletter to receive timely updates from your favorite
-								                products.</p>
-								            <form action="#" method="get" class="input-wrapper input-wrapper-inline input-wrapper-round">
-								                <input type="email" class="form-control email" name="email" id="email2" placeholder="Email address here..."
-								                    required="">
-								                <button class="btn btn-dark" type="submit">SUBMIT</button>
-								            </form>
-								            <div class="form-checkbox justify-content-center">
-								                <input type="checkbox" class="custom-checkbox" id="hide-newsletter-popup" name="hide-newsletter-popup"
-								                    required />
-								                <label for="hide-newsletter-popup">Don't show this popup again</label>
-								            </div>
-								        </div>
-								    </div>-->
-
-		<!-- Plugins JS File -->
 		<script src="{{ asset('/assets/vendor/jquery/jquery.min.js')}}"></script>
 		<script src="{{ asset('/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js')}}"></script>
 		<script src="{{ asset('/assets/vendor/elevatezoom/jquery.elevatezoom.min.js')}}"></script>
