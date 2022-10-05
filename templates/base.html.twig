@@ -75,87 +75,6 @@ s.parentNode.insertBefore(wf, s);
 								<i class="d-icon-info"></i>
 								Помощ</a>
 
-							<div class="dropdown login-dropdown off-canvas">
-								<div class="canvas-overlay"></div>
-								<!-- End Login Toggle -->
-								<div class="dropdown-box scrollable">
-									<div class="login-popup">
-										<div class="form-box">
-											<div class="tab tab-nav-simple tab-nav-boxed form-tab">
-												<ul class="nav nav-tabs nav-fill align-items-center border-no justify-content-center mb-5" role="tablist">
-													<li class="nav-item">
-														<a class="nav-link active border-no lh-1 ls-normal" href="#signin">Login</a>
-													</li>
-													<li class="delimiter">or</li>
-													<li class="nav-item">
-														<a class="nav-link border-no lh-1 ls-normal" href="#register">Register</a>
-													</li>
-												</ul>
-												<div class="tab-content">
-													<div class="tab-pane active" id="signin">
-														<form action="#">
-															<div class="form-group mb-3">
-																<input type="text" class="form-control" id="singin-email" name="singin-email" placeholder="Username or Email Address *" required="">
-															</div>
-															<div class="form-group">
-																<input type="password" class="form-control" id="singin-password" name="singin-password" placeholder="Password *" required="">
-															</div>
-															<div class="form-footer">
-																<div class="form-checkbox">
-																	<input type="checkbox" class="custom-checkbox" id="signin-remember" name="signin-remember">
-																	<label class="form-control-label" for="signin-remember">Remember
-																																																																																																																												me</label>
-																</div>
-																<a href="#" class="lost-link">Lost your password?</a>
-															</div>
-															<button class="btn btn-dark btn-block btn-rounded" type="submit">Login</button>
-														</form>
-														<div class="form-choice text-center">
-															<label class="ls-m">or Login With</label>
-															<div class="social-links">
-																<a href="#" title="social-link" class="social-link social-google fab fa-google border-no"></a>
-																<a href="#" title="social-link" class="social-link social-facebook fab fa-facebook-f border-no"></a>
-																<a href="#" title="social-link" class="social-link social-twitter fab fa-twitter border-no"></a>
-															</div>
-														</div>
-													</div>
-													<div class="tab-pane" id="register">
-														<form action="#">
-															<div class="form-group mb-3">
-																<input type="email" class="form-control" id="register-email" name="register-email" placeholder="Your Email Address *" required="">
-															</div>
-															<div class="form-group">
-																<input type="password" class="form-control" id="register-password" name="register-password" placeholder="Password *" required="">
-															</div>
-															<div class="form-footer">
-																<div class="form-checkbox">
-																	<input type="checkbox" class="custom-checkbox" id="register-agree" name="register-agree" required="">
-																	<label class="form-control-label" for="register-agree">I
-																																																																																																																												agree to the
-																																																																																																																												privacy policy</label>
-																</div>
-															</div>
-															<button class="btn btn-dark btn-block btn-rounded" type="submit">Register</button>
-														</form>
-														<div class="form-choice text-center">
-															<label class="ls-m">or Register With</label>
-															<div class="social-links">
-																<a href="#" title="social-link" class="social-link social-google fab fa-google border-no"></a>
-																<a href="#" title="social-link" class="social-link social-facebook fab fa-facebook-f border-no"></a>
-																<a href="#" title="social-link" class="social-link social-twitter fab fa-twitter border-no"></a>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<button title="Close (Esc)" type="button" class="mfp-close">
-											<span>×</span>
-										</button>
-									</div>
-								</div>
-								<!-- End Dropdown Box -->
-							</div>
 							<!-- End of Login -->
 						</div>
 					</div>
@@ -227,9 +146,6 @@ s.parentNode.insertBefore(wf, s);
 									<li class="active">
 										<a href="/">Начало</a>
 									</li>
-									<li class="active">
-										<a href="/">Начало</a>
-									</li>
 									<!-- End of Dropdown -->
 									<li>
 										<a href="#">Мъжки</a>
@@ -264,6 +180,15 @@ s.parentNode.insertBefore(wf, s);
 										<a href="/catalog/sale" style="color: red">НАМАЛЕНИЕ</a>
 
 									</li>
+									{% if is_granted('ROLE_ADMIN') %}
+										<li>
+											<a href="#">АДМИН ПАНЕЛ</a>
+											<ul>
+												<li><a href="/addProduct">Добавяне на нов продукт</a></li>
+												<li><a href="/orders">Поръчки</a></li>
+											</ul>
+										</li>
+									{% endif %}
 								</ul>
 							</nav>
 						</div>
@@ -389,10 +314,7 @@ s.parentNode.insertBefore(wf, s);
 				<i class="d-icon-heart"></i>
 				<span>КОЛИЧКА</span>
 			</a>
-			<a href="/login" class="sticky-link">
-				<i class="d-icon-user"></i>
-				<span>Акаунт</span>
-			</a>
+
 			<div class="header-search hs-toggle dir-up">
 				<a href="#" class="search-toggle sticky-link">
 					<i class="d-icon-search"></i>

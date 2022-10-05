@@ -158,29 +158,37 @@ class AdminController extends AbstractController
             $newOrders = $orders;
             $title = 'ВСИЧКИ ПОРЪЧКИ';
         }
-        if (strcmp($func, 'archived') == 0) {
+        if (strcmp($func, 'confirmed') == 0) {
             foreach ($orders as $order) {
-                if ($order->getNewOrArchived() === true) {
+                if ($order->getStatus() == "confirmed") {
                     array_push($newOrders, $order);
                 }
             }
-            $title = 'ИЗПЪЛНЕНИ ПОРЪЧКИ';
+            $title = 'ПОТВЪРДЕНИ ПОРЪЧКИ';
         }
         if (strcmp($func, 'new') == 0) {
             foreach ($orders as $order) {
-                if ($order->getConfirmed() === false) {
+                if ($order->getStatus() == "new") {
                     array_push($newOrders, $order);
                 }
             }
             $title = 'НОВИ ПОРЪЧКИ';
         }
-        if (strcmp($func, 'confirmed') == 0) {
+        if (strcmp($func, 'done') == 0) {
             foreach ($orders as $order) {
-                if ($order->getConfirmed() === true && $order->getNewOrArchived() === false) {
+                if ($order->getStatus() == "done") {
                     array_push($newOrders, $order);
                 }
             }
-            $title = 'ПОТВЪРДЕНИ ПОРЪЧКИ';
+            $title = 'ИЗПЪЛНЕНИ ПОРЪЧКИ';
+        }
+        if (strcmp($func, 'returned') == 0) {
+            foreach ($orders as $order) {
+                if ($order->getStatus() == "returned") {
+                    array_push($newOrders, $order);
+                }
+            }
+            $title = 'ВЪРНАТИ ПОРЪЧКИ';
         }
 
         return $this->render("admin/seeOrders.html.twig", ['orders' => $newOrders, 'title' => $title, 'productsCart' => null]);
@@ -211,20 +219,7 @@ class AdminController extends AbstractController
             $em->flush();
         }
 
-        $shoppingCart2 = $this->getDoctrine()->getRepository(ShoppingCart::class)->findBy(array('coocieId' => $order->getCoocieId()));
-
-        if (isset($_COOKIE['_SC_KO'])) {
-            $cookie = $_COOKIE['_SC_KO'];
-
-            $shoppingCart = $this->getDoctrine()->getRepository(ShoppingCart::class)->findBy(array('coocieId' => $cookie));
-
-
-            if ($shoppingCart != null) {
-                return $this->render("admin/seeOrder.html.twig", ['order' => $order, 'productsCart' => $shoppingCart, 'shoppingCart' => $shoppingCart2]);
-            }
-        }
-
-        return $this->render("admin/seeOrder.html.twig", ['order' => $order, 'shoppingCart' => $shoppingCart2, 'productsCart' => null]);
+        return $this->render("admin/seeOrder.html.twig", ['order' => $order]);
     }
     /**
      * @Route("/renumber")

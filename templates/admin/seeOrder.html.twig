@@ -1,148 +1,159 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+	<style>
+		/* Useful css to scss converter
+* http://sebastianpontow.de/css2compass/
+*/
+		// colors
+		$color_quill_gray_approx: #d4d4d4;
+		$white: #fff;
+		$color_gray_nurse_approx: #e9e9e9;
+
+		.autocomplete {
+			position: relative;
+			display: inline-block;
+		}
+		.autocomplete-items {
+			position: absolute;
+			z-index: 99;
+			top: 78%;
+			left: 0;
+			right: 0;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/customs/checkout.css')}}">
+
+{% endblock %}
+
+{% block title %}Завършване на поръчка
+{% endblock %}
 
 {% block main %}
 
-	<div class="ps-checkout pt-80 pb-80">
-		<div class="ps-container">
-			<form class="ps-checkout__form" id="checkOut" method="post" action="{{ path('seeOrderAdmin',{ 'id':order.id}) }}">
-				<div class="row">
-					<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
-						<div class="ps-checkout__billing">
-							<h3 padding="100">Детайли за доставка</h3>
-							<div class="form-group form-group--inline">
-								<label>Име<span>*</span>
-								</label>
+	<main class="main checkout">
+		<div class="page-content pt-7 pb-10 mb-10">
+			<div class="step-by pr-4 pl-4">
 
-								<input type="text" class="form-control" value="{{ order.name }}" disabled id="OrderName" name="orders[name]"/>
-								<p class="error" style="display: none; color: red" id="warningOrderName">Това поле е
-																											                                    задължително</p>
-							</div>
-							<div class="form-group form-group--inline">
-								<label>Фамилия<span>*</span>
-								</label>
-								<input type="text" class="form-control" id="OrderSurname" value="{{ order.surname }}" disabled name="orders[surname]"/>
-								<p style="display: none; color: red" id="warningOrderSurname">Това поле е
-																											                                    задължително</p>
-							</div>
-							<div class="form-group form-group--inline">
-								<label>Имейл<span>*</span>
-								</label>
+				<h3 class="title title-simple title-step active">
+					<a href="/checkout">2. Поръчка</a>
+				</h3>
 
-								<input class="form-control" type="email" id="Email" name="orders[email]" value="{{ order.email }}" disabled>
-								<p style="display: none; color: red" id="warningEmail">Това поле е
-																											                              задължително</p>
-								<p style="display: none; color: red" id="warningEmailInvalid">Невалиден имейл</p>
-							</div>
-							<div class="col-md-6 form-group p_star"></div>
-							<div class="form-group form-group--inline">
-								<label>Телефонен номер<span>*</span>
-								</label>
+			</div>
+			<div class="container mt-7">
 
-								<input type="text" disabled value="{{ order.phone }}" class="form-control" id="Phone" name="orders[phone]"/>
-								<p style="display: none; color: red" id="warningPhone">Това поле е
-																											                                    задължително</p>
-								<p style="display: none; color: red" id="warningPhoneInvalid">Неправилен
-																											                                    номер</p>
+				<form method="post" action="{{ path('checkout' )}}" class="form" id='checkout'>
+					<div class="row">
+						<div class="col-lg-7 mb-6 mb-lg-0 pr-lg-4">
+							<h3 class="title title-simple text-left text-uppercase">Детайли за доставка</h3>
+							<div class="row">
+								<div class="col-xs-6">
+									<label>Име *
+									</label>
+									<input type="text" class="form-control" value="{{order.getName()}}" id='name'/>
+								</div>
+								<div class="col-xs-6">
+									<label>Фамилия *
+									</label>
+									<input type="text" class="form-control" value="{{order.getSurname()}}" id='surname'/>
+								</div>
 							</div>
-							<div class="form-group form-group--inline">
-								<label>Населено място<span>*</span>
-								</label>
+							<label>Имейл *
+							</label>
+							<input type="email" class="form-control" value="{{order.getEmail()}}" id='email'/>
+							<label>Доставчик *
+							</label>
+							<input type="text" class="form-control" value="{{order.getDeliver()}}" id='deliver'/>
+							<label>Доставка до *
+							</label>
+							<input type="text" class="form-control" value="{{order.getDeliver()}}/{{order.getWayOfDelivery()}}" id='deliver'/>
 
-								<input type="text" value="{{ order.populatedPlace }}" disabled class="form-control" id="Phone" name="orders[phone]"/>
+							<input id='order' onload='renderCartCheckout()' type='hidden' value='{{order.getOrderJson()}}'>
+
+							<div class="row">
+								<div class="col-xs-12">
+									<label>Населено място *
+									</label>
+									<input type="text" class='form-control autocomplete' id='myInput' value="{{order.getPopulatedPlace()}}" type='text'/>
+								</div>
 
 							</div>
-
-
-							<h3 class="mt-40">Допълнителна информация</h3>
-							<div class="form-group form-group--inline textarea">
-								<label>Коментар</label>
-								<textarea class="form-control" rows="5" disabled id="AdditionalInfo" placeholder="Бележки за вашата поръчка или за доставката.">{{ order.additionalInfo }}</textarea>
+							<div class="row">
+								<div class="col-xs-6">
+									<label>Пощенски код *
+									</label>
+									<input type="text" class="form-control" value="{{order.getZipCode()}}"/>
+								</div>
+								<div class="col-xs-6">
+									<label>Телефонен номер *
+									</label>
+									<input type="text" class="form-control" value="{{order.getPhone()}}" />
+								</div>
 							</div>
+
+							<label>Адрес за доставка *
+								<span class="invalid-input" id="addressRequired">Моля въведете адрес</span>
+							</label>
+							<input type="text" class="form-control" value="{{order.getAddress()}}"/>
+							<label>Офис *
+							</label>
+							<div class="select-box">
+
+								<input type="text" class="form-control"  value="{{order.getOffice()}}"/>
+
+							</div>
+
+							<h2 class="title title-simple text-uppercase text-left">Допълнителна информация</h2>
+							<textarea class="form-control pb-2 pt-2 mb-0" cols="30" rows="5" value='{{order.getAdditionalInfo()}}'></textarea>
 						</div>
-					</div>
-					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-						<div class="ps-checkout__order">
-							<header>
-								<h3>Вашата поръчка</h3>
-							</header>
-							<div class="content">
-								<table class="table ps-checkout__products">
-									<thead>
-										<tr>
-											<th class="text-uppercase">Продукт(номер)</th>
-											<th class="text-uppercase">Ед. цена</th>
-											<th class="text-uppercase">Общо</th>
-										</tr>
-									</thead>
-									<tbody>
-										{% set sum=0 %}
-										{% for product in shoppingCart %}
-											{% set sum=sum+product.price %}
+						<aside class="col-lg-5 sticky-sidebar-wrapper">
+							<div class="sticky-sidebar mt-1" data-sticky-options="{'bottom': 50}">
+								<div class="summary pt-5">
+									<h3 class="title title-simple text-left text-uppercase">Вашата поръчка</h3>
+									<table class="order-table">
+										<thead>
 											<tr>
-												<td>
-													<img src="/assets/img/small/{{ product.id }}.0.jpg" alt="" style="height:60px"/>
-													<a href="http://localhost:8000/singleProduct/{{ product.getProductId() }}">{{ product.getCartProduct()[0].title }}</a>({{ product.modelSize }})</td>
-												<td>{{ product.getCartProduct()[0].price|number_format(2)}}
-													лв x
-													{{  product.quantity }}</td>
-												<td>{{ product.price|number_format(2) }}
-													лв</td>
+												<th>Продукти</th>
+												<th></th>
 											</tr>
-										{% endfor %}
-
-										<tr>
-											<td>Общо за поръчка</td>
-											<td></td>
-											<td>{{ sum|number_format(2) }}
-												лв лв</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-
-							<footer>
-								<h3>Доставка</h3>
-								<div class="form-group cheque">
-									{% if order.confirmed ==0%}
-										<input type="submit" class="btn btn-lg btn-color btn-button" value="ПОТВЪРДИ">
-									{% endif %}
-									{% if  order.confirmed==1 and order.newOrArchived==0%}
-										<input type="submit" class="btn btn-lg btn-color btn-button" value="ИЗПЪЛНИ">
-									{% endif %}
-								</div>
-
-							</footer>
-							<footer>
-								<h3>Доставка</h3>
-								<div class="form-group cheque">
-									{% if sum >= 100 %}
-										<label style="color: #27b574">БЕЗПЛАТНА</label>
-									{% else %}
-										<label>Поема си от клиента</label>
-
-									{% endif %}
-								</div>
-
-							</footer>
-							<footer>
-								<h3>Метод на плащане</h3>
-								<div class="form-group cheque">
-									<div class="ps-radio">
-										<input class="form-control" type="radio" id="rdo01" name="payment" checked>
-										<label for="rdo01">НАЛОЖЕН ПЛАТЕЖ</label>
+										</thead>
+										<tbody id="cart-content"></tbody>
+									</table>
+									<div class="payment accordion radio-type">
+										<h4 class="summary-subtitle ls-m pb-3">Метод на плащане</h4>
+										<label>
+											НАЛОЖЕН ПЛАТЕЖ
+										</label>
+									</div>
+									<div>
+										{% if order.status=='new' %}
+									<span class="  text-danger" >НЕПОТВЪРДЕНА</span>
+								{% endif %}
+								{% if order.status=='confirmed' %}
+									<span class="  text-warning" style="color: yellow">НЕИЗПЪЛНЕНА</span>
+								{% endif %}
+								{% if order.status=='returned' %}
+									<span class=" text-danger" style="color: green">Върната</span>
+								{% endif %}
+								{% if order.status=='done' %}
+									<span class=" " style="color: green">ИЗПЪЛНЕНА</span>
+								{% endif %}
 									</div>
 								</div>
-
-							</footer>
-						</div>
-
+							</div>
+						</aside>
 					</div>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
-	</div>
+	</main>
 
+{% endblock %}
+
+{% block javascripts %}
+
+	<script src="{{ asset('/assets/js/seeOrder.js')}}"></script>
+	<script src="{{ asset('/assets/js/autocomplete.js')}}"></script>
 
 {% endblock %}
 
