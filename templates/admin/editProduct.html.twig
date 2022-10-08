@@ -21,8 +21,6 @@
 									<input type="text" class="form-control" name="edit_product[model]" value="{{producttoEdit.model}}" id="model" required=""/>
 								</div>
 								<div class="col-xs-6">
-
-
 									<label>Име *
 										<span id="nameEmpty" class="alert-title" style="display: none; color: red;">(Това поле е задължително *)</span>
 									</label>
@@ -73,19 +71,15 @@
 									<i class="d-icon-angle-left"></i>
 									<span class="name">Добави номер</span>
 								</div>
+								<input type='hidden' id='firstFreeSizeId' value='0'>
+								<input type='hidden' value='{{producttoEdit.sizes}}' id='loadedSizes'>
 								<div id="addSizeFront"></div>
-								{% for key,value in sizes %}
-									<div class="col-1" style="border: 1px solid black; padding: 1%; margin: 1%">
-										<input type="text" class="form-control" name="size[]" value="{{key}}" required=""/>
-										<input type="text" class="form-control" name="quantity[]" value="{{value}}" required=""/>
-									</div>
-									{% endfor %}
-									<div id="addSizeBack"></div>
+								<div id="addSizeBack"></div>
 
-									<div class="sample-icon" id="addSizeBackButton">
-										<i class="d-icon-angle-right"></i>
-										<span class="name">Добави номер</span>
-									</div>
+								<div class="sample-icon" id="addSizeBackButton">
+									<i class="d-icon-angle-right"></i>
+									<span class="name">Добави номер</span>
+								</div>
 								</div>
 								<div class="row">
 									<div class="col-xs-6">
@@ -174,6 +168,6 @@
 	{% endblock %}
 
 	{% block javascripts %}
-		<script src="{{ asset('/assets/js/addProduct.js')}}"></script>
+		<script src="{{ asset('/assets/js/editProduct.js')}}"></script>
 
 	{% endblock %}

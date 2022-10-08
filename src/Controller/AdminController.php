@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\ImageResize;
 use App\Entity\Category;
 use App\Entity\Order;
-use App\Entity\ShoppingCart;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -133,6 +132,22 @@ class AdminController extends AbstractController
             $category = $this->getDoctrine()->getRepository(Category::class)->findOneBy(array('tag' => $producttoEdit->getCategory()));
             $producttoEdit->setCategoryR($category);
 
+
+            //handle sizes
+            $sizesQuantity = array();
+
+            $quantity = $_POST['quantity'];
+            $size = $_POST['size'];
+            $sizeSantimeters = $_POST['sizeSantimeters'];
+
+
+            for ($i = 0; $i < count($quantity); $i++) {
+                $obj = ['size' => $size[$i], 'quantity' => $quantity[$i], 'sizeCm' => $sizeSantimeters[$i]];
+                array_push($sizesQuantity, $obj);
+            }
+
+            $producttoEdit->setSizes(json_encode($sizesQuantity));
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($producttoEdit);
             $em->flush();
@@ -258,90 +273,90 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('/seeOrders');
     }
 
-    /**
-     * @Route("/renumber")
-     */
-    public function convertAllSizesInJson(Request $request)
-    {
-        set_time_limit(50000);
-        ini_set('memory_limit', '1024M');
+    // /**
+    //  * @Route("/renumber")
+    //  */
+    // public function convertAllSizesInJson(Request $request)
+    // {
+    //     set_time_limit(50000);
+    //     ini_set('memory_limit', '1024M');
 
-        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+    //     $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
 
-        for ($i = 0; $i < count($products); $i++) {
-            $sizeAndNumber = $products[$i]->getSizes();
+    //     for ($i = 0; $i < count($products); $i++) {
+    //         $sizeAndNumber = $products[$i]->getSizes();
 
-            $sizeAndNumber = explode(" ", $sizeAndNumber);
-            $sizeAndNumber = array_filter(array_map('trim', $sizeAndNumber));
+    //         $sizeAndNumber = explode(" ", $sizeAndNumber);
+    //         $sizeAndNumber = array_filter(array_map('trim', $sizeAndNumber));
 
-            $sizesQuantity = array();
-            foreach ($sizeAndNumber as $item) {
-                $test = explode('-', $item);
-                $obj = null;
+    //         $sizesQuantity = array();
+    //         foreach ($sizeAndNumber as $item) {
+    //             $test = explode('-', $item);
+    //             $obj = null;
 
-                if (count(explode('(', $test[0])) > 1) {
-                    $obj = ['size' => explode('(', $test[0])[0], 'quantity' => $test[1], 'sizeCm' => substr_replace(explode('(', $test[0])[1], "", -1)];
-                } else {
-                    $obj = ['size' => $test[0], 'quantity' => $test[1], 'sizeCm' => '-'];
-                }
+    //             if (count(explode('(', $test[0])) > 1) {
+    //                 $obj = ['size' => explode('(', $test[0])[0], 'quantity' => $test[1], 'sizeCm' => substr_replace(explode('(', $test[0])[1], "", -1)];
+    //             } else {
+    //                 $obj = ['size' => $test[0], 'quantity' => $test[1], 'sizeCm' => '-'];
+    //             }
 
-                array_push($sizesQuantity, $obj);
-            }
-            $products[$i]->setSizes(json_encode($sizesQuantity));
-            $em = $this->getDoctrine()->getManager();
+    //             array_push($sizesQuantity, $obj);
+    //         }
+    //         $products[$i]->setSizes(json_encode($sizesQuantity));
+    //         $em = $this->getDoctrine()->getManager();
 
-            $em->persist($products[$i]);
-            $em->flush();
-        }
+    //         $em->persist($products[$i]);
+    //         $em->flush();
+    //     }
 
-        return null;
-    }
+    //     return null;
+    // }
 
-    /**
-     * @Route("/generateImagesJson")
-     */
-    public function generateImagesJson(Request $request)
-    {
-        set_time_limit(600);
-        ini_set('memory_limit', '1024M');
-        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
-        for ($i = 0; $i <= count($products); $i++) {
-            $sizesQuantity = array();
+    // /**
+    //  * @Route("/generateImagesJson")
+    //  */
+    // public function generateImagesJson(Request $request)
+    // {
+    //     set_time_limit(600);
+    //     ini_set('memory_limit', '1024M');
+    //     $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+    //     for ($i = 0; $i <= count($products); $i++) {
+    //         $sizesQuantity = array();
 
-            for ($j = 0; $j < 3; $j++) {
-                $sizesQuantity[$j] = $products[$i]->getId() . '.' . $j;
-            }
+    //         for ($j = 0; $j < 3; $j++) {
+    //             $sizesQuantity[$j] = $products[$i]->getId() . '.' . $j;
+    //         }
 
-            $products[$i]->setPictures(json_encode($sizesQuantity));
-            $em = $this->getDoctrine()->getManager();
+    //         $products[$i]->setPictures(json_encode($sizesQuantity));
+    //         $em = $this->getDoctrine()->getManager();
 
-            $em->persist($products[$i]);
-            $em->flush();
-        }
-    }
+    //         $em->persist($products[$i]);
+    //         $em->flush();
+    //     }
+    // }
 
-    /**
-     * @Route("/resize")
-     */
-    public function resizeAllImages(Request $request)
-    {
-        set_time_limit(600);
-        ini_set('memory_limit', '1024M');
-        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+    // /**
+    //  * @Route("/resize")
+    //  */
+    // public function resizeAllImages(Request $request)
+    // {
+    //     set_time_limit(600);
+    //     ini_set('memory_limit', '1024M');
+    //     $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
 
-        for ($i = 0; $i <= count($products); $i++) {
-            for ($j = 1; $j < $products[$i]->getPhotoCount(); $j++) {
-                $filename1 = "/home/obuviyov/public_html/public/assets/img/uploads/" . $products[$i]->getId() . "." . $j . ".jpg";
-                $filename2 = "/home/obuviyov/public_html/public/assets/img/small/" . $products[$i]->getId() . "." . $j . ".jpg";
+    //     for ($i = 0; $i <= count($products); $i++) {
+    //         for ($j = 1; $j < $products[$i]->getPhotoCount(); $j++) {
+    //             $filename1 = "/home/obuviyov/public_html/public/assets/img/uploads/" . $products[$i]->getId() . "." . $j . ".jpg";
+    //             $filename2 = "/home/obuviyov/public_html/public/assets/img/small/" . $products[$i]->getId() . "." . $j . ".jpg";
 
-                $image = new ImageResize($filename1);
-                $image->resizeToBestFit(500, 500);
-                $image->save($filename2);
-            }
-        }
+    //             $image = new ImageResize($filename1);
+    //             $image->resizeToBestFit(500, 500);
+    //             $image->save($filename2);
+    //         }
+    //     }
 
-        return $this->redirect("adminPanel");
-    }
+    //     return $this->redirect("adminPanel");
+    // }
 
     private function getStatuses()
     {
