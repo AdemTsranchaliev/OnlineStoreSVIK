@@ -1871,10 +1871,10 @@ window.Riode = {};
             setTimeout( function () {
                 $this
                     .removeClass( 'load-more-overlay loading' )
-                    .html( '<i class="d-icon-heart-full"></i> Browse wishlist' )
+                    .html( '<i class="d-icon-heart-full"></i> Виж в любими' )
                     .addClass( 'added' )
-                    .attr( 'title', 'Browse wishlist' )
-                    .attr( 'href', 'wishlist.html' );
+                    .attr( 'title', 'Виж в любими' )
+                    .attr( 'href', 'wishlist' );
             }, 500 );
         }
 

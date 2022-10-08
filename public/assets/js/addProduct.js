@@ -1,73 +1,118 @@
-$("#name").change(function(){
-    if($('#name').val()!=''){
+$(document).ready(function () {
+    initSizes();
+});
+
+
+$("#name").change(function () {
+    if ($('#name').val() != '') {
         $('#nameEmpty').hide();
     }
-    else{
+    else {
         $('#nameEmpty').show();
     }
 });
-$("#model").change(function(){
-    if($('#model').val()!=''){
+
+$("#model").change(function () {
+    if ($('#model').val() != '') {
         $('#modelEmpty').hide();
     }
-    else{
+    else {
         $('#modelEmpty').show();
     }
 });
-$("#color").change(function(){
-    if($('#color').val()!=''){
+
+$("#color").change(function () {
+    if ($('#color').val() != '') {
         $('#colorEmpty').hide();
     }
-    else{
+    else {
         $('#colorEmpty').show();
     }
 });
-$("#colorHexCode").change(function(){
-    if($('#colorHexCode').val()!=''){
+
+$("#colorHexCode").change(function () {
+    if ($('#colorHexCode').val() != '') {
         $('#colorHexCodeEmpty').hide();
     }
-    else{
+    else {
         $('#colorHexCodeEmpty').show();
     }
 });
-$("#price").change(function(){
-    if($('#price').val()!=''){
+
+$("#price").change(function () {
+    if ($('#price').val() != '') {
         $('#priceEmpty').hide();
     }
-    else{
+    else {
         $('#priceEmpty').show();
     }
 });
-$("#title").change(function(){
-    if($('#title').val()!=''){
+
+$("#title").change(function () {
+    if ($('#title').val() != '') {
         $('#titleEmpty').hide();
     }
-    else{
+    else {
         $('#titleEmpty').show();
     }
 });
-$("#addSizeFrontButton").click(function(){    
-    $("#addSizeFront").replaceWith( ` 
-    <div id="addSizeFront"></div>
-    <div class="col-xs-1" style="border: 1px solid black; padding: 1%; margin: 1%">
-    <input type="text" class="form-control" name="size[]" required=""/>
-    <input type="text" class="form-control" name="quantity[]" required=""/>
-    <input type="text" class="form-control" name="sizeSantimeters[]" required=""/>
-    </div>` );
+
+$("#addSizeFrontButton").click(function () {
+    let freeIndex = document.getElementById('firstFreeSizeId').value;
+    $("#addSizeFront").replaceWith(` 
+    <div id="addSizeFront"></div>${getSizeColumnHtml(freeIndex)}`);
+    document.getElementById('firstFreeSizeId').value = ++freeIndex;
+
+
 });
-$("#addSizeBackButton").click(function(){    
-    $("#addSizeBack").replaceWith( `<div class="col-xs-1" style="border: 1px solid black; padding: 1%; margin: 1%">
-    <input type="text" class="form-control" name="size[]" required=""/>
-    <input type="text" class="form-control" name="quantity[]" required=""/>
-    <input type="text" class="form-control" name="sizeSantimeters[]" required=""/>
+
+$("#addSizeBackButton").click(function () {
+    let freeIndex = document.getElementById('firstFreeSizeId').value;
+    console.log(freeIndex);
+    $("#addSizeBack").replaceWith(`${getSizeColumnHtml(freeIndex)}<div id="addSizeBack"></div>`);
+    document.getElementById('firstFreeSizeId').value = ++freeIndex;
+});
+
+$("#addPictureButton").click(function () {
+    $("#addPicture").replaceWith(`
+    <li style="margin: 1%">
+        <input name="file[]" type="file" onchange="readURL(this);"/>
+        <img id="blah" style='height: 60px' src="http://placehold.it/180" alt="Начална снимка"/>
+    </li>
+    <li id="addPicture"></li>` );
+});
+
+function getSizeColumnHtml(id, size = 0, quantity = 0, sizeSantimeters = 0) {
+    return `
+    <div class="col-sm-2" style="border: 1px solid black; padding: 1%; margin: 1%" id='size-${id}'>
+        <input type="text" class="form-control" value='${size}' name="size[]" />
+        <input type="text" class="form-control" value='${quantity}' name="quantity[]"/>
+        <input type="text" class="form-control" value='${sizeSantimeters}' name="sizeSantimeters[]"/>
+        <button type='button' class='btn btn-danger' onclick='removeSize("size-${id}")'>X</button>
     </div>
-  <div id="addSizeBack"></div>` );
-});
-$("#addPictureButton").click(function(){
-    $("#addPicture").replaceWith( `<li style="margin: 1%">
-    <input name="file[]" type="file" onchange="readURL(this);"/>
-    <img id="blah" style='height: 60px' src="http://placehold.it/180" alt="Начална снимка"/>
-</li>
-<li id="addPicture">
-</li>` );
-});
+    `
+}
+function initSizes() {
+    let freeIndex = document.getElementById('firstFreeSizeId').value;
+
+    let defaultSizes = [
+        { size: 36, quantity: 2, sizeSantimeters: 23.5 },
+        { size: 37, quantity: 2, sizeSantimeters: 24 },
+        { size: 38, quantity: 2, sizeSantimeters: 25 },
+        { size: 39, quantity: 2, sizeSantimeters: 25.5 },
+        { size: 40, quantity: 2, sizeSantimeters: 26 },
+    ];
+
+    let result = '';
+    defaultSizes.forEach(x => {
+        result += getSizeColumnHtml(freeIndex, x.size, x.quantity, x.sizeSantimeters);
+        freeIndex++;
+    });
+    document.getElementById('firstFreeSizeId').value = freeIndex;
+    $("#addSizeBack").replaceWith(`${result}<div id="addSizeBack"></div>`);
+}
+
+function removeSize(id) {
+    let sizeId = `#size-${id}`;
+    $(sizeId).replaceWith("");
+}

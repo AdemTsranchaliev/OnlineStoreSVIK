@@ -144,7 +144,7 @@
 								<div class="product-form-group">
 									<div class="input-group mr-2">
 										<button class="quantity-minus d-icon-minus"></button>
-										<input class="quantity form-control" type="number" min="1" max="1000000" id="quantity">
+										<input class="quantity form-control" type="number" min="1" max="10" id="quantity">
 										<button class="quantity-plus d-icon-plus"></button>
 									</div>
 									<button class="btn-product btn-cart text-normal ls-normal font-weight-semi-bold" id="addToCard">
@@ -157,15 +157,16 @@
 
 							<div class="product-footer">
 								<div class="social-links mr-4">
-									<a href="#" class="social-link social-facebook fab fa-facebook-f"></a>
-									<a href="#" class="social-link social-twitter fab fa-twitter"></a>
-									<a href="#" class="social-link social-pinterest fab fa-pinterest-p"></a>
+									<a href="https://www.facebook.com/sharer/sharer.php?u=https://obuvkisvik.com/singleProduct/{{product.getId()}}" target="_blank" class="social-link social-facebook fab fa-facebook-f"></a>
+									<a href="http://twitter.com/share?text=text goes here&url=https://obuvkisvik.com/singleProduct/{{product.getId()}}" target="_blank" class="social-link social-twitter fab fa-twitter"></a>
 								</div>
 								<span class="divider d-lg-show"></span>
 								<a href="#" class="btn-product btn-wishlist mr-6">
 									<i class="d-icon-heart"></i>Добави в любими</a>
-								<a href="#" class="btn-product btn-compare">
-									<i class="d-icon-compare"></i>Добавете за сравнение</a>
+									{% if is_granted('ROLE_ADMIN') %}
+									<a href="/editProduct/{{product.getId()}}" class="btn-productmr-6">
+									<i class="d-icon-compare"></i>Редактирай</a>
+								{% endif %}
 							</div>
 						</div>
 					</div>
@@ -376,12 +377,12 @@
 									</span>
 
 									<select name="rating" id="rating" required="" style="display: none;">
-										<option value="">Rate…</option>
-										<option value="5">Perfect</option>
-										<option value="4">Good</option>
-										<option value="3">Average</option>
-										<option value="2">Not that bad</option>
-										<option value="1">Very poor</option>
+										<option value="">Оцени...</option>
+										<option value="5">Отлични</option>
+										<option value="4">Добри</option>
+										<option value="3">Средни</option>
+										<option value="2">Не толкова лоши</option>
+										<option value="1">Слаби</option>
 									</select>
 								</div>
 

@@ -2,14 +2,17 @@
 {% block title %}КОИ СМЕ НИЕ{% endblock %}
 
 {% block main %}
-
-<div class="ps-404 bg--cover" data-background="images/background/404.jpg">
-    <div class="ps-404__content">
-        <h1>404</h1>
-        <h3>Страницата не беше намерена</h3>
-        <p>Страницата, която търсите не беше намерена.</p><a class="ps-btn" href="index.html">Към начало<i class="ps-icon-next"></i></a>
-    </div>
+<main class="main">
+<div class="page-content">
+    <section
+        class="error-section d-flex flex-column justify-content-center align-items-center text-center pl-3 pr-3">
+        <h1 class="mb-2 ls-m">ГРЕШКА 404</h1>
+        <img src="/assets/images/subpages/404.png" alt="error 404" width="609" height="131">
+        <h4 class="mt-7 mb-0 ls-m text-uppercase">Упсс.! Не можахме да намерим тази страница.</h4>
+        <p class="text-grey font-primary ls-m">Изглежда че на този адрес няма нищо.</p>
+        <a href="/" class="btn btn-primary btn-rounded mb-4">Към начало</a>
+    </section>
 </div>
-    <main class="ps-main">
-    </main>
+
+</main>
 {% endblock %}

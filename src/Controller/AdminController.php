@@ -221,6 +221,43 @@ class AdminController extends AbstractController
 
         return $this->render("admin/seeOrder.html.twig", ['order' => $order]);
     }
+
+    /**
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @Route("/changeOrderStatus", name="changeOrderStatus")
+     * @param $id
+     */
+    public function changeOrderStatus(Request $request)
+    {
+
+
+   
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            if(isset($_POST['id'])&&isset($_POST['status'])){
+
+                $id = $_POST['id'];
+                $status = $_POST['status'];
+
+                $order = $this->getDoctrine()->getRepository(Order::class)->find($id);
+
+                if ($order == null) {
+                    return $this->redirectToRoute('404');
+                }
+
+                $order->setStatus($status);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($order);
+                $em->flush();
+
+                return $this->redirectToRoute('seeOrderAdmin',array('id' => $id));
+            }
+
+        }
+        
+        return $this->redirectToRoute('/seeOrders');
+    }
+
     /**
      * @Route("/renumber")
      */

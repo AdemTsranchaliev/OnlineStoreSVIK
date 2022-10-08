@@ -36,13 +36,12 @@
 			<div class="step-by pr-4 pl-4">
 
 				<h3 class="title title-simple title-step active">
-					<a href="/checkout">2. Поръчка</a>
+					<a>Поръчка #{{order.getId()}}</a>
 				</h3>
 
 			</div>
 			<div class="container mt-7">
 
-				<form method="post" action="{{ path('checkout' )}}" class="form" id='checkout'>
 					<div class="row">
 						<div class="col-lg-7 mb-6 mb-lg-0 pr-lg-4">
 							<h3 class="title title-simple text-left text-uppercase">Детайли за доставка</h3>
@@ -125,25 +124,35 @@
 											НАЛОЖЕН ПЛАТЕЖ
 										</label>
 									</div>
-									<div>
-										{% if order.status=='new' %}
-									<span class="  text-danger" >НЕПОТВЪРДЕНА</span>
-								{% endif %}
-								{% if order.status=='confirmed' %}
-									<span class="  text-warning" style="color: yellow">НЕИЗПЪЛНЕНА</span>
-								{% endif %}
-								{% if order.status=='returned' %}
-									<span class=" text-danger" style="color: green">Върната</span>
-								{% endif %}
-								{% if order.status=='done' %}
-									<span class=" " style="color: green">ИЗПЪЛНЕНА</span>
-								{% endif %}
+									<div class='text-center p-4'>
+									<form method="post" action="{{ path('changeOrderStatus' )}}" >
+									<input type='hidden' value='{{order.id}}' id='id' name='id'>
+									{% if order.status=='new' %}
+										<h3 class="  text-danger" >НЕПОТВЪРДЕНА</h3>
+										<button type='submit' class='btn btn-primary'>ПОТВЪРДИ</button>
+										<input type='hidden' value='confirmed' id='status' name='status'>
+									{% endif %}
+									{% if order.status=='confirmed' %}
+										<h3 class="  text-warning" style="color: yellow">НЕИЗПЪЛНЕНА</h3>
+										<button type='submit' class='btn btn-primary'>ИЗПЪЛНИ</button>
+										<input type='hidden' value='done' id='status' name='status'>
+
+									{% endif %}
+									{% if order.status=='returned' %}
+										<h3 class=" text-danger" style="color: green">Върната</h3>
+
+									{% endif %}
+									{% if order.status=='done' %}
+										<h3 class=" " style="color: green">ИЗПЪЛНЕНА</h3>
+										<button type='submit' class='btn btn-primary'>ВЪРНАТА</button>
+										<input type='hidden' value='returned' id='status' name='status'>
+									{% endif %}
+									</form>
 									</div>
 								</div>
 							</div>
 						</aside>
 					</div>
-				</form>
 			</div>
 		</div>
 	</main>

@@ -50,13 +50,13 @@ function renderCartCustom() {
                 </div>
             </td>
             <td class="product-subtotal">
-                <span class="amount">${Math.round(element.price * 100) / 100} лв</span>
+                <span class="amount">${Number(element.price).toFixed(2)} лв</span>
             </td>
             <td class="product-subtotal">
                     <span class="amount">${element.size}(${element.quantity})</span>
             </td>
             <td class="product-price">
-                <span class="amount">${Math.round(element.price * element.quantity * 100) / 100} лв</span>
+                <span class="amount">${(element.price * element.quantity).toFixed(2)} лв</span>
             </td>
             <td class="product-close">
                 <a href="#" class="product-remove" title="Remove this product" onclick='removeFromCart(${element.id},${element.size})'>
@@ -74,13 +74,13 @@ function renderCartCustom() {
         }
         else{
             $('#shipping-price').html(`
-                Поема се от клиента. (Остават ${(Math.round(parseFloat(100-total) * 100) / 100)} лв. до безплатна доставка)
+                Поема се от клиента. (Остават ${(parseFloat(100-total)).toFixed(2)} лв. до безплатна доставка)
             `);
         }   
 
         $('#content').html(products);
-        $('#total').html((Math.round(parseFloat(total) * 100) / 100).toString() + ' лв');
-        $('#totalTwo').html((Math.round(parseFloat(total) * 100) / 100).toString() + ' лв');
+        $('#total').html((parseFloat(total).toFixed(2) ).toString() + ' лв');
+        $('#totalTwo').html((parseFloat(total).toFixed(2)).toString() + ' лв');
 
     }
 }

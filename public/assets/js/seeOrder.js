@@ -18,13 +18,13 @@ function renderCartCheckout() {
             sum += element.price * element.quantity;
             products += `
             <tr>
-                <td class="product-name">
-					<img class="product-quantity" src='/assets/images/small/${element.imageId}.jpg' style='height: 60px'>
+                <td class="product-quantity">
+					<a href='/singleProduct/${element.id}'><img class="product-quantity" src='/assets/images/small/${element.imageId}.jpg' style='height: 60px'></a>
 				</td>
-				<td class="product-name">${element.title}
-					<span class="product-quantity">×&nbsp;${element.size}(${element.quantity})</span>
+				<td class="product-name"><a href='/singleProduct/${element.id}'>${element.title}
+                <span class="product-quantity">×&nbsp;${element.size}(${element.quantity})</span></a>
 				</td>
-				<td class="product-total text-body">${(Math.round(parseFloat(element.quantity * element.price) * 100) / 100)} лв</td>
+				<td class="product-total text-body">${parseFloat(element.quantity * element.price).toFixed(2)} лв</td>
 			</tr>
         `;
         });
@@ -46,7 +46,7 @@ function renderCartCheckout() {
             text += `Безплатна доставка`;
         }
         else {
-            text += `Поема се от клиента. (Остават ${(Math.round(parseFloat(100 - sum) * 100) / 100)} лв. до безплатна доставка)`;
+            text += `Поема се от клиента. (Остават ${parseFloat(100 - sum).toFixed(2)} лв. до безплатна доставка)`;
         }
 
         text += `
@@ -71,7 +71,7 @@ function renderCartCheckout() {
                 <td class="pb-0">
 				</td>
 				<td class=" pt-0 pb-0">
-					<p class="summary-total-price ls-s text-primary">${(Math.round(parseFloat(sum) * 100) / 100)} лв</p>
+					<p class="summary-total-price ls-s text-primary">${(parseFloat(sum)).toFixed(2)} лв</p>
 				</td>
 			</tr>
         `;
